@@ -7,6 +7,8 @@
 #define MLK_CONSOLE_CONSOLE_H
 
 
+#include <mlk/tools/enum_utl.h>
+
 #include <iostream>
 
 
@@ -28,7 +30,7 @@ namespace mlk
 
 		inline void setColor(const console_color &color)
 		{
-			std::cout << "\033[1;3" << (int)color << "m";
+			std::cout << "\033[1;3" << enum_utl::toInt(color) << "m";
 		}
 
 		inline void resetColor()

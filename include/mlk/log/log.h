@@ -63,7 +63,7 @@ namespace mlk
 				std::ostringstream tmp;
 				tmp << "\n[" << val << "] ";
 
-				braceOperatorImpl(tmp.str());
+				this->braceOperatorImpl(tmp.str());
 
 				return *this;
 			}
