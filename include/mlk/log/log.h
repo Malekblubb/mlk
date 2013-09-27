@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013 Christoph Malek
+ * See LICENSE for more information.
+ */
+
 #ifndef MLK_LOG_LOG_H
 #define MLK_LOG_LOG_H
 
@@ -15,74 +20,91 @@ namespace mlk
 		{
 			Normal = 0,
 			Debug,
-			Error
+			InternalError
 		};
 
 
-		class LogBase
+		template<LogLevel Level> class LogBase
 		{
-			std::string m_prefix;
-			std::string m_extra;
-			std::ostringstream m_stream;
+
+		};
+
+		template<> class LogBase<LogLevel::Normal>
+		{
+		protected:
+			bool m_saveHistory, m_writeOnExit;
+			std::ostringstream m_history;
 
 		public:
+			LogBase() = default;
+			LogBase(bool saveHistory, bool writeOnExit);
 			~LogBase();
 
-			template<typename T> inline LogBase &operator()(const T &val, const std::string &extra = "")
+			template<typename T> inline LogBase &operator()(const T &val)
 			{
 //				Console::resetColor();
 
-				m_extra = extra;
-				m_prefix = val;
+				std::ostringstream tmp;
+				tmp << "\n[" << val << "] ";
 
-				std::cout << this->format();
+				braceOperatorImpl(tmp.str());
+
 				return *this;
 			}
 
-		private:
-			std::string format();
-		};
-
-
-		template<> inline LogBase &LogBase::operator()<LogLevel>(const LogLevel &val, const std::string &extra)
-		{
-//			Console::resetColor();
-
-			m_extra = extra;
-
-			switch(val)
+			template<typename T> inline LogBase &operator<<(const T &val)
 			{
-			case LogLevel::Normal:
-				break;
-			case LogLevel::Debug:
+				std::cout << val;
 
-				m_prefix = "Debug";
-//				Console::setColor(WHITE);
+				if(m_saveHistory)
+					m_history << val;
 
-				break;
-			case LogLevel::Error:
-
-				m_prefix = "Error";
-//				Console::setColor(RED);
-
-				break;
-			default:
-				break;
+				return *this;
 			}
 
-			std::cout << this->format();
-			return *this;
-		}
+		protected:
+			void braceOperatorImpl(const std::string &str);
+		};
 
-		template<typename T> inline LogBase &operator<<(LogBase &log, const T &val)
+		template<> class LogBase<LogLevel::Debug> : public LogBase<LogLevel::Normal>
 		{
-			std::cout << val;
-			return log;
-		}
+		public:
+			LogBase(bool saveHistory, bool writeOnExit);
+
+			template<typename T> inline LogBase &operator()(const T &val)
+			{
+//				Console::setColor();
+
+				std::ostringstream tmp;
+				tmp << "\n[Debug in fnc: " << val << "] ";
+
+				braceOperatorImpl(tmp.str());
+				return *this;
+			}
+		};
+
+		template<> class LogBase<LogLevel::InternalError> : public LogBase<LogLevel::Normal>
+		{
+		public:
+			LogBase(bool saveHistory, bool writeOnExit);
+
+			template<typename T> inline LogBase &operator()(const T &val)
+			{
+//				Console::setColor();
+
+				std::ostringstream tmp;
+				tmp << "\n[Error #" << val << "] ";
+
+				braceOperatorImpl(tmp.str());
+				return *this;
+			}
+		};
 	}
 
-	static logger::LogBase lout;
-	#define DBG(x) lout(mlk::logger::LogLevel::Debug, __PRETTY_FUNCTION__) << x
+	static logger::LogBase<logger::LogLevel::Normal> lout{true, true};
+	static logger::LogBase<logger::LogLevel::Debug> ldbg{false, false};
+	static logger::LogBase<logger::LogLevel::InternalError> lerr{true, false};
+	#define DBG(x) ldbg(__PRETTY_FUNCTION__) << x
 }
 
 

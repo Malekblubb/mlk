@@ -21,3 +21,6 @@ Makefile
 CMakeCache.txt
 *.cmake
 CMakeFiles/
+
+#Other
+*.cbp

@@ -1,24 +1,46 @@
+/*
+ * Copyright (c) 2013 Christoph Malek
+ * See LICENSE for more information.
+ */
+
 #include <mlk/log/log.h>
 
 #include <sstream>
 
 
-mlk::logger::LogBase::~LogBase()
+mlk::logger::LogBase<mlk::logger::LogLevel::Normal>::LogBase(bool saveHistory, bool writeOnExit) :
+	m_saveHistory(saveHistory),
+	m_writeOnExit(writeOnExit)
 {
-	std::cout << "\n";
+
 }
 
-std::string mlk::logger::LogBase::format()
+mlk::logger::LogBase<mlk::logger::LogLevel::Normal>::~LogBase()
 {
-	m_stream.flush();
+	if(m_writeOnExit)
+	{
+		// writefun
+	}
+}
 
-	m_stream << std::endl; // begin on a new line when "()" is called
-	m_stream << "[" << m_prefix << "]";
+void mlk::logger::LogBase<mlk::logger::LogLevel::Normal>::braceOperatorImpl(const std::string &str)
+{
+	std::cout << str;
 
-	if((m_extra.empty()) || (m_extra == ""))
-		m_stream << " ";
-	else
-		m_stream << "(" << m_extra << ") ";
+	if(m_saveHistory)
+		m_history << str;
+}
 
-	return m_stream.str();
+
+
+mlk::logger::LogBase<mlk::logger::LogLevel::Debug>::LogBase(bool saveHistory, bool writeOnExit) :
+	mlk::logger::LogBase<mlk::logger::LogLevel::Normal>::LogBase{saveHistory, writeOnExit}
+{
+
+}
+
+mlk::logger::LogBase<mlk::logger::LogLevel::InternalError>::LogBase(bool saveHistory, bool writeOnExit) :
+	mlk::logger::LogBase<mlk::logger::LogLevel::Normal>::LogBase{saveHistory, writeOnExit}
+{
+
 }
