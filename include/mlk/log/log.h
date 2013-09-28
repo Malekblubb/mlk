@@ -26,10 +26,7 @@ namespace mlk
 		};
 
 
-		template<log_level Level> class log_base
-		{
-
-		};
+		template<log_level Level> class log_base;
 
 		template<> class log_base<log_level::normal>
 		{
@@ -128,7 +125,12 @@ namespace mlk
 	static logger::log_base<logger::log_level::normal> lout{true, true};
 	static logger::log_base<logger::log_level::debug> ldbg{false, false};
 	static logger::log_base<logger::log_level::internal_error> lerr{true, false};
+
+	#ifdef DBG
+	#undef DBG
+	#endif
 	#define DBG(x) ldbg(__PRETTY_FUNCTION__) << x
+
 }
 
 
