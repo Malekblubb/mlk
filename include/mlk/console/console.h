@@ -16,7 +16,7 @@ namespace mlk
 {
 	namespace console
 	{
-		enum class console_color : unsigned char
+		enum class console_color : char
 		{
 			black = 0,
 			red,

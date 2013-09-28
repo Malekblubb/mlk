@@ -130,7 +130,6 @@ namespace mlk
 	#undef DBG
 	#endif
 	#define DBG(x) ldbg(__PRETTY_FUNCTION__) << x
-
 }
 
 
