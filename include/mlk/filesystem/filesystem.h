@@ -82,6 +82,12 @@ namespace mlk
 
 			void readAll(std::string &dest)
 			{
+				if(m_needOpen)
+				{
+					lerr("nA") << "can not read from closed stream.";
+					return;
+				}
+
 				int wasPos{m_stream.tellg()};
 
 				m_stream.seekg(0);
