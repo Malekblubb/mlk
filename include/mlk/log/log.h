@@ -43,6 +43,10 @@ namespace mlk
 				m_savePath{savePath} {}
 			~log_base();
 
+			void setSavePath(const std::string &path) {m_savePath = path;}
+			void setSaveHistory(bool b) {m_saveHistory = b;}
+			void setWriteOnExit(bool b) {m_writeOnExit = b;}
+
 			template<typename T> inline log_base &operator()(const T &val)
 			{
 				console::resetColor();
@@ -111,6 +115,7 @@ namespace mlk
 		};
 	}
 
+	// standard options (can be changed)
 	static logger::log_base<logger::log_level::normal> lout{true, true, "./log.log"};
 	static logger::log_base<logger::log_level::debug> ldbg{false, false, "./debug.log"};
 	static logger::log_base<logger::log_level::internal_error> lerr{true, false, "./error.log"};
