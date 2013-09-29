@@ -37,8 +37,8 @@ namespace mlk
 			fs_handle(const std::string &path) :
 				m_path(path) {}
 
-			bool exists() {return dir::exists(m_path);}
-			bool create() {return dir::create(m_path);}
+			bool exists() const {return dir::exists(m_path);}
+			bool create() const {return dir::create(m_path);}
 		};
 
 		template<> class fs_handle<fs_type::file>
