@@ -10,6 +10,6 @@ set(LIST "")
 include_directories(${HDR})
 
 
-file(GLOB_RECURSE LIST "${HDR}/*.h")
+file(GLOB_RECURSE LIST "${HDR}/*.*")
 add_library(mlk SHARED ${LIST})
 set_target_properties(mlk PROPERTIES LINKER_LANGUAGE CXX)

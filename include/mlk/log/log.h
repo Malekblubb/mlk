@@ -26,32 +26,22 @@ namespace mlk
 		};
 
 
-		template<log_level Level> class log_base;
+		template<log_level level> class log_base;
 
 		template<> class log_base<log_level::normal>
 		{
 		protected:
 			bool m_saveHistory, m_writeOnExit;
+			std::string m_savePath;
 			std::ostringstream m_history;
 
 		public:
 			log_base() = default;
-			log_base(bool saveHistory, bool writeOnExit) :
-				m_saveHistory(saveHistory),
-				m_writeOnExit(writeOnExit)
-			{
-
-			}
-
-			~log_base()
-			{
-				console::resetColor();
-
-				if(m_writeOnExit)
-				{
-					// TODO: writefun
-				}
-			}
+			log_base(bool saveHistory, bool writeOnExit, const std::string &savePath) :
+				m_saveHistory{saveHistory},
+				m_writeOnExit{writeOnExit},
+				m_savePath{savePath} {}
+			~log_base();
 
 			template<typename T> inline log_base &operator()(const T &val)
 			{
@@ -61,7 +51,6 @@ namespace mlk
 				tmp << "\n[" << val << "] ";
 
 				this->braceOperatorImpl(tmp.str());
-
 				return *this;
 			}
 
@@ -88,8 +77,8 @@ namespace mlk
 		template<> class log_base<log_level::debug> : public log_base<log_level::normal>
 		{
 		public:
-			log_base(bool saveHistory, bool writeOnExit) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit} {}
+			log_base(bool saveHistory, bool writeOnExit, const std::string &savePath) :
+				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}{}
 
 			template<typename T> log_base &operator()(const T &val)
 			{
@@ -106,8 +95,8 @@ namespace mlk
 		template<> class log_base<log_level::internal_error> : public log_base<log_level::normal>
 		{
 		public:
-			log_base(bool saveHistory, bool writeOnExit) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit} {}
+			log_base(bool saveHistory, bool writeOnExit, const std::string &savePath) :
+				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} {}
 
 			template<typename T> log_base &operator()(const T &val)
 			{
@@ -122,9 +111,9 @@ namespace mlk
 		};
 	}
 
-	static logger::log_base<logger::log_level::normal> lout{true, true};
-	static logger::log_base<logger::log_level::debug> ldbg{false, false};
-	static logger::log_base<logger::log_level::internal_error> lerr{true, false};
+	static logger::log_base<logger::log_level::normal> lout{true, true, "./log.log"};
+	static logger::log_base<logger::log_level::debug> ldbg{false, false, "./debug.log"};
+	static logger::log_base<logger::log_level::internal_error> lerr{true, false, "./error.log"};
 
 	#ifdef DBG
 	#undef DBG
