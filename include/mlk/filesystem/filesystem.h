@@ -25,23 +25,23 @@ namespace mlk
 		};
 
 
-		template<fs_type type> class handle;
+		template<fs_type type> class fs_handle;
 
-		template<> class handle<fs_type::dir>
+		template<> class fs_handle<fs_type::dir>
 		{
 			std::string m_path;
 
 
 		public:
-			handle() = default;
-			handle(const std::string &path) :
+			fs_handle() = default;
+			fs_handle(const std::string &path) :
 				m_path(path) {}
 
 			bool exists() {return dir::exists(m_path);}
 			bool create() {return dir::create(m_path);}
 		};
 
-		template<> class handle<fs_type::file>
+		template<> class fs_handle<fs_type::file>
 		{
 			std::string m_path;
 			std::fstream m_stream;
@@ -49,10 +49,10 @@ namespace mlk
 
 
 		public:
-			handle(const std::string &path) :
+			fs_handle(const std::string &path) :
 				m_path(path),
 				m_needOpen(true) {}
-			~handle()
+			~fs_handle()
 			{
 				if(m_stream.is_open())
 					m_stream.close();
