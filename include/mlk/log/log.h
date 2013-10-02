@@ -1,7 +1,7 @@
-/*
- * Copyright (c) 2013 Christoph Malek
- * See LICENSE for more information.
- */
+//
+// Copyright (c) 2013 Christoph Malek
+// See LICENSE for more information.
+//
 
 #ifndef MLK_LOG_LOG_H
 #define MLK_LOG_LOG_H
