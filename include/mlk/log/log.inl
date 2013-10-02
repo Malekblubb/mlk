@@ -18,9 +18,12 @@ mlk::logger::log_base<mlk::logger::log_level::normal>::~log_base()
 
 	if(m_writeOnExit && (!m_history.str().empty()))
 	{
-		fs::fs_handle<fs::fs_type::file> file{m_savePath};
-		file.openIo(std::ios::out | std::ios::trunc);
-		file.write(m_history.str());
+		if(!m_savePath.empty())
+		{
+			fs::fs_handle<fs::fs_type::file> file{m_savePath};
+			file.openIo(std::ios::out | std::ios::trunc);
+			file.write(m_history.str());
+		}
 	}
 }
 

@@ -37,17 +37,17 @@ namespace mlk
 
 		public:
 			log_base() = default;
-			log_base(bool saveHistory, bool writeOnExit, const std::string &savePath) :
+			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
 				m_saveHistory{saveHistory},
 				m_writeOnExit{writeOnExit},
 				m_savePath{savePath} {}
 			~log_base();
 
-			void setSavePath(const std::string &path) {m_savePath = path;}
+			void setSavePath(const std::string& path) {m_savePath = path;}
 			void setSaveHistory(bool b) {m_saveHistory = b;}
 			void setWriteOnExit(bool b) {m_writeOnExit = b;}
 
-			template<typename T> inline log_base &operator()(const T &val)
+			template<typename T> inline log_base& operator()(const T& val)
 			{
 				console::resetColor();
 
@@ -58,7 +58,7 @@ namespace mlk
 				return *this;
 			}
 
-			template<typename T> log_base &operator<<(const T &val)
+			template<typename T> log_base& operator<<(const T& val)
 			{
 				std::cout << val;
 
@@ -69,7 +69,7 @@ namespace mlk
 			}
 
 		protected:
-			void braceOperatorImpl(const std::string &str)
+			void braceOperatorImpl(const std::string& str)
 			{
 				std::cout << str;
 
@@ -81,10 +81,10 @@ namespace mlk
 		template<> class log_base<log_level::debug> : public log_base<log_level::normal>
 		{
 		public:
-			log_base(bool saveHistory, bool writeOnExit, const std::string &savePath) :
+			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
 				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}{}
 
-			template<typename T> log_base &operator()(const T &val)
+			template<typename T> log_base &operator()(const T& val)
 			{
 				console::setColor(console::console_color::white);
 
@@ -99,10 +99,10 @@ namespace mlk
 		template<> class log_base<log_level::internal_error> : public log_base<log_level::normal>
 		{
 		public:
-			log_base(bool saveHistory, bool writeOnExit, const std::string &savePath) :
+			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
 				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} {}
 
-			template<typename T> log_base &operator()(const T &val)
+			template<typename T> log_base& operator()(const T& val)
 			{
 				console::setColor(console::console_color::red);
 
