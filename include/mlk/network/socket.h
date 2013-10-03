@@ -38,6 +38,8 @@ namespace mlk
 				{
 					b ? internal::setBlocking(m_sock) : internal::setNoBlocking(m_sock);
 				}
+
+				virtual size_t sendPk() = 0;
 			};
 		}
 	}

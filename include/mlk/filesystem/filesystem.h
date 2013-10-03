@@ -60,7 +60,7 @@ namespace mlk
 
 			bool exists() const {return file::exists(m_path);}
 			bool create() const {return file::create(m_path);}
-			bool openIo(const std::ios::openmode &modes)
+			bool open_io(const std::ios::openmode &modes)
 			{
 				m_stream.open(m_path, modes);
 				m_needOpen = false;
@@ -71,16 +71,16 @@ namespace mlk
 			template<typename T> long long write(const T &val)
 			{
 				std::string str{stl_string::toString(val)};
-				return this->writeImpl(str);
+				return this->write_impl(str);
 			}
 
-			template<typename T> long long writeLine(const T &val)
+			template<typename T> long long write_line(const T &val)
 			{
 				std::string str{stl_string::toString(val) + "\n"};
-				return this->writeImpl(str);
+				return this->write_impl(str);
 			}
 
-			void readAll(std::string &dest)
+			void read_all(std::string &dest)
 			{
 				if(m_needOpen)
 				{
@@ -101,7 +101,7 @@ namespace mlk
 			}
 
 		private:
-			long long writeImpl(const std::string &str)
+			long long write_impl(const std::string &str)
 			{
 				if(m_needOpen)
 				{
