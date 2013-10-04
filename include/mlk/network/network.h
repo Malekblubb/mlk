@@ -10,6 +10,7 @@
 
 #include "socket.h"
 #include "udp.h"
+#include "address.h"
 
 
 #endif // MLK_NETWORK_NETWORK_H
