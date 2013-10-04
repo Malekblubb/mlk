@@ -24,7 +24,7 @@ namespace mlk
 			return stre.str();
 		}
 
-		// checks is given type "T" is from type string
+		// checks if given type "T" is from type string
 		template<typename T>
 		class is_string_type
 		{
