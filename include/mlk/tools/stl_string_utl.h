@@ -3,27 +3,39 @@
 // See LICENSE for more information.
 //
 
-#ifndef MLK_TOOLS_STL_STRING_UTL__H
-#define MLK_TOOLS_STL_STRING_UTL__H
+#ifndef MLK_TOOLS_STL_STRING_UTL_H
+#define MLK_TOOLS_STL_STRING_UTL_H
 
 
 #include <string>
 #include <sstream>
+#include <type_traits>
 
 
 namespace mlk
 {
 	namespace stl_string
 	{
-		template<typename T> std::string toString(const T &val)
+		template<typename T>
+		std::string toString(const T &val)
 		{
 			std::ostringstream stre;
 			stre << val;
 			return stre.str();
 		}
+
+		// checks is given type "T" is from type string
+		template<typename T>
+		class is_string_type
+		{
+		public:
+			static constexpr bool m_value{std::is_same<T, std::string>::value ||
+						std::is_same<typename std::decay<T>::type, const char*>::value ||
+						std::is_same<typename std::decay<T>::type, char*>::value};
+		};
 	}
 }
 
 
 
-#endif // MLK_TOOLS_STL_STRING_UTL__H
+#endif // MLK_TOOLS_STL_STRING_UTL_H
