@@ -67,13 +67,13 @@ namespace mlk
 			}
 
 
-			template<typename T> long long write(const T& val)
+			template<typename T> uint64_t write(const T& val)
 			{
 				std::string str{stl_string::to_string(val)};
 				return this->write_impl(str);
 			}
 
-			template<typename T> long long write_line(const T& val)
+			template<typename T> uint64_t write_line(const T& val)
 			{
 				std::string str{stl_string::to_string(val) + "\n"};
 				return this->write_impl(str);
@@ -87,10 +87,9 @@ namespace mlk
 					return;
 				}
 
-				int wasPos{m_stream.tellg()};
-
-				m_stream.seekg(0);
+				uint64_t wasPos{m_stream.tellg()};
 				std::string s;
+				m_stream.seekg(0);
 				while(std::getline(m_stream, s))
 				{
 					dest += s + "\n";
@@ -100,16 +99,16 @@ namespace mlk
 			}
 
 		private:
-			long long write_impl(const std::string& str)
+			uint64_t write_impl(const std::string& str)
 			{
 				if(m_needOpen)
 				{
 					lerr("nA") << "can not write into closed stream.";
 					return -1;
 				}
-				long long start{m_stream.tellp()};
+				uint64_t start{m_stream.tellp()};
 				m_stream.write(str.c_str(), str.length());
-				long long end{m_stream.tellp()};
+				uint64_t end{m_stream.tellp()};
 
 				return end - start;
 			}

@@ -23,16 +23,6 @@ namespace mlk
 			stre << val;
 			return stre.str();
 		}
-
-		// checks if given type "T" is from type string
-		template<typename T>
-		class is_str_type
-		{
-		public:
-			static constexpr bool m_value{std::is_same<T, std::string>::value ||
-						std::is_same<typename std::decay<T>::type, const char*>::value ||
-						std::is_same<typename std::decay<T>::type, char*>::value};
-		};
 	}
 }
 

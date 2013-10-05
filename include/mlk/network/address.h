@@ -10,6 +10,7 @@
 
 #include "address_utl.h"
 #include <mlk/tools/stl_string_utl.h>
+#include <mlk/tools/type_utl.h>
 
 #include <string>
 #include <type_traits>
@@ -47,9 +48,7 @@ namespace mlk
 			template<typename T>
 			ip_address(const std::string& address, const T& port)
 			{
-				static_assert(std::is_integral<T>::value ||
-							  stl_string::is_str_type<T>::m_value,
-							  "string or intrgral type required");
+				static_assert(type_utl::is_str_or_int<T>::m_value, "string or intrgral type required");
 
 				m_ip = address;
 				m_port = stl_string::to_string(port);

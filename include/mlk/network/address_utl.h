@@ -8,8 +8,8 @@
 #define MLK_NETWORK_ADDRESS_UTL_H
 
 
-#include <mlk/tools/stl_string_utl.h>
 #include "network_utl.h"
+#include <mlk/tools/type_utl.h>
 
 #include <utility>
 #include <sstream>
@@ -35,9 +35,7 @@ namespace mlk
 		template<typename T>
 		inline std::string merge_address(const std::string& ip, const T& port)
 		{
-			static_assert(std::is_integral<T>::value ||
-						  mlk::stl_string::is_str_type<T>::m_value,
-						  "string or intrgral type required");
+			static_assert(type_utl::is_str_or_int<T>::m_value, "string or intrgral type required");
 
 			std::ostringstream strm;
 			strm << ip << ":" << port;
