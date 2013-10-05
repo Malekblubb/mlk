@@ -49,12 +49,12 @@ namespace mlk
 
 			template<typename T> inline log_base& operator()(const T& val)
 			{
-				console::resetColor();
+				console::reset_color();
 
 				std::ostringstream tmp;
 				tmp << "\n[" << val << "] ";
 
-				this->braceOperatorImpl(tmp.str());
+				this->brace_operator_impl(tmp.str());
 				return *this;
 			}
 
@@ -69,7 +69,7 @@ namespace mlk
 			}
 
 		protected:
-			void braceOperatorImpl(const std::string& str)
+			void brace_operator_impl(const std::string& str)
 			{
 				std::cout << str;
 
@@ -86,12 +86,12 @@ namespace mlk
 
 			template<typename T> log_base &operator()(const T& val)
 			{
-				console::setColor(console::console_color::white);
+				console::set_color(console::console_color::white);
 
 				std::ostringstream tmp;
 				tmp << "\n[Debug in fnc: " << val << "] ";
 
-				this->braceOperatorImpl(tmp.str());
+				this->brace_operator_impl(tmp.str());
 				return *this;
 			}
 		};
@@ -104,12 +104,12 @@ namespace mlk
 
 			template<typename T> log_base& operator()(const T& val)
 			{
-				console::setColor(console::console_color::red);
+				console::set_color(console::console_color::red);
 
 				std::ostringstream tmp;
 				tmp << "\n[Error #" << val << "] ";
 
-				this->braceOperatorImpl(tmp.str());
+				this->brace_operator_impl(tmp.str());
 				return *this;
 			}
 		};

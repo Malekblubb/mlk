@@ -25,7 +25,7 @@ namespace mlk
 		public:
 			std::string m_ip;
 			std::string m_port;
-			std::string m_resolved_ip;
+			std::string m_resolvedIp;
 			bool m_hasPort;
 
 
@@ -35,7 +35,7 @@ namespace mlk
 				std::pair<std::string, std::string> p{split_address(address)};
 				m_ip = p.first;
 				m_port = p.second;
-				m_resolved_ip = internal::ip_from_host(m_ip);
+				m_resolvedIp = internal::ip_from_host(m_ip);
 			}
 
 			ip_address(ip_address&& o) :
@@ -52,8 +52,8 @@ namespace mlk
 							  "string or intrgral type required");
 
 				m_ip = address;
-				m_port = stl_string::toString(port);
-				m_resolved_ip = internal::ip_from_host(m_ip);
+				m_port = stl_string::to_string(port);
+				m_resolvedIp = internal::ip_from_host(m_ip);
 			}
 		};
 	}

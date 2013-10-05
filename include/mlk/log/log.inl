@@ -14,7 +14,7 @@
 
 mlk::logger::log_base<mlk::logger::log_level::normal>::~log_base()
 {
-	console::resetColor();
+	console::reset_color();
 
 	if(m_writeOnExit && (!m_history.str().empty()))
 	{

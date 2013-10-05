@@ -18,7 +18,7 @@ namespace mlk
 		namespace file
 		{
 			// checks if a file exists
-			inline bool exists(const std::string &path)
+			inline bool exists(const std::string& path)
 			{
 				struct stat s{0};
 				stat(path.c_str(), &s);
@@ -26,7 +26,7 @@ namespace mlk
 			}
 
 			// creats a file, will override an existing file
-			inline bool create(const std::string &path)
+			inline bool create(const std::string& path)
 			{
 				std::ifstream stream{path, std::ios::trunc};
 				bool b{stream.is_open()};

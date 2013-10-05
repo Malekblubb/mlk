@@ -31,10 +31,9 @@ namespace mlk
 		{
 			std::string m_path;
 
-
 		public:
 			fs_handle() = default;
-			fs_handle(const std::string &path) :
+			fs_handle(const std::string& path) :
 				m_path(path) {}
 
 			bool exists() const {return dir::exists(m_path);}
@@ -49,7 +48,7 @@ namespace mlk
 
 
 		public:
-			fs_handle(const std::string &path) :
+			fs_handle(const std::string& path) :
 				m_path(path),
 				m_needOpen(true) {}
 			~fs_handle()
@@ -60,7 +59,7 @@ namespace mlk
 
 			bool exists() const {return file::exists(m_path);}
 			bool create() const {return file::create(m_path);}
-			bool open_io(const std::ios::openmode &modes)
+			bool open_io(const std::ios::openmode& modes)
 			{
 				m_stream.open(m_path, modes);
 				m_needOpen = false;
@@ -68,19 +67,19 @@ namespace mlk
 			}
 
 
-			template<typename T> long long write(const T &val)
+			template<typename T> long long write(const T& val)
 			{
-				std::string str{stl_string::toString(val)};
+				std::string str{stl_string::to_string(val)};
 				return this->write_impl(str);
 			}
 
-			template<typename T> long long write_line(const T &val)
+			template<typename T> long long write_line(const T& val)
 			{
-				std::string str{stl_string::toString(val) + "\n"};
+				std::string str{stl_string::to_string(val) + "\n"};
 				return this->write_impl(str);
 			}
 
-			void read_all(std::string &dest)
+			void read_all(std::string& dest)
 			{
 				if(m_needOpen)
 				{
@@ -101,7 +100,7 @@ namespace mlk
 			}
 
 		private:
-			long long write_impl(const std::string &str)
+			long long write_impl(const std::string& str)
 			{
 				if(m_needOpen)
 				{

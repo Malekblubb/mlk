@@ -17,7 +17,7 @@ namespace mlk
 	namespace stl_string
 	{
 		template<typename T>
-		std::string toString(const T &val)
+		std::string to_string(const T &val)
 		{
 			std::ostringstream stre;
 			stre << val;
@@ -26,7 +26,7 @@ namespace mlk
 
 		// checks if given type "T" is from type string
 		template<typename T>
-		class is_string_type
+		class is_str_type
 		{
 		public:
 			static constexpr bool m_value{std::is_same<T, std::string>::value ||

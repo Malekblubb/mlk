@@ -18,14 +18,14 @@ namespace mlk
 		namespace dir
 		{
 			// checks if a dir exists
-			inline bool exists(const std::string &path)
+			inline bool exists(const std::string& path)
 			{
 				struct stat s{0};
 				stat(path.c_str(), &s);
 				return s.st_mode & S_IFDIR;
 			}
 
-			inline bool create(const std::string &path)
+			inline bool create(const std::string& path)
 			{
 				return mkdir(path.c_str(), 0755);
 			}

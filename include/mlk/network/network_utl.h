@@ -7,6 +7,10 @@
 #define MLK_NETWORK_NETWORK_UTL_H
 
 
+#include <string>
+#include <vector>
+#include <memory>
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -22,35 +26,49 @@ namespace mlk
 	{
 		namespace internal
 		{
-			inline int getSock(int type, int proto)
+			// low level ntw stuff
+			inline int get_sock(int type, int proto)
 			{
 				return socket(AF_INET, type, proto);
 			}
 
-			inline void closeSock(int sock)
+			inline void close_sock(int sock)
 			{
 				close(sock);
 			}
 
-			inline int bindSock(int sock)
+			inline int bind_sock(int sock)
 			{
 				sockaddr_in tmpAddr{0};
 				tmpAddr.sin_family = AF_INET;
 				tmpAddr.sin_port = htons(0);
 				tmpAddr.sin_addr.s_addr = inet_addr("0.0.0.0");
 
-				return bind(sock, (sockaddr *)&tmpAddr, sizeof tmpAddr);
+				return bind(sock, (sockaddr*)&tmpAddr, sizeof tmpAddr);
 			}
 
-			inline void setBlocking(int sock)
+			inline void set_blocking(int sock)
 			{
 				int op{~O_NONBLOCK};
 				fcntl(sock, F_SETFL, op);
 			}
 
-			inline void setNoBlocking(int sock)
+			inline void set_no_blocking(int sock)
 			{
 				fcntl(sock, F_SETFL, O_NONBLOCK);
+			}
+
+			inline std::string ip_from_host(std::string ip)
+			{
+				hostent* h{gethostbyname(ip.c_str())};
+				if(h == nullptr)
+					return "";
+
+				in_addr* a{(in_addr*)h->h_addr_list[0]};
+				if(a == nullptr)
+					return "";
+
+				return std::string{inet_ntoa(*a)};
 			}
 		}
 	}

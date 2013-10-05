@@ -31,12 +31,12 @@ namespace mlk
 			public:
 				~sock_base()
 				{
-					internal::closeSock(m_sock);
+					internal::close_sock(m_sock);
 				}
 
-				void setBlocking(bool b)
+				void set_blocking(bool b)
 				{
-					b ? internal::setBlocking(m_sock) : internal::setNoBlocking(m_sock);
+					b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);
 				}
 
 				virtual size_t sendPk() = 0;

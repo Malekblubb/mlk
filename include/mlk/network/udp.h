@@ -20,11 +20,9 @@ namespace mlk
 		public:
 			sock()
 			{
-				m_sock = internal::getSock(SOCK_DGRAM, 0);
-				this->setBlocking(blocking);
+				m_sock = internal::get_sock(SOCK_DGRAM, 0);
+				this->set_blocking(blocking);
 			}
-
-
 		};
 	}
 }

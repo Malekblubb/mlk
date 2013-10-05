@@ -28,12 +28,12 @@ namespace mlk
 			white
 		};
 
-		inline void setColor(const console_color &color)
+		inline void set_color(const console_color& color)
 		{
-			std::cout << "\033[1;3" << enum_utl::toInt(color) << "m";
+			std::cout << "\033[1;3" << enum_utl::to_int(color) << "m";
 		}
 
-		inline void resetColor()
+		inline void reset_color()
 		{
 			std::cout << "\033[0m";
 		}
