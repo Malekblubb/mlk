@@ -8,10 +8,12 @@
 #define MLK_NETWORK_ADDRESS_H
 
 
+#include "address_utl.h"
 #include <mlk/tools/stl_string_utl.h>
 
 #include <string>
 #include <type_traits>
+#include <iostream>
 
 
 namespace mlk
@@ -20,34 +22,39 @@ namespace mlk
 	{
 		class ip_address
 		{
+		public:
 			std::string m_ip;
-//			port_t m_port;
+			std::string m_port;
+			std::string m_resolved_ip;
 			bool m_hasPort;
 
 
 		public:
 			ip_address(const std::string& address)
 			{
-
+				std::pair<std::string, std::string> p{split_address(address)};
+				m_ip = p.first;
+				m_port = p.second;
+				m_resolved_ip = internal::ip_from_host(m_ip);
 			}
+
+			ip_address(ip_address&& o) :
+				m_ip(std::move(o.m_ip)),
+				m_port(std::move(o.m_port)),
+				m_hasPort(std::move(o.m_hasPort))
+			{ }
 
 			template<typename T>
 			ip_address(const std::string& address, const T& port)
 			{
-				using wconst = typename std::remove_const<T>::type;
-
 				static_assert(std::is_integral<T>::value ||
-							  std::is_same<T, std::string>::value ||
-							  std::is_same<T, const char*>::value,
+							  stl_string::is_str_type<T>::m_value,
+							  "string or intrgral type required");
 
-							  "std::string or intrgral type required");
-
-				using port_t = T;
+				m_ip = address;
+				m_port = stl_string::toString(port);
+				m_resolved_ip = internal::ip_from_host(m_ip);
 			}
-
-
-
-
 		};
 	}
 }
