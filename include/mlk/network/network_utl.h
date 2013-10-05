@@ -8,8 +8,6 @@
 
 
 #include <string>
-#include <vector>
-#include <memory>
 
 #include <sys/types.h>
 #include <sys/socket.h>
