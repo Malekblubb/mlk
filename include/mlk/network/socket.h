@@ -21,7 +21,8 @@ namespace mlk
 			tcp
 		};
 
-		template<sock_type type, bool blocking> class sock;
+		template<sock_type type, bool blocking>
+		class sock;
 
 		namespace internal
 		{

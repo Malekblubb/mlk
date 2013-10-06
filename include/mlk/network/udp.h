@@ -17,7 +17,8 @@ namespace mlk
 {
 	namespace ntw
 	{
-		template<bool blocking> class sock<sock_type::udp, blocking> : public internal::sock_base
+		template<bool blocking>
+		class sock<sock_type::udp, blocking> : public internal::sock_base
 		{
 		public:
 			sock()

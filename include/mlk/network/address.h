@@ -9,6 +9,7 @@
 
 
 #include "address_utl.h"
+#include "network_utl.h"
 #include <mlk/tools/stl_string_utl.h>
 #include <mlk/tools/type_utl.h>
 
@@ -28,6 +29,8 @@ namespace mlk
 			std::string m_resolvedIp{""};
 
 		public:
+			ip_address(const ip_address&) = default;
+
 			ip_address(const std::string& address)
 			{
 				std::pair<std::string, std::string> p{split_address(address)};
@@ -41,6 +44,8 @@ namespace mlk
 				m_port(std::move(o.m_port)),
 				m_resolvedIp(std::move(o.m_resolvedIp))
 			{ }
+
+			ip_address& operator=(const ip_address&) = default;
 
 			template<typename T>
 			ip_address(const std::string& address, const T& port)
