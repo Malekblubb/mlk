@@ -33,7 +33,7 @@ namespace mlk
 		template<typename T>
 		inline std::string merge_address(const std::string& ip, const T& port)
 		{
-			static_assert(type_utl::is_str_or_int<T>::m_value, "string or intrgral type required");
+			static_assert(type_utl::is_str_or_int<T>::m_value, "string or integral type required");
 
 			std::ostringstream strm;
 			strm << ip << ":" << port;

@@ -47,7 +47,7 @@ namespace mlk
 			template<typename T>
 			ip_address(const std::string& address, const T& port)
 			{
-				static_assert(type_utl::is_str_or_int<T>::m_value, "string or intrgral type required");
+				static_assert(type_utl::is_str_or_int<T>::m_value, "string or integral type required");
 
 				m_resolvedIp = internal::ip_from_host(address);
 				m_port = stl_string::to_string(port);
