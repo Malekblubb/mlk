@@ -8,13 +8,11 @@
 #define MLK_NETWORK_ADDRESS_UTL_H
 
 
-#include "network_utl.h"
 #include <mlk/tools/type_utl.h>
 
 #include <utility>
 #include <sstream>
 #include <string>
-#include <type_traits>
 
 
 namespace mlk

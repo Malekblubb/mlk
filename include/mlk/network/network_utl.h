@@ -66,7 +66,7 @@ namespace mlk
 				if(a == nullptr)
 					return "";
 
-				return std::string{inet_ntoa(*a)};
+				return inet_ntoa(*a);
 			}
 		}
 	}
