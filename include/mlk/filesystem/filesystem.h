@@ -13,6 +13,8 @@
 #include <mlk/log/log.h>
 #include <mlk/tools/stl_string_utl.h>
 
+#include <cstdint>
+
 
 namespace mlk
 {

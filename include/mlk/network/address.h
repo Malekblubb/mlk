@@ -23,12 +23,9 @@ namespace mlk
 	{
 		class ip_address
 		{
-		public:
-			std::string m_ip;
-			std::string m_port;
-			std::string m_resolvedIp;
-			bool m_hasPort;
-
+			std::string m_ip{""};
+			std::string m_port{""};
+			std::string m_resolvedIp{""};
 
 		public:
 			ip_address(const std::string& address)
@@ -39,10 +36,10 @@ namespace mlk
 				m_resolvedIp = internal::ip_from_host(m_ip);
 			}
 
-			ip_address(ip_address&& o) :
+			ip_address(ip_address&& o) noexcept :
 				m_ip(std::move(o.m_ip)),
 				m_port(std::move(o.m_port)),
-				m_hasPort(std::move(o.m_hasPort))
+				m_resolvedIp(std::move(o.m_resolvedIp))
 			{ }
 
 			template<typename T>
@@ -54,6 +51,9 @@ namespace mlk
 				m_port = stl_string::to_string(port);
 				m_resolvedIp = internal::ip_from_host(m_ip);
 			}
+
+			std::string ip() const noexcept {return m_resolvedIp;}
+			std::string port() const noexcept {return m_port;}
 		};
 	}
 }

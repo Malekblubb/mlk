@@ -43,9 +43,9 @@ namespace mlk
 				m_savePath{savePath} {}
 			~log_base();
 
-			void setSavePath(const std::string& path) {m_savePath = path;}
-			void setSaveHistory(bool b) {m_saveHistory = b;}
-			void setWriteOnExit(bool b) {m_writeOnExit = b;}
+			void set_save_path(const std::string& path) {m_savePath = path;}
+			void set_save_history(bool b) {m_saveHistory = b;}
+			void set_write_on_exit(bool b) {m_writeOnExit = b;}
 
 			template<typename T> inline log_base& operator()(const T& val)
 			{

@@ -8,6 +8,7 @@
 
 
 #include "network_utl.h"
+#include "packet.h"
 
 
 namespace mlk
@@ -39,7 +40,8 @@ namespace mlk
 					b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);
 				}
 
-				virtual size_t sendPk() = 0;
+				virtual size_t send_pk(const packet& pk) = 0;
+				virtual size_t recv_pk(packet& pk) = 0;
 			};
 		}
 	}

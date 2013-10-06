@@ -8,7 +8,9 @@
 
 
 #include "network_utl.h"
+#include "packet.h"
 #include "socket.h"
+
 
 
 namespace mlk
@@ -22,6 +24,16 @@ namespace mlk
 			{
 				m_sock = internal::get_sock(SOCK_DGRAM, 0);
 				this->set_blocking(blocking);
+			}
+
+			size_t send_pk(const packet& pk) override
+			{
+
+			}
+
+			size_t recv_pk(packet& pk) override
+			{
+
 			}
 		};
 	}
