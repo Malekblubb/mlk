@@ -24,7 +24,6 @@ namespace mlk
 	{
 		class ip_address
 		{
-			std::string m_ip{""};
 			std::string m_port{""};
 			std::string m_resolvedIp{""};
 
@@ -34,13 +33,11 @@ namespace mlk
 			ip_address(const std::string& address)
 			{
 				std::pair<std::string, std::string> p{split_address(address)};
-				m_ip = p.first;
+				m_resolvedIp = internal::ip_from_host(p.first);
 				m_port = p.second;
-				m_resolvedIp = internal::ip_from_host(m_ip);
 			}
 
 			ip_address(ip_address&& o) noexcept :
-				m_ip(std::move(o.m_ip)),
 				m_port(std::move(o.m_port)),
 				m_resolvedIp(std::move(o.m_resolvedIp))
 			{ }
@@ -52,9 +49,8 @@ namespace mlk
 			{
 				static_assert(type_utl::is_str_or_int<T>::m_value, "string or intrgral type required");
 
-				m_ip = address;
+				m_resolvedIp = internal::ip_from_host(address);
 				m_port = stl_string::to_string(port);
-				m_resolvedIp = internal::ip_from_host(m_ip);
 			}
 
 			std::string ip() const noexcept {return m_resolvedIp;}
