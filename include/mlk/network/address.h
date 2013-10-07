@@ -56,16 +56,17 @@ namespace mlk
 			std::string ip() const noexcept {return m_resolvedIp;}
 
 			template<typename T>
-			T port() const noexcept;
+			T port() const noexcept
+			{
+				static_assert(std::is_integral<T>::value, "integral type required");
+
+				return stl_string::to_int<T>(m_port);
+			}
 		};
 
 		template<>
 		std::string ip_address::port<std::string>() const noexcept
 		{return m_port;}
-
-		template<>
-		int ip_address::port<int>() const noexcept
-		{return mlk::stl_string::to_int<int>(m_port);}
 	}
 }
 
