@@ -7,8 +7,9 @@
 #define MLK_NETWORK_NETWORK_UTL_H
 
 
-#include <string>
+#include "address.h"
 
+#include <string>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -67,6 +68,11 @@ namespace mlk
 					return "";
 
 				return inet_ntoa(*a);
+			}
+
+			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
+			{
+				return sockaddr_in{AF_INET, htons(port), inet_addr(ip.c_str())};
 			}
 		}
 	}
