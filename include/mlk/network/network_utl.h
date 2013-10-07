@@ -38,11 +38,7 @@ namespace mlk
 
 			inline int bind_sock(int sock)
 			{
-				sockaddr_in tmpAddr{0};
-				tmpAddr.sin_family = AF_INET;
-				tmpAddr.sin_port = htons(0);
-				tmpAddr.sin_addr.s_addr = inet_addr("0.0.0.0");
-
+				sockaddr_in tmpAddr{AF_INET, htons(0), inet_addr("0.0.0.0")};
 				return bind(sock, (sockaddr*)&tmpAddr, sizeof tmpAddr);
 			}
 
