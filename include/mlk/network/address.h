@@ -54,8 +54,18 @@ namespace mlk
 			}
 
 			std::string ip() const noexcept {return m_resolvedIp;}
-			std::string port() const noexcept {return m_port;}
+
+			template<typename T>
+			T port() const noexcept;
 		};
+
+		template<>
+		std::string ip_address::port<std::string>() const noexcept
+		{return m_port;}
+
+		template<>
+		int ip_address::port<int>() const noexcept
+		{return mlk::stl_string::to_int<int>(m_port);}
 	}
 }
 
