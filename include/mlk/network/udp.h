@@ -11,8 +11,6 @@
 #include "packet.h"
 #include "socket.h"
 
-#include <cerrno>
-#include <iostream>
 
 namespace mlk
 {
