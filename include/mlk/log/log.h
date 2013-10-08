@@ -26,9 +26,11 @@ namespace mlk
 		};
 
 
-		template<log_level level> class log_base;
+		template<log_level level>
+		class log_base;
 
-		template<> class log_base<log_level::normal>
+		template<>
+		class log_base<log_level::normal>
 		{
 		protected:
 			bool m_saveHistory, m_writeOnExit;
@@ -47,7 +49,8 @@ namespace mlk
 			void set_save_history(bool b) {m_saveHistory = b;}
 			void set_write_on_exit(bool b) {m_writeOnExit = b;}
 
-			template<typename T> inline log_base& operator()(const T& val)
+			template<typename T>
+			log_base& operator()(const T& val)
 			{
 				console::reset_color();
 
@@ -78,13 +81,15 @@ namespace mlk
 			}
 		};
 
-		template<> class log_base<log_level::debug> : public log_base<log_level::normal>
+		template<>
+		class log_base<log_level::debug> : public log_base<log_level::normal>
 		{
 		public:
 			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}{}
+				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} { }
 
-			template<typename T> log_base &operator()(const T& val)
+			template<typename T>
+			log_base &operator()(const T& val)
 			{
 				console::set_color(console::console_color::white);
 
@@ -96,13 +101,15 @@ namespace mlk
 			}
 		};
 
-		template<> class log_base<log_level::internal_error> : public log_base<log_level::normal>
+		template<>
+		class log_base<log_level::internal_error> : public log_base<log_level::normal>
 		{
 		public:
 			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} {}
+				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} { }
 
-			template<typename T> log_base& operator()(const T& val)
+			template<typename T>
+			log_base& operator()(const T& val)
 			{
 				console::set_color(console::console_color::red);
 
@@ -115,7 +122,7 @@ namespace mlk
 		};
 	}
 
-	// standard options (can be changed)
+	// standard options (can be changed while runtime)
 	static logger::log_base<logger::log_level::normal> lout{true, true, "./log.log"};
 	static logger::log_base<logger::log_level::debug> ldbg{false, false, "./debug.log"};
 	static logger::log_base<logger::log_level::internal_error> lerr{true, false, "./error.log"};

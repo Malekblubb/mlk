@@ -27,9 +27,11 @@ namespace mlk
 		};
 
 
-		template<fs_type type> class fs_handle;
+		template<fs_type type>
+		class fs_handle;
 
-		template<> class fs_handle<fs_type::dir>
+		template<>
+		class fs_handle<fs_type::dir>
 		{
 			std::string m_path;
 
@@ -42,7 +44,8 @@ namespace mlk
 			bool create() const {return dir::create(m_path);}
 		};
 
-		template<> class fs_handle<fs_type::file>
+		template<>
+		class fs_handle<fs_type::file>
 		{
 			std::string m_path;
 			std::fstream m_stream;
@@ -69,13 +72,15 @@ namespace mlk
 			}
 
 
-			template<typename T> uint64_t write(const T& val)
+			template<typename T>
+			uint64_t write(const T& val)
 			{
 				std::string str{stl_string::to_string(val)};
 				return this->write_impl(str);
 			}
 
-			template<typename T> uint64_t write_line(const T& val)
+			template<typename T>
+			uint64_t write_line(const T& val)
 			{
 				std::string str{stl_string::to_string(val) + "\n"};
 				return this->write_impl(str);
