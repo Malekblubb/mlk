@@ -38,8 +38,8 @@ namespace mlk
 
 			inline int bind_sock(int sock)
 			{
-				sockaddr_in tmpAddr{AF_INET, htons(0), inet_addr("0.0.0.0")};
-				return bind(sock, (sockaddr*)&tmpAddr, sizeof tmpAddr);
+				sockaddr_in tmp{AF_INET, htons(0), inet_addr("0.0.0.0")};
+				return bind(sock, (sockaddr*)&tmp, sizeof tmp);
 			}
 
 			inline void set_blocking(int sock)
@@ -69,6 +69,12 @@ namespace mlk
 			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
 			{
 				return sockaddr_in{AF_INET, htons(port), inet_addr(ip.c_str())};
+			}
+
+			inline auto from_scokaddr_in(const sockaddr_in& sock_addr)
+			-> std::pair<std::string, uint16_t>
+			{
+				return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));
 			}
 		}
 	}
