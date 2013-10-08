@@ -8,7 +8,10 @@
 
 
 #include "network_utl.h"
-#include "packet.h"
+#include "address.h"
+
+#include <cerrno>
+#include <vector>
 
 
 namespace mlk
@@ -21,6 +24,7 @@ namespace mlk
 			tcp
 		};
 
+
 		template<sock_type type, bool blocking>
 		class sock;
 
@@ -28,6 +32,7 @@ namespace mlk
 		{
 			class sock_base
 			{
+			protected:
 				int m_sock;
 
 			public:
@@ -41,8 +46,14 @@ namespace mlk
 					b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);
 				}
 
-				virtual size_t send_pk(const packet& pk) = 0;
-				virtual size_t recv_pk(packet& pk) = 0;
+				virtual ssize_t send(const ip_address& to, const std::vector<unsigned char>& data) = 0;
+				virtual ssize_t recv(ip_address& from, std::vector<unsigned char>& data, size_t max_len) = 0;
+
+			private:
+				int error() const noexcept
+				{
+					return errno;
+				}
 			};
 		}
 	}

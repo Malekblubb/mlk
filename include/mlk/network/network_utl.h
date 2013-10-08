@@ -36,9 +36,9 @@ namespace mlk
 				close(sock);
 			}
 
-			inline int bind_sock(int sock)
+			inline int bind_sock(int sock, const std::string& ip, const uint16_t port)
 			{
-				sockaddr_in tmp{AF_INET, htons(0), inet_addr("0.0.0.0")};
+				sockaddr_in tmp{AF_INET, htons(port), inet_addr(ip.c_str())};
 				return bind(sock, (sockaddr*)&tmp, sizeof tmp);
 			}
 
@@ -53,9 +53,9 @@ namespace mlk
 				fcntl(sock, F_SETFL, O_NONBLOCK);
 			}
 
-			inline std::string ip_from_host(std::string ip)
+			inline std::string ip_from_host(const std::string& host)
 			{
-				hostent* h{gethostbyname(ip.c_str())};
+				hostent* h{gethostbyname(host.c_str())};
 				if(h == nullptr)
 					return "";
 
@@ -71,7 +71,7 @@ namespace mlk
 				return sockaddr_in{AF_INET, htons(port), inet_addr(ip.c_str())};
 			}
 
-			inline auto from_scokaddr_in(const sockaddr_in& sock_addr)
+			inline auto from_sockaddr_in(const sockaddr_in& sock_addr)
 			-> std::pair<std::string, uint16_t>
 			{
 				return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));

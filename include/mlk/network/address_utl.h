@@ -30,13 +30,22 @@ namespace mlk
 								  addrStr.substr(colonPos + 1, addrStr.length() - colonPos - 1));
 		}
 
+//		template<typename T>
+//		std::string merge_address(const std::string& ip, const T& port)
+//		{
+//			static_assert(type_utl::is_str_or_int<T>::m_value, "string or integral type required");
+
+//			std::ostringstream strm;
+//			strm << ip << ":" << port;
+//			return strm.str();
+//		}
 		template<typename T>
-		inline std::string merge_address(const std::string& ip, const T& port)
+		std::string merge_address(const std::pair<std::string, T>& pair)
 		{
 			static_assert(type_utl::is_str_or_int<T>::m_value, "string or integral type required");
 
 			std::ostringstream strm;
-			strm << ip << ":" << port;
+			strm << pair.first << ":" << pair.second;
 			return strm.str();
 		}
 	}
