@@ -9,6 +9,8 @@
 
 #include "console/console.h"
 
+#include "containers/containers.h"
+
 #include "filesystem/filesystem.h"
 
 #include "log/log.h"
