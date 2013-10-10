@@ -9,9 +9,7 @@
 
 #include "mixed_cnt_type.h"
 
-#include <string>
 #include <memory>
-#include <vector>
 #include <map>
 
 
@@ -22,7 +20,7 @@ namespace mlk
 		class mixed_container
 		{
 		public:
-			std::map<std::string, std::shared_ptr<mixed_cnt_type_base>> m_vec;
+			std::map<std::string, std::shared_ptr<mixed_cnt_type_base>> m_vec; // TODO: c++14 replace with std::unique_ptr
 
 		public:
 			template<typename T>
@@ -32,7 +30,7 @@ namespace mlk
 			}
 
 			template<typename T>
-			T at(std::string key)
+			T get(const std::string& key)
 			{
 				return std::static_pointer_cast<mixed_cnt_type<T>>(m_vec[key])->m_var;
 			}

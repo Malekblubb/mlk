@@ -7,9 +7,6 @@
 #define MLK_CONTAINERS_MIXED_CONTAINER_TYPE_H
 
 
-#include <string>
-
-
 namespace mlk
 {
 	namespace cnt
@@ -26,6 +23,7 @@ namespace mlk
 		class mixed_cnt_type : public mixed_cnt_type_base
 		{
 			T m_var;
+			using type = T;
 
 			friend class mixed_container;
 
