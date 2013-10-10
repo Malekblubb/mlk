@@ -26,10 +26,9 @@ namespace mlk
 
 		public:
 			template<typename T>
-			void add(const std::string& key, const mixed_cnt_type<T>& var)
+			void add(const std::string& key, const T& var)
 			{
-				auto ptr = std::make_shared<mixed_cnt_type<T>>(var);
-				m_vec[key] = ptr;
+				m_vec[key] = std::make_shared<mixed_cnt_type<T>>(mixed_cnt_type<T>{var});
 			}
 
 			template<typename T>
