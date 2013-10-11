@@ -7,7 +7,9 @@
 #define MLK_LOG_LOG_H
 
 
+#include "error_handler.h"
 #include <mlk/console/console.h>
+#include <mlk/tools/enum_utl.h>
 
 #include <iostream>
 #include <sstream>
@@ -61,7 +63,8 @@ namespace mlk
 				return *this;
 			}
 
-			template<typename T> log_base& operator<<(const T& val)
+			template<typename T>
+			log_base& operator<<(const T& val)
 			{
 				std::cout << val;
 
@@ -86,10 +89,11 @@ namespace mlk
 		{
 		public:
 			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} { }
+				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}
+			{ }
 
 			template<typename T>
-			log_base &operator()(const T& val)
+			log_base& operator()(const T& val)
 			{
 				console::set_color(console::console_color::white);
 
@@ -102,19 +106,27 @@ namespace mlk
 		};
 
 		template<>
-		class log_base<log_level::internal_error> : public log_base<log_level::normal>
+		class log_base<log_level::internal_error> :
+				public log_base<log_level::normal>,
+				public internal::error_handler
 		{
 		public:
 			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath} { }
+				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}
+			{ }
 
 			template<typename T>
-			log_base& operator()(const T& val)
+			log_base& operator()(const T& error_code)
 			{
+				static_assert(std::is_enum<T>::value ||
+							  std::is_integral<T>::value, "enum type required");
+
+				this->try_call(error_code); // call error function if it is available
+
 				console::set_color(console::console_color::red);
 
 				std::ostringstream tmp;
-				tmp << "\n[Error #" << val << "] ";
+				tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] ";
 
 				this->brace_operator_impl(tmp.str());
 				return *this;

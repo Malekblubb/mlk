@@ -38,7 +38,8 @@ namespace mlk
 		template<typename T>
 		class error_type : public error_type_base
 		{
-			typename std::enable_if<std::is_enum<T>::value, T>::type m_code;
+			typename std::enable_if<std::is_enum<T>::value ||
+									std::is_integral<T>::value, T>::type m_code;
 
 		public:
 			error_type(const T& code, const std::string& msg, const std::function<void()>& on_called) :
