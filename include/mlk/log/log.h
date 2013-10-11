@@ -126,7 +126,7 @@ namespace mlk
 				console::set_color(console::console_color::red);
 
 				std::ostringstream tmp;
-				tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] ";
+				tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
 
 				this->brace_operator_impl(tmp.str());
 				return *this;

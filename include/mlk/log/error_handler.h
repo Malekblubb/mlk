@@ -33,6 +33,16 @@ namespace mlk
 					if(index != -1)
 						m_cnt.get(index)->call();
 				}
+
+				template<typename T>
+				std::string error_str(const T& error_code)
+				{
+					int index{m_cnt.find(error_code)};
+					if(index != -1) // TODO: do this checking in error_container::get
+						return m_cnt.get(index)->msg();
+
+					return "";
+				}
 			};
 		}
 	}
