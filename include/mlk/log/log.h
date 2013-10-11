@@ -119,7 +119,7 @@ namespace mlk
 			log_base& operator()(const T& error_code)
 			{
 				static_assert(std::is_enum<T>::value ||
-							  std::is_integral<T>::value, "enum type required");
+							  std::is_integral<T>::value, "enum or integral type required");
 
 				this->try_call(error_code); // call error function if it is available
 
@@ -129,6 +129,13 @@ namespace mlk
 				tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] ";
 
 				this->brace_operator_impl(tmp.str());
+				return *this;
+			}
+
+			log_base& operator()() // empty request
+			{
+				console::set_color(console::console_color::red);
+				this->brace_operator_impl(std::string("\n[]"));
 				return *this;
 			}
 		};
