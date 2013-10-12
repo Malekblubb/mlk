@@ -19,14 +19,14 @@ namespace mlk
 	{
 		class error_container
 		{
-			std::vector<std::shared_ptr<error_type_base>> m_errors;
+			std::vector<std::shared_ptr<internal::error_type_base>> m_errors;
 
 		public:
 
 			template<typename T>
 			void link(const T& error_code, const std::string& msg, std::function<void()> fnc)
 			{
-				m_errors.push_back(std::make_shared<error_type<T>>(error_type<T>{error_code, msg, fnc}));
+				m_errors.push_back(std::make_shared<internal::error_type<T>>(internal::error_type<T>{error_code, msg, fnc}));
 			}
 
 			template<typename T>
@@ -35,7 +35,7 @@ namespace mlk
 				int index{0};
 				for(auto& a : m_errors)
 				{
-					if(std::static_pointer_cast<error_type<T>>(a)->cmp_code(error_code))
+					if(std::static_pointer_cast<internal::error_type<T>>(a)->cmp_code(error_code))
 						return index;
 					++index;
 				}
@@ -43,12 +43,12 @@ namespace mlk
 			}
 
 			template<typename T>
-			std::shared_ptr<error_type<T>> get_casted(int index) const
+			std::shared_ptr<internal::error_type<T>> get_casted(int index) const
 			{
-				return std::static_pointer_cast<error_type<T>>(m_errors[index]);
+				return std::static_pointer_cast<internal::error_type<T>>(m_errors[index]);
 			}
 
-			std::shared_ptr<error_type_base> get(int index) const
+			std::shared_ptr<internal::error_type_base> get(int index) const
 			{
 				return m_errors[index];
 			}

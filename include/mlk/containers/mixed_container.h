@@ -20,19 +20,19 @@ namespace mlk
 		class mixed_container
 		{
 		public:
-			std::map<std::string, std::shared_ptr<mixed_cnt_type_base>> m_vec; // TODO: c++14 replace with std::unique_ptr
+			std::map<std::string, std::shared_ptr<internal::mixed_cnt_type_base>> m_vec; // TODO: c++14 replace with std::unique_ptr
 
 		public:
 			template<typename T>
 			void add(const std::string& key, const T& var)
 			{
-				m_vec[key] = std::make_shared<mixed_cnt_type<T>>(mixed_cnt_type<T>{var});
+				m_vec[key] = std::make_shared<internal::mixed_cnt_type<T>>(internal::mixed_cnt_type<T>{var});
 			}
 
 			template<typename T>
 			T get(const std::string& key)
 			{
-				return std::static_pointer_cast<mixed_cnt_type<T>>(m_vec[key])->m_var;
+				return std::static_pointer_cast<internal::mixed_cnt_type<T>>(m_vec[key])->m_var;
 			}
 		};
 	}
