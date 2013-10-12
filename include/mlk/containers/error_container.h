@@ -7,9 +7,11 @@
 #define MLK_CONTAINERS_ERROR_CONTAINER_H
 
 
+#include "container_utl.h"
 #include "error_type.h"
 
 #include <memory>
+#include <stdexcept>
 #include <vector>
 
 
@@ -45,11 +47,17 @@ namespace mlk
 			template<typename T>
 			std::shared_ptr<internal::error_type<T>> get_casted(int index) const
 			{
+				if(is_out_of_bounds(m_errors, index))
+					throw std::out_of_range("mlk::cnt::error_container::get_casted: index was out of bounds");
+
 				return std::static_pointer_cast<internal::error_type<T>>(m_errors[index]);
 			}
 
 			std::shared_ptr<internal::error_type_base> get(int index) const
 			{
+				if(is_out_of_bounds(m_errors, index))
+					throw std::out_of_range("mlk::cnt::error_container::get: index was out of bounds");
+
 				return m_errors[index];
 			}
 		};

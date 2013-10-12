@@ -38,7 +38,7 @@ namespace mlk
 				std::string error_str(const T& error_code)
 				{
 					int index{m_cnt.find(error_code)};
-					if(index != -1) // TODO: do this checking in error_container::get
+					if(index != -1)
 						return m_cnt.get(index)->msg();
 
 					return "";

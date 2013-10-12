@@ -17,7 +17,7 @@ namespace mlk
 		template<typename T>
 		bool is_out_of_bounds(const std::vector<T>& vec, int index)
 		{
-			return index >= vec.size() || index < 0;
+			return (index >= vec.size()) || (index < 0);
 		}
 	}
 }
