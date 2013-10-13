@@ -146,10 +146,9 @@ namespace mlk
 	static logger::log_base<logger::log_level::debug> ldbg{false, false, "./debug.log"};
 	static logger::log_base<logger::log_level::internal_error> lerr{true, false, "./error.log"};
 
-	#ifdef DBG
-	#undef DBG
+	#ifndef MLK_DBG
+	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
 	#endif
-	#define DBG(x) ldbg(__PRETTY_FUNCTION__) << x
 }
 
 

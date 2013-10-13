@@ -65,7 +65,7 @@ namespace mlk
 		};
 
 		template<>
-		std::string ip_address::port<std::string>() const noexcept
+		inline std::string ip_address::port<std::string>() const noexcept
 		{return m_port;}
 	}
 }

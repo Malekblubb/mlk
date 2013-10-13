@@ -12,7 +12,7 @@
 #include <mlk/filesystem/filesystem.h>
 
 
-mlk::logger::log_base<mlk::logger::log_level::normal>::~log_base()
+inline mlk::logger::log_base<mlk::logger::log_level::normal>::~log_base()
 {
 	console::reset_color();
 
