@@ -36,6 +36,7 @@ namespace mlk
 			ssize_t recv(ip_address& from, std::vector<unsigned char>& data, size_t max_len) override
 			{
 				data.clear();
+				data.resize(max_len);
 				this->reset_error();
 
 				sockaddr_in sock_addr{0};
