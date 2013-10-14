@@ -23,8 +23,6 @@ namespace mlk
 		};
 
 
-//		using data_packet = std::vector<unsigned char>;
-
 		class compressor_base
 		{
 		protected:
@@ -44,7 +42,6 @@ namespace mlk
 
 			virtual const data_packet& get() const noexcept = 0;
 		};
-
 
 		template<cmprs_mode mode>
 		class compressor;

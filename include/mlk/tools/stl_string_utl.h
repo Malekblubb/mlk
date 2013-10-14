@@ -38,5 +38,4 @@ namespace mlk
 }
 
 
-
 #endif // MLK_TOOLS_STL_STRING_UTL_H

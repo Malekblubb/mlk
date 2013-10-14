@@ -49,5 +49,4 @@ namespace mlk
 }
 
 
-
 #endif // MLK_LOG_ERROR_HANDLER_H

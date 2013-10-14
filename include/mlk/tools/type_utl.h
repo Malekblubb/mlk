@@ -37,5 +37,4 @@ namespace mlk
 }
 
 
-
 #endif // MLK_TOOLS_TYPE_UTL_H

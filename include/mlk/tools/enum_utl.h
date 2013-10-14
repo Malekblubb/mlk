@@ -3,8 +3,8 @@
 // See LICENSE for more information.
 //
 
-#ifndef MLK_TOOLS_ENUM__H
-#define MLK_TOOLS_ENUM__H
+#ifndef MLK_TOOLS_ENUM_UTL_H
+#define MLK_TOOLS_ENUM_UTL_H
 
 
 #include <type_traits>
@@ -30,4 +30,4 @@ namespace mlk
 }
 
 
-#endif // MLK_TOOLS_ENUM__H
+#endif // MLK_TOOLS_ENUM_UTL_H
