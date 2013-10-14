@@ -19,7 +19,7 @@ namespace mlk
 	namespace cmprs
 	{
 		template<>
-		class compressor<cmprs_mode::zlib> : public compressor_base
+		class compressor<cmprs_mode::zlib> : public internal::compressor_base
 		{
 		public:
 			compressor(const data_packet& data) :

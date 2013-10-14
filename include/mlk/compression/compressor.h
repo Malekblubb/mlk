@@ -22,26 +22,28 @@ namespace mlk
 			zlib = 0
 		};
 
-
-		class compressor_base
+		namespace internal
 		{
-		protected:
-			uint64_t m_input_datasize;
-			data_packet m_work_data;
-
-		public:
-			compressor_base(const data_packet& data) :
-				m_input_datasize{data.size()},
-				m_work_data{data}
+			class compressor_base
 			{
-				m_work_data.shrink_to_fit(); // just to be sure
-			}
+			protected:
+				uint64_t m_input_datasize;
+				data_packet m_work_data;
 
-			virtual int64_t pack() = 0;
-			virtual int64_t unpack(uint64_t unpacked_size) = 0;
+			public:
+				compressor_base(const data_packet& data) :
+					m_input_datasize{data.size()},
+					m_work_data{data}
+				{
+					m_work_data.shrink_to_fit(); // just to be sure
+				}
 
-			virtual const data_packet& get() const noexcept = 0;
-		};
+				virtual int64_t pack() = 0;
+				virtual int64_t unpack(uint64_t unpacked_size) = 0;
+
+				virtual const data_packet& get() const noexcept = 0;
+			};
+		}
 
 		template<cmprs_mode mode>
 		class compressor;
