@@ -11,7 +11,6 @@
 
 #include <mlk/log/log.h>
 
-#include <stdexcept>
 #include <zlib.h>
 
 
