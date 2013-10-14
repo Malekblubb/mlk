@@ -7,6 +7,8 @@
 #define MLK_MLK_H
 
 
+#include "compression/compression.h"
+
 #include "console/console.h"
 
 #include "containers/containers.h"
@@ -19,5 +21,6 @@
 #include "network/network.h"
 
 #include "tools/tools.h"
+
 
 #endif // MLK_MLK_H
