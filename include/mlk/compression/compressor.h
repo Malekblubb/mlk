@@ -7,6 +7,8 @@
 #define MLK_COMPRESSION_COMPRESSOR_H
 
 
+#include <mlk/types/types.h>
+
 #include <cstdint>
 #include <vector>
 
@@ -21,7 +23,7 @@ namespace mlk
 		};
 
 
-		using data_packet = std::vector<unsigned char>;
+//		using data_packet = std::vector<unsigned char>;
 
 		class compressor_base
 		{
@@ -40,7 +42,7 @@ namespace mlk
 			virtual int64_t pack() = 0;
 			virtual int64_t unpack(uint64_t unpacked_size) = 0;
 
-			virtual const data_packet& get() const = 0;
+			virtual const data_packet& get() const noexcept = 0;
 		};
 
 

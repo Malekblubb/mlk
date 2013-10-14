@@ -10,6 +10,8 @@
 #include "network_utl.h"
 #include "address.h"
 
+#include <mlk/types/types.h>
+
 #include <cerrno>
 #include <vector>
 
@@ -51,8 +53,8 @@ namespace mlk
 					b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);
 				}
 
-				virtual ssize_t send(const ip_address& to, const std::vector<unsigned char>& data) = 0;
-				virtual ssize_t recv(ip_address& from, std::vector<unsigned char>& data, size_t max_len) = 0;
+				virtual ssize_t send(const ip_address& to, const data_packet& data) = 0;
+				virtual ssize_t recv(ip_address& from, data_packet& data, size_t max_len) = 0;
 
 				int error() const noexcept
 				{

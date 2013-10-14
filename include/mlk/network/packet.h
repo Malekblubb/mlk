@@ -9,6 +9,8 @@
 
 #include "address.h"
 
+#include <mlk/types/types.h>
+
 #include <vector>
 
 
@@ -18,23 +20,21 @@ namespace mlk
 	{		
 		class packet
 		{
-			using data_c = std::vector<unsigned char>;
-
 			ip_address m_addr;
-			data_c m_data;
+			data_packet m_data;
 
 		public:
-			packet(const ip_address& to, const data_c& data) :
+			packet(const ip_address& to, const data_packet& data) :
 				m_addr{to},
 				m_data{data}
 			{ }
 
 			ip_address addr() const noexcept {return m_addr;}
-			data_c data() const noexcept {return m_data;}
+			data_packet data() const noexcept {return m_data;}
 			size_t size() const noexcept {return m_data.size();}
 
 			void clear() {m_data.clear();}
-			void add(const data_c& data)
+			void add(const data_packet& data)
 			{
 				if(data.size() <= 0)
 					return;

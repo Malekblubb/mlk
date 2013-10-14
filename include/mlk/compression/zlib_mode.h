@@ -61,7 +61,7 @@ namespace mlk
 				return m_work_data.size();
 			}
 
-			const data_packet& get() const override
+			const data_packet& get() const noexcept override
 			{
 				return m_work_data;
 			}
