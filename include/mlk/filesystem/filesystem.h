@@ -73,14 +73,14 @@ namespace mlk
 
 
 			template<typename T>
-			uint64_t write(const T& val)
+			int64_t write(const T& val)
 			{
 				std::string str{stl_string::to_string(val)};
 				return this->write_impl(str);
 			}
 
 			template<typename T>
-			uint64_t write_line(const T& val)
+			int64_t write_line(const T& val)
 			{
 				std::string str{stl_string::to_string(val) + "\n"};
 				return this->write_impl(str);
@@ -106,7 +106,7 @@ namespace mlk
 			}
 
 		private:
-			uint64_t write_impl(const std::string& str)
+			int64_t write_impl(const std::string& str)
 			{
 				if(m_needOpen)
 				{
