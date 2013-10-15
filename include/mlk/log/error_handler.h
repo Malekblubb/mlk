@@ -27,7 +27,7 @@ namespace mlk
 				}
 
 				template<typename T>
-				void try_call(const T& error_code)
+				void try_call(const T& error_code) const noexcept
 				{
 					int index{m_cnt.find(error_code)};
 					if(index != -1)
@@ -35,7 +35,7 @@ namespace mlk
 				}
 
 				template<typename T>
-				std::string error_str(const T& error_code)
+				std::string error_str(const T& error_code) const noexcept
 				{
 					int index{m_cnt.find(error_code)};
 					if(index != -1)

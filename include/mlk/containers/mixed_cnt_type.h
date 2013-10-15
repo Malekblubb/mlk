@@ -46,13 +46,13 @@ namespace mlk
 					m_var{std::move(o.m_var)}
 				{ }
 
-				mixed_cnt_type& operator=(const mixed_cnt_type& o)
+				mixed_cnt_type& operator=(const mixed_cnt_type& o) noexcept(noexcept(o.operator=)) // is this used like this ?
 				{
 					m_var = o.m_var;
 					return *this;
 				}
 
-				mixed_cnt_type& operator=(mixed_cnt_type&& o)
+				mixed_cnt_type& operator=(mixed_cnt_type&& o) noexcept(noexcept(o.operator=))
 				{
 					m_var = std::move(o.m_var);
 					return *this;

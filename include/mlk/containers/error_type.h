@@ -24,7 +24,7 @@ namespace mlk
 				std::function<void()> m_on_called;
 
 			public:
-				error_type_base(const std::string& msg, const std::function<void()>& on_called) :
+				error_type_base(const std::string& msg, const std::function<void()>& on_called) noexcept :
 					m_msg{msg},
 					m_on_called{on_called}
 				{ }
@@ -46,14 +46,14 @@ namespace mlk
 				std::is_integral<T>::value, T>::type m_code;
 
 			public:
-				error_type(const T& code, const std::string& msg, const std::function<void()>& on_called) :
+				error_type(const T& code, const std::string& msg, const std::function<void()>& on_called) noexcept :
 					error_type_base{msg, on_called},
 					m_code{code}
 				{ }
 
 				~error_type() = default;
 
-				bool cmp_code(const T& other_code)
+				bool cmp_code(const T& other_code) const noexcept
 				{
 					return m_code == other_code;
 				}

@@ -33,7 +33,7 @@ namespace mlk
 			data_packet data() const noexcept {return m_data;}
 			size_t size() const noexcept {return m_data.size();}
 
-			void clear() {m_data.clear();}
+			void clear() noexcept {m_data.clear();}
 			void add(const data_packet& data)
 			{
 				if(data.size() <= 0)
