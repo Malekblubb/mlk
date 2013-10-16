@@ -36,9 +36,9 @@ namespace mlk
 			std::string m_path;
 
 		public:
-			fs_handle() = default;
 			fs_handle(const std::string& path) :
-				m_path(path) {}
+				m_path{path}
+			{ }
 
 			bool exists() const {return dir::exists(m_path);}
 			bool create() const {return dir::create(m_path);}
@@ -49,13 +49,13 @@ namespace mlk
 		{
 			std::string m_path;
 			std::fstream m_stream;
-			bool m_needOpen;
+			bool m_needOpen{true};
 
 
 		public:
 			fs_handle(const std::string& path) :
-				m_path(path),
-				m_needOpen(true) {}
+				m_path{path}
+			{ }
 			~fs_handle()
 			{
 				if(m_stream.is_open())

@@ -29,7 +29,7 @@ namespace mlk
 			// creats a file, will override an existing file
 			inline bool create(const std::string& path)
 			{
-				std::ifstream stream{path, std::ios::trunc};
+				std::fstream stream{path, std::ios::trunc};
 				bool b{stream.is_open()};
 				stream.close();
 				return b;
