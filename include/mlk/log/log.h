@@ -35,21 +35,21 @@ namespace mlk
 		class log_base<log_level::normal>
 		{
 		protected:
-			bool m_saveHistory, m_writeOnExit;
-			std::string m_savePath;
+			bool m_save_history, m_write_on_exit;
+			std::string m_save_path;
 			std::ostringstream m_history;
 
 		public:
 			log_base() = default;
-			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				m_saveHistory{saveHistory},
-				m_writeOnExit{writeOnExit},
-				m_savePath{savePath} {}
+			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
+				m_save_history{save_history},
+				m_write_on_exit{write_on_exit},
+				m_save_path{save_path} {}
 			~log_base();
 
-			void set_save_path(const std::string& path) {m_savePath = path;}
-			void set_save_history(bool b) {m_saveHistory = b;}
-			void set_write_on_exit(bool b) {m_writeOnExit = b;}
+			void set_save_path(const std::string& path) {m_save_path = path;}
+			void set_save_history(bool b) {m_save_history = b;}
+			void set_write_on_exit(bool b) {m_write_on_exit = b;}
 
 			template<typename T>
 			log_base& operator()(const T& val)
@@ -68,7 +68,7 @@ namespace mlk
 			{
 				std::cout << val;
 
-				if(m_saveHistory)
+				if(m_save_history)
 					m_history << val;
 
 				return *this;
@@ -79,7 +79,7 @@ namespace mlk
 			{
 				std::cout << str;
 
-				if(m_saveHistory)
+				if(m_save_history)
 					m_history << str;
 			}
 		};
@@ -88,8 +88,8 @@ namespace mlk
 		class log_base<log_level::debug> : public log_base<log_level::normal>
 		{
 		public:
-			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}
+			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
+				log_base<log_level::normal>::log_base{save_history, write_on_exit, save_path}
 			{ }
 
 			template<typename T>
@@ -111,8 +111,8 @@ namespace mlk
 				public internal::error_handler
 		{
 		public:
-			log_base(bool saveHistory, bool writeOnExit, const std::string& savePath) :
-				log_base<log_level::normal>::log_base{saveHistory, writeOnExit, savePath}
+			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
+				log_base<log_level::normal>::log_base{save_history, write_on_exit, save_path}
 			{ }
 
 			template<typename T>

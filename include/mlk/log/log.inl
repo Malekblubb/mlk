@@ -16,11 +16,11 @@ inline mlk::logger::log_base<mlk::logger::log_level::normal>::~log_base()
 {
 	console::reset_color();
 
-	if(m_writeOnExit && (!m_history.str().empty()))
+	if(m_write_on_exit && (!m_history.str().empty()))
 	{
-		if(!m_savePath.empty())
+		if(!m_save_path.empty())
 		{
-			fs::fs_handle<fs::fs_type::file> file{m_savePath};
+			fs::fs_handle<fs::fs_type::file> file{m_save_path};
 			file.open_io(std::ios::out | std::ios::trunc);
 			file.write(m_history.str());
 		}

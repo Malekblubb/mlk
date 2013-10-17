@@ -24,7 +24,7 @@ namespace mlk
 		class ip_address
 		{
 			std::string m_port{""};
-			std::string m_resolvedIp{""};
+			std::string m_resolved_ip{""};
 
 		public:
 			ip_address(const ip_address&) = default;
@@ -32,13 +32,13 @@ namespace mlk
 			ip_address(const std::string& address)
 			{
 				std::pair<std::string, std::string> p{split_address(address)};
-				m_resolvedIp = internal::ip_from_host(p.first);
+				m_resolved_ip = internal::ip_from_host(p.first);
 				m_port = p.second;
 			}
 
 			ip_address(ip_address&& o) noexcept :
 				m_port(std::move(o.m_port)),
-				m_resolvedIp(std::move(o.m_resolvedIp))
+				m_resolved_ip(std::move(o.m_resolved_ip))
 			{ }
 
 			ip_address& operator=(const ip_address&) = default;
@@ -48,11 +48,11 @@ namespace mlk
 			{
 				static_assert(type_utl::is_str_or_int<T>::m_value, "string or integral type required");
 
-				m_resolvedIp = internal::ip_from_host(address);
+				m_resolved_ip = internal::ip_from_host(address);
 				m_port = stl_string::to_string(port);
 			}
 
-			std::string ip() const noexcept {return m_resolvedIp;}
+			std::string ip() const noexcept {return m_resolved_ip;}
 
 			template<typename T>
 			T port() const noexcept
