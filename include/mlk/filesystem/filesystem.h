@@ -49,7 +49,7 @@ namespace mlk
 		{
 			std::string m_path;
 			std::fstream m_stream;
-			bool m_needOpen{true};
+			bool m_need_open{true};
 
 
 		public:
@@ -67,7 +67,7 @@ namespace mlk
 			bool open_io(const std::ios::openmode& modes)
 			{
 				m_stream.open(m_path, modes);
-				m_needOpen = false;
+				m_need_open = false;
 				return m_stream.is_open();
 			}
 
@@ -88,7 +88,7 @@ namespace mlk
 
 			void read_all(std::string& dest)
 			{
-				if(m_needOpen)
+				if(m_need_open)
 				{
 					lerr() << "can not read from closed stream.";
 					return;
@@ -108,7 +108,7 @@ namespace mlk
 		private:
 			int64_t write_impl(const std::string& str)
 			{
-				if(m_needOpen)
+				if(m_need_open)
 				{
 					lerr() << "can not write into closed stream.";
 					return -1;
