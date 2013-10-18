@@ -40,8 +40,8 @@ namespace mlk
 				m_path{path}
 			{ }
 
-			bool exists() const {return dir::exists(m_path);}
-			bool create() const {return dir::create(m_path);}
+			bool exists() const noexcept {return dir::exists(m_path);}
+			bool create() const noexcept {return dir::create(m_path);}
 		};
 
 		template<>
@@ -50,7 +50,6 @@ namespace mlk
 			std::string m_path;
 			std::fstream m_stream;
 			bool m_need_open{true};
-
 
 		public:
 			fs_handle(const std::string& path) :
@@ -62,8 +61,8 @@ namespace mlk
 					m_stream.close();
 			}
 
-			bool exists() const {return file::exists(m_path);}
-			bool create() const {return file::create(m_path);}
+			bool exists() const noexcept {return file::exists(m_path);}
+			bool create() const noexcept {return file::create(m_path);}
 			bool open_io(const std::ios::openmode& modes)
 			{
 				m_stream.open(m_path, modes);
