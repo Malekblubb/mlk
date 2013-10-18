@@ -19,7 +19,6 @@ namespace mlk
 	{
 		class mixed_container
 		{
-		public:
 			std::map<std::string, std::shared_ptr<internal::mixed_cnt_type_base>> m_vec; // TODO: c++14 replace with std::unique_ptr
 
 		public:
