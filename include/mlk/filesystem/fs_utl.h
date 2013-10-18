@@ -8,6 +8,7 @@
 
 
 #include <mlk/filesystem/fs_handle.h>
+#include <mlk/tools/type_utl.h>
 
 #include <string>
 
@@ -17,11 +18,11 @@ namespace mlk
 	namespace fs
 	{
 		template<typename T>
-		std::string as_path(const T& t);
-
-		template<>
-		inline std::string as_path<std::string>(const std::string& str)
-		{return str;}
+		std::string as_path(const T& t)
+		{
+			static_assert(type_utl::is_str<T>::m_value, "string required");
+			return t;
+		}
 
 		template<>
 		inline std::string as_path<fs_handle<fs_type::file>>(const fs_handle<fs_type::file>& file)
