@@ -9,7 +9,7 @@
 
 #include "log.h"
 
-#include <mlk/filesystem/filesystem.h>
+#include <mlk/filesystem/fs_handle.h>
 
 
 inline mlk::logger::log_base<mlk::logger::log_level::normal>::~log_base()
