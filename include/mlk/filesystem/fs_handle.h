@@ -35,8 +35,6 @@ namespace mlk
 		template<>
 		class fs_handle<fs_type::dir> : public internal::fs_base
 		{
-			std::string m_path;
-
 		public:
 			fs_handle(const std::string& path) :
 				fs_base{path}
@@ -49,7 +47,6 @@ namespace mlk
 		template<>
 		class fs_handle<fs_type::file> : public internal::fs_base
 		{
-			std::string m_path;
 			std::fstream m_stream;
 			bool m_need_open{true};
 
