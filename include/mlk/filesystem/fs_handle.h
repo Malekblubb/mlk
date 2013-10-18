@@ -7,6 +7,8 @@
 #define MLK_FILESYSTEM_FS_HANDLE_H
 
 
+#include "fs_base.h"
+
 #include "dir.h"
 #include "file.h"
 
@@ -31,21 +33,21 @@ namespace mlk
 		class fs_handle;
 
 		template<>
-		class fs_handle<fs_type::dir>
+		class fs_handle<fs_type::dir> : public internal::fs_base
 		{
 			std::string m_path;
 
 		public:
 			fs_handle(const std::string& path) :
-				m_path{path}
+				fs_base{path}
 			{ }
 
-			bool exists() const noexcept {return dir::exists(m_path);}
-			bool create() const noexcept {return dir::create(m_path);}
+			bool exists() const noexcept override {return dir::exists(m_path);}
+			bool create() const noexcept override {return dir::create(m_path);}
 		};
 
 		template<>
-		class fs_handle<fs_type::file>
+		class fs_handle<fs_type::file> : public internal::fs_base
 		{
 			std::string m_path;
 			std::fstream m_stream;
@@ -53,7 +55,7 @@ namespace mlk
 
 		public:
 			fs_handle(const std::string& path) :
-				m_path{path}
+				fs_base{path}
 			{ }
 			~fs_handle()
 			{
@@ -61,8 +63,8 @@ namespace mlk
 					m_stream.close();
 			}
 
-			bool exists() const noexcept {return file::exists(m_path);}
-			bool create() const noexcept {return file::create(m_path);}
+			bool exists() const noexcept override {return file::exists(m_path);}
+			bool create() const noexcept override {return file::create(m_path);}
 			bool open_io(const std::ios::openmode& modes)
 			{
 				m_stream.open(m_path, modes);
