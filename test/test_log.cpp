@@ -17,7 +17,7 @@ void fnc_that_throws()
 int main()
 {
 	mlk::lout("Log \"title\"") << "some string"; // prints: [Log "title"] some string
-	mlk::lerr() << "some error string " << 5.5 << " test"; // prints: [] some error string 5.5 test; in red color
+	mlk::lerr() << "some error string " << 5.5 << " test"; // prints: [Error] some error string 5.5 test; in red color
 	MLK_DBG("debug message"); // prints: [Debug in fnc: int main()] debug message; in white color
 
 
