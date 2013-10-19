@@ -35,7 +35,7 @@ namespace mlk
 			return true;
 		}
 
-		// creates a new std::vector<T> from the given source [from, to]
+		// creates a new std::vector<T> from the given source [from, to)
 		template<typename T>
 		auto cut_vec(int from, int to, const std::vector<T>& source)
 		-> std::vector<T>
@@ -43,8 +43,8 @@ namespace mlk
 			if(is_out_of_bounds(source, to))
 				throw std::out_of_range("mlk::cnt::cut_vec: out of bounds");
 
-			std::vector<T> new_vec(to - from + 1);
-			std::copy(source.begin() + from, source.begin() + to + 1, new_vec.begin());
+			std::vector<T> new_vec((to - from) + 1);
+			std::copy(source.begin() + from, source.begin() + to, new_vec.begin());
 			return new_vec;
 		}
 	}
