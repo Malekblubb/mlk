@@ -43,6 +43,12 @@ namespace mlk
 
 					return "";
 				}
+
+				template<typename T>
+				void link_error(const T& error_code, const std::string& msg, const std::function<void()>& fnc)
+				{
+					m_cnt.link(error_code, msg, fnc);
+				}
 			};
 		}
 	}
