@@ -7,6 +7,7 @@
 #define MLK_CONTAINERS_CONTAINER_UTL_H
 
 
+#include <stdexcept>
 #include <vector>
 
 
@@ -32,6 +33,19 @@ namespace mlk
 					return false;
 
 			return true;
+		}
+
+		// creates a new std::vector<T> from the given source [from, to]
+		template<typename T>
+		auto cut_vec(int from, int to, const std::vector<T>& source)
+		-> std::vector<T>
+		{
+			if(is_out_of_bounds(source, to))
+				throw std::out_of_range("mlk::cnt::cut_vec: out of bounds");
+
+			std::vector<T> new_vec(to-from);
+			std::copy(source.begin() + from, source.begin() + to + 1, new_vec.begin());
+			return new_vec;
 		}
 	}
 }
