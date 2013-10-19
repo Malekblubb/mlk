@@ -43,7 +43,7 @@ namespace mlk
 			if(is_out_of_bounds(source, to))
 				throw std::out_of_range("mlk::cnt::cut_vec: out of bounds");
 
-			std::vector<T> new_vec(to-from);
+			std::vector<T> new_vec(to - from + 1);
 			std::copy(source.begin() + from, source.begin() + to + 1, new_vec.begin());
 			return new_vec;
 		}
