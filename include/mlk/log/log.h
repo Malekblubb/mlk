@@ -135,7 +135,7 @@ namespace mlk
 			log_base& operator()() // empty request
 			{
 				console::set_color(console::console_color::red);
-				this->brace_operator_impl(std::string("\n[] "));
+				this->brace_operator_impl(std::string("\n[Error] "));
 				return *this;
 			}
 		};
