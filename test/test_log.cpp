@@ -30,6 +30,12 @@ int main()
 		// ...
 	};
 
+	
+	// easy link while runtime
+	mlk::lerr.link(error2, "msg", []{std::cout << "my nice lambda" << std::endl;});
+	
+	
+	// set new error_container (will override old "links")
 	mlk::cnt::error_container my_error_cnt;
 	my_error_cnt.link(error1,
 					  "some custom error msg",
