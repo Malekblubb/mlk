@@ -12,9 +12,11 @@
 
 namespace mlk
 {
-	using data_packet = std::vector<unsigned char>;
+	using llong = long long;
+	using ulong = unsigned long;
 	using ushort = unsigned short;
 	using uchar = unsigned char;
+	using data_packet = std::vector<uchar>;
 }
 
 
