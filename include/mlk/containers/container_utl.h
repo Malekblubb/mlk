@@ -47,6 +47,20 @@ namespace mlk
 			std::copy(source.begin() + from, source.begin() + to, new_vec.begin());
 			return new_vec;
 		}
+
+		template<typename T>
+		int make_int(int begin, const std::vector<T>& vec) // TODO: add checking for char types
+		{
+			if(is_out_of_bounds(vec, begin + 3))
+				return -1;
+
+			int result{0};
+			result |= (vec.data()[begin]);
+			result |= (vec.data()[begin + 1] << 8);
+			result |= (vec.data()[begin + 2] << 16);
+			result |= (vec.data()[begin + 3] << 24);
+			return result;
+		}
 	}
 }
 
