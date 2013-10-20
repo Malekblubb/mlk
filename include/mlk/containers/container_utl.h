@@ -48,6 +48,8 @@ namespace mlk
 			return new_vec;
 		}
 
+		// creates an int out of 4 chars
+		// works on little endian
 		template<typename T>
 		int make_int(int begin, const std::vector<T>& vec) // TODO: add checking for char types
 		{
