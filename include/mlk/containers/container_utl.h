@@ -40,7 +40,7 @@ namespace mlk
 		auto cut_vec(int from, int to, const std::vector<T>& source)
 		-> std::vector<T>
 		{
-			if(is_out_of_bounds(source, to))
+			if(is_out_of_bounds(source, to - 1))
 				throw std::out_of_range("mlk::cnt::cut_vec: out of bounds");
 
 			std::vector<T> new_vec((to - from) + 1);
