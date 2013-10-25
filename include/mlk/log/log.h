@@ -90,7 +90,7 @@ namespace mlk
 		{
 		public:
 			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
-				log_base<log_level::normal>::log_base{save_history, write_on_exit, save_path}
+				log_base<log_level::normal>{save_history, write_on_exit, save_path}
 			{ }
 
 			template<typename T>
@@ -113,7 +113,7 @@ namespace mlk
 		{
 		public:
 			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
-				log_base<log_level::normal>::log_base{save_history, write_on_exit, save_path}
+				log_base<log_level::normal>{save_history, write_on_exit, save_path}
 			{ }
 
 			template<typename T>
