@@ -39,7 +39,7 @@ namespace mlk
 				data.resize(max_len);
 				this->reset_error();
 
-				sockaddr_in sock_addr{0};
+				sockaddr_in sock_addr; // {}
 				socklen_t addr_size{sizeof sock_addr};
 				ssize_t got{recvfrom(m_sock, &data[0], max_len, 0, reinterpret_cast<sockaddr*>(&sock_addr), &addr_size)};
 

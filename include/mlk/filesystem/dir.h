@@ -20,7 +20,7 @@ namespace mlk
 			// checks if a dir exists
 			inline bool exists(const std::string& path)
 			{
-				struct stat s{0};
+				struct stat s; // {}
 				stat(path.c_str(), &s);
 				return s.st_mode & S_IFDIR;
 			}

@@ -7,6 +7,7 @@
 #define MLK_CONTAINERS_CONTAINER_UTL_H
 
 
+#include <cstdint>
 #include <stdexcept>
 #include <vector>
 
@@ -16,7 +17,7 @@ namespace mlk
 	namespace cnt
 	{
 		template<typename T>
-		bool is_out_of_bounds(const std::vector<T>& vec, int index)
+		bool is_out_of_bounds(const std::vector<T>& vec, std::size_t index)
 		{
 			return (index >= vec.size()) || (index < 0);
 		}
