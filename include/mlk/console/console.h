@@ -18,6 +18,7 @@ namespace mlk
 	{
 		enum class console_color : char
 		{
+			none = -1,
 			black = 0,
 			red,
 			green,
@@ -28,14 +29,19 @@ namespace mlk
 			white
 		};
 
-		inline void set_color(const console_color& color)
-		{
-			std::cout << "\033[1;3" << enum_utl::to_int(color) << "m";
-		}
-
 		inline void reset_color()
 		{
 			std::cout << "\033[0m";
+		}
+
+		inline void set_color(const console_color& color)
+		{
+			if(color == console_color::none)
+			{
+				reset_color();
+				return;
+			}
+			std::cout << "\033[1;3" << enum_utl::to_int(color) << "m";
 		}
 	}
 }
