@@ -92,7 +92,7 @@ namespace mlk
 					return;
 				}
 
-				uint64_t wasPos{m_stream.tellg()};
+				int64_t was_pos{m_stream.tellg()};
 				std::string s;
 				m_stream.seekg(0);
 				while(std::getline(m_stream, s))
@@ -100,7 +100,7 @@ namespace mlk
 					dest += s + "\n";
 				}
 
-				m_stream.seekg(wasPos);
+				m_stream.seekg(was_pos);
 			}
 
 		private:
@@ -111,9 +111,9 @@ namespace mlk
 					lerr() << "can not write into closed stream.";
 					return -1;
 				}
-				uint64_t start{m_stream.tellp()};
+				int64_t start{m_stream.tellp()};
 				m_stream.write(str.c_str(), str.length());
-				uint64_t end{m_stream.tellp()};
+				int64_t end{m_stream.tellp()};
 
 				return end - start;
 			}
