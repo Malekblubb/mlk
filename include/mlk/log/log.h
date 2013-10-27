@@ -52,6 +52,8 @@ namespace mlk
 			void set_save_history(bool b) {m_save_history = b;}
 			void set_write_on_exit(bool b) {m_write_on_exit = b;}
 
+			std::string history() const noexcept {return m_history.str();}
+
 			template<typename T>
 			log_base& operator()(const T& val)
 			{
