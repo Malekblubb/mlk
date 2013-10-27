@@ -32,6 +32,10 @@ namespace mlk
 
 			return time.substr(0, time.length() - 1);
 		}
+
+		inline auto time_pnt()
+		-> decltype(std::chrono::high_resolution_clock::now())
+		{return std::chrono::high_resolution_clock::now();}
 	}
 }
 
