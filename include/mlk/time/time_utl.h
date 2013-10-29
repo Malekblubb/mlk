@@ -37,10 +37,10 @@ namespace mlk
 		-> decltype(std::chrono::high_resolution_clock::now())
 		{return std::chrono::high_resolution_clock::now();}
 
-		template<typename T>
-		auto duration(const std::chrono::time_point<T>& start, const std::chrono::time_point<T>& end)
-		-> decltype(std::chrono::duration_cast<std::chrono::microseconds>(end-start).count())
-		{return std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();}
+		template<typename T = std::chrono::milliseconds, typename E>
+		auto duration(const std::chrono::time_point<E>& start, const std::chrono::time_point<E>& end)
+		-> decltype(std::chrono::duration_cast<T>(end-start).count())
+		{return std::chrono::duration_cast<T>(end-start).count();}
 	}
 }
 
