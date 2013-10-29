@@ -20,7 +20,7 @@ namespace mlk
 		template<typename T>
 		std::string as_path(const T& t)
 		{
-			static_assert(type_utl::is_str<T>::m_value, "string required");
+			static_assert(type_utl::is_str<T>(), "string required");
 			return t;
 		}
 

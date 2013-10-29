@@ -33,7 +33,7 @@ namespace mlk
 		template<typename T>
 		std::string merge_address(const std::pair<std::string, T>& pair)
 		{
-			static_assert(type_utl::is_str_or_int<T>::m_value, "string or integral type required");
+			static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");
 
 			std::ostringstream strm;
 			strm << pair.first << ":" << pair.second;

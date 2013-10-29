@@ -20,9 +20,11 @@ namespace mlk
 		class is_str
 		{
 		public:
-			static constexpr bool m_value{std::is_same<T, std::string>::value ||
-						std::is_same<typename std::decay<T>::type, const char*>::value ||
-						std::is_same<typename std::decay<T>::type, char*>::value};
+			static constexpr bool m_value{std::is_same<T, std::string>() ||
+						std::is_same<typename std::decay<T>::type, const char*>() ||
+						std::is_same<typename std::decay<T>::type, char*>()};
+			constexpr operator bool() const {return m_value;}
+			constexpr bool operator()() const {return m_value;}
 		};
 
 		// checks if given type "T" is from type string or int
@@ -31,7 +33,9 @@ namespace mlk
 		{
 		public:
 			static constexpr bool m_value{is_str<T>::m_value ||
-						std::is_integral<T>::value};
+						std::is_integral<T>()};
+			constexpr operator bool() const {return m_value;}
+			constexpr bool operator()() const {return m_value;}
 		};
 	}
 }
