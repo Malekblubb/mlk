@@ -20,6 +20,8 @@
 
 #include "network/network.h"
 
+#include "signals_slots/signals_slots.h"
+
 #include "system/system.h"
 
 #include "time/time.h"
