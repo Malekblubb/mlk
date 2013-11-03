@@ -12,6 +12,7 @@
 #include <mlk/console/console.h>
 #include <mlk/tools/enum_utl.h>
 
+#include <functional>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -39,6 +40,7 @@ namespace mlk
 			bool m_save_history, m_write_on_exit;
 			std::string m_save_path;
 			std::ostringstream m_history;
+			std::function<void()> m_on_entry_added{[]{}};
 
 		public:
 			log_base() = default;
@@ -53,6 +55,9 @@ namespace mlk
 			void set_write_on_exit(bool b) {m_write_on_exit = b;}
 
 			std::string history() const noexcept {return m_history.str();}
+
+			void set_on_entry_added(const std::function<void()>& fnc) noexcept
+			{m_on_entry_added = fnc;}
 
 			template<typename T>
 			log_base& operator()(const T& val)
@@ -74,6 +79,7 @@ namespace mlk
 				if(m_save_history)
 					m_history << val;
 
+				this->entry_added();
 				return *this;
 			}
 
@@ -84,7 +90,11 @@ namespace mlk
 
 				if(m_save_history)
 					m_history << str;
+				this->entry_added();
 			}
+
+			void entry_added()
+			{m_on_entry_added();}
 		};
 
 		template<>
