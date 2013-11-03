@@ -10,6 +10,8 @@
 #include "error_handler.h"
 
 #include <mlk/console/console.h>
+#include <mlk/signals_slots/signal.h>
+#include <mlk/signals_slots/slot.h>
 #include <mlk/tools/enum_utl.h>
 
 #include <functional>
@@ -40,14 +42,13 @@ namespace mlk
 			bool m_save_history, m_write_on_exit;
 			std::string m_save_path;
 			std::ostringstream m_history;
-			std::function<void()> m_on_entry_added{[]{}};
+			slot<void()> m_on_entry_added;
 
 		public:
+			signal m_entry_added;
+
 			log_base() = default;
-			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
-				m_save_history{save_history},
-				m_write_on_exit{write_on_exit},
-				m_save_path{save_path} {}
+			log_base(bool save_history, bool write_on_exit, const std::string& save_path);
 			~log_base();
 
 			void set_save_path(const std::string& path) {m_save_path = path;}
@@ -56,8 +57,8 @@ namespace mlk
 
 			std::string history() const noexcept {return m_history.str();}
 
-			void set_on_entry_added(const std::function<void()>& fnc) noexcept
-			{m_on_entry_added = fnc;}
+			void set_on_entry_added(std::function<void()> fnc) noexcept
+			{m_on_entry_added += fnc;}
 
 			template<typename T>
 			log_base& operator()(const T& val)
@@ -93,8 +94,7 @@ namespace mlk
 				this->entry_added();
 			}
 
-			void entry_added()
-			{m_on_entry_added();}
+			void entry_added();
 		};
 
 		template<>
