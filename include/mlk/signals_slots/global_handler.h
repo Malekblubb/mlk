@@ -11,7 +11,7 @@
 #include "slot.h"
 
 #include <mlk/containers/container_utl.h>
-#include <mlk/log/log.h>
+#include <mlk/log/log_impl.h>
 
 #include <map>
 #include <vector>
