@@ -11,12 +11,10 @@
 #include "slot.h"
 
 #include <mlk/containers/container_utl.h>
-#include <mlk/log/log_impl.h>
 
+#include <algorithm>
 #include <map>
 #include <vector>
-
-#include <boost/any.hpp>
 
 
 namespace mlk
@@ -54,11 +52,8 @@ namespace mlk
 			template<typename... E>
 			void emit_signal(const signal& si, E... args)
 			{
-				if(m_content.find(si) == m_content.end())
-				{
-					lerr() << "warning: signal with uid " << si.m_uid << " not found, ignoring call";
+				if(m_content.find(si) == m_content.end()) // signal not found
 					return;
-				}
 
 				for(auto& a : m_content[si])
 					a.call_funcs(args...);
