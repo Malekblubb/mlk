@@ -7,7 +7,7 @@
 #define MLK_LOG_LOG_INL
 
 
-#include "log.h"
+#include "log_impl.h"
 
 #include <mlk/filesystem/fs_handle.h>
 #include <mlk/signals_slots/signals_slots.h>
