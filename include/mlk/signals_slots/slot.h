@@ -1,4 +1,4 @@
-//
+﻿//
 // Copyright (c) 2013 Christoph Malek
 // See LICENSE for more information.
 //
@@ -17,8 +17,19 @@ namespace mlk
 	namespace internal
 	{class global_signal_handler;}
 
-	template<typename T>
-	class slot
+
+	namespace internal
+	{
+		class basic_slot
+		{
+		public:
+			virtual ~basic_slot() = default;
+		};
+	}
+
+
+	template<typename T = void()>
+	class slot : public internal::basic_slot
 	{
 		std::vector<std::function<T>> m_funcs;
 		bool m_func_set{false};
@@ -26,6 +37,7 @@ namespace mlk
 
 	public:
 		slot() = default;
+		~slot() = default;
 
 		template<typename E>
 		void add_func(E func) // non const ref for lambda support
@@ -37,11 +49,11 @@ namespace mlk
 
 	private:
 		template<typename... M>
-		void call_funcs(M... args)
+		void call_funcs(M... arg)
 		{
 			if(m_func_set)
 				for(auto& a : m_funcs)
-					a(args...);
+					a(arg...);
 		}
 	};
 }
