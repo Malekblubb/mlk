@@ -13,6 +13,7 @@
 #include <mlk/signals_slots/signal.h>
 #include <mlk/signals_slots/slot.h>
 #include <mlk/tools/enum_utl.h>
+#include <mlk/tools/stl_string_utl.h>
 
 #include <functional>
 #include <iostream>
@@ -42,7 +43,6 @@ namespace mlk
 			bool m_save_history, m_write_on_exit;
 			std::string m_save_path;
 			std::ostringstream m_history;
-			slot<void()> m_on_entry_added;
 
 		public:
 			signal m_entry_added;
@@ -57,8 +57,6 @@ namespace mlk
 
 			std::string history() const noexcept {return m_history.str();}
 
-			void set_on_entry_added(std::function<void()> fnc) noexcept
-			{m_on_entry_added += fnc;}
 
 			template<typename T>
 			log_base& operator()(const T& val)
@@ -80,7 +78,7 @@ namespace mlk
 				if(m_save_history)
 					m_history << val;
 
-				this->entry_added();
+				this->entry_added(stl_string::to_string(val));
 				return *this;
 			}
 
@@ -91,10 +89,10 @@ namespace mlk
 
 				if(m_save_history)
 					m_history << str;
-				this->entry_added();
+				this->entry_added(str);
 			}
 
-			void entry_added();
+			void entry_added(const std::string& last_entry);
 		};
 
 		template<>

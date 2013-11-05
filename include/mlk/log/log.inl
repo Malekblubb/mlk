@@ -21,7 +21,7 @@ namespace mlk
 			m_save_history{save_history},
 			m_write_on_exit{write_on_exit},
 			m_save_path{save_path}
-		{link_signal(m_entry_added, m_on_entry_added);}
+		{ }
 
 		inline log_base<mlk::logger::log_level::normal>::~log_base()
 		{
@@ -38,8 +38,8 @@ namespace mlk
 			}
 		}
 
-		inline void log_base<mlk::logger::log_level::normal>::entry_added()
-		{emit_signal(m_entry_added);}
+		inline void log_base<mlk::logger::log_level::normal>::entry_added(const std::string& last_entry)
+		{emit_signal(m_entry_added, last_entry);}
 	}
 }
 
