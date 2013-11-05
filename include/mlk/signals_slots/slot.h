@@ -41,11 +41,15 @@ namespace mlk
 
 		template<typename E>
 		void add_func(E func) // non const ref for lambda support
-		{m_funcs.push_back(func); m_func_set = true;}
+		{
+			m_funcs.push_back(func);
+			m_func_set = true;
+		}
 
 		template<typename E>
 		void operator+=(E func)
 		{this->add_func(func);}
+
 
 	private:
 		template<typename... M>
