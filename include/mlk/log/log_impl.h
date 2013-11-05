@@ -181,7 +181,7 @@ namespace mlk
 
 
 	#ifndef MLK_DBG
-//	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
+	#define MLK_DBG(x) mlk::ldbg()(__PRETTY_FUNCTION__) << x
 	#endif
 }
 

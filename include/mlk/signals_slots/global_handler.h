@@ -49,8 +49,8 @@ namespace mlk
 					++m_current_uid; // create new uid
 				}
 				// this signal is invalid
-//				if(si.m_uid == 0)
-//					return;
+				if(si.m_uid == 0)
+					return;
 
 				// add slot to registered signal
 				m_content[si].push_back(std::make_shared<slot<T>>(sl));
