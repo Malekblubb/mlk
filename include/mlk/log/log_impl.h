@@ -51,6 +51,12 @@ namespace mlk
 			log_base(bool save_history, bool write_on_exit, const std::string& save_path);
 			~log_base();
 
+			static log_base& instance()
+			{
+				static log_base instance{true, true, "./log.log"};
+				return instance;
+			}
+
 			void set_save_path(const std::string& path) {m_save_path = path;}
 			void set_save_history(bool b) {m_save_history = b;}
 			void set_write_on_exit(bool b) {m_write_on_exit = b;}
@@ -103,6 +109,12 @@ namespace mlk
 				log_base<log_level::normal>{save_history, write_on_exit, save_path}
 			{ }
 
+			static log_base& instance()
+			{
+				static log_base instance{false, false, "./debug.log"};
+				return instance;
+			}
+
 			template<typename T>
 			log_base& operator()(const T& val)
 			{
@@ -125,6 +137,12 @@ namespace mlk
 			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
 				log_base<log_level::normal>{save_history, write_on_exit, save_path}
 			{ }
+
+			static log_base& instance()
+			{
+				static log_base instance{true, false, "./error.log"};
+				return instance;
+			}
 
 			template<typename T>
 			log_base& operator()(const T& error_code)
@@ -152,12 +170,18 @@ namespace mlk
 	}
 
 	// standard options (can be changed while runtime)
-	static logger::log_base<logger::log_level::normal> lout{true, true, "./log.log"};
-	static logger::log_base<logger::log_level::debug> ldbg{false, false, "./debug.log"};
-	static logger::log_base<logger::log_level::internal_error> lerr{true, false, "./error.log"};
+	inline logger::log_base<logger::log_level::normal>& lout()
+	{return logger::log_base<logger::log_level::normal>::instance();}
+
+	inline logger::log_base<logger::log_level::debug>& ldbg()
+	{return logger::log_base<logger::log_level::debug>::instance();}
+
+	inline logger::log_base<logger::log_level::internal_error>& lerr()
+	{return logger::log_base<logger::log_level::internal_error>::instance();}
+
 
 	#ifndef MLK_DBG
-	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
+//	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
 	#endif
 }
 

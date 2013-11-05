@@ -88,7 +88,7 @@ namespace mlk
 			{
 				if(m_need_open)
 				{
-					lerr() << "can not read from closed stream.";
+					lerr()() << "can not read from closed stream.";
 					return;
 				}
 
@@ -108,7 +108,7 @@ namespace mlk
 			{
 				if(m_need_open)
 				{
-					lerr() << "can not write into closed stream.";
+					lerr()() << "can not write into closed stream.";
 					return -1;
 				}
 				int64_t start{m_stream.tellp()};

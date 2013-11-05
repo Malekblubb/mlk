@@ -32,6 +32,12 @@ namespace mlk
 			std::vector<int> m_linked_uids;
 
 		public:
+			static global_signal_handler& instance()
+			{
+				static global_signal_handler instance;
+				return instance;
+			}
+
 			template<typename T>
 			void link_signal(signal& si, const slot<T>& sl)
 			{
@@ -63,19 +69,17 @@ namespace mlk
 					std::static_pointer_cast<slot<void(E...)>>(a)->call_funcs(arg...);
 			}
 		};
-
-		static global_signal_handler gsh; // global instance
 	}
 
 
 	// functions to link and emit signals and slots
 	template<typename T>
 	void link_signal(signal& si, const slot<T>& sl)
-	{internal::gsh.link_signal(si, sl);}
+	{internal::global_signal_handler::instance().link_signal(si, sl);}
 
 	template<typename... E>
 	void emit_signal(const signal& si, E... arg)
-	{internal::gsh.emit_signal(si, arg...);}
+	{internal::global_signal_handler::instance().emit_signal(si, arg...);}
 }
 
 
