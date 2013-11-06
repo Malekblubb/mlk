@@ -42,15 +42,12 @@ namespace mlk
 			void link_signal(signal& si, const slot<T>& sl)
 			{
 				// if signal is already registered, skip new register
-				if(std::find(m_linked_uids.begin(), m_linked_uids.end(), si.m_uid) == m_linked_uids.end())
+				if(!si.m_registered)
 				{
 					si.m_uid = m_current_uid; // signal gets new id
-					m_linked_uids.push_back(m_current_uid); // add to linked uids
+					si.m_registered = true;
 					++m_current_uid; // create new uid
 				}
-				// this signal is invalid
-				if(si.m_uid == 0)
-					return;
 
 				// add slot to registered signal
 				m_content[si].push_back(std::make_shared<slot<T>>(sl));
@@ -59,7 +56,7 @@ namespace mlk
 			template<typename... E>
 			void emit_signal(const signal& si, E... arg)
 			{
-				if(m_content.find(si) == m_content.end()) // signal not found
+				if(!si.m_registered) // signal not found
 				{
 					std::cout << "\n[Error] warning: signal with uid " << si.m_uid << " not found, ignoring emit";
 					return;

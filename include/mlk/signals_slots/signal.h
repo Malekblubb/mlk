@@ -15,6 +15,7 @@ namespace mlk
 	class signal
 	{
 		int m_uid{0};
+		bool m_registered{false};
 		inline friend bool operator<(const signal&, const signal&);
 		friend class internal::global_signal_handler;
 	};
