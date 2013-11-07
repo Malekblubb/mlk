@@ -6,8 +6,9 @@ cmake_minimum_required(VERSION 2.8)
 set(CMAKE_CXX_FLAGS "-std=c++0x")
 set(SRC "src")
 set(HDR "include")
+set(EXT "external")
 set(LIST "")
-include_directories(${HDR})
+include_directories(${HDR} ${EXT})
 
 
 file(GLOB_RECURSE LIST "${HDR}/*.*")
