@@ -170,14 +170,17 @@ namespace mlk
 	}
 
 	// standard options (can be changed while runtime)
-	inline logger::log_base<logger::log_level::normal>& lout()
-	{return logger::log_base<logger::log_level::normal>::instance();}
+	template<typename... T>
+	logger::log_base<logger::log_level::normal>& lout(T... var)
+	{return logger::log_base<logger::log_level::normal>::instance()(var...);}
 
-	inline logger::log_base<logger::log_level::debug>& ldbg()
-	{return logger::log_base<logger::log_level::debug>::instance();}
+	template<typename... T>
+	logger::log_base<logger::log_level::debug>& ldbg(T... var)
+	{return logger::log_base<logger::log_level::debug>::instance()(var...);}
 
-	inline logger::log_base<logger::log_level::internal_error>& lerr()
-	{return logger::log_base<logger::log_level::internal_error>::instance();}
+	template<typename... T>
+	logger::log_base<logger::log_level::internal_error>& lerr(T... var)
+	{return logger::log_base<logger::log_level::internal_error>::instance()(var...);}
 
 
 	#ifndef MLK_DBG
