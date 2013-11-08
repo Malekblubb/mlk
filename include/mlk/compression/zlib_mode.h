@@ -11,7 +11,7 @@
 
 #include <mlk/log/log.h>
 
-#include <zlib/zlib.h>
+#include <zlib.h>
 
 
 namespace mlk
