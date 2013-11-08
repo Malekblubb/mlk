@@ -12,7 +12,7 @@
 #include "dir.h"
 #include "file.h"
 
-#include <mlk/log/log.h>
+#include <mlk/log/log_impl.h>
 #include <mlk/tools/stl_string_utl.h>
 
 #include <cstdint>

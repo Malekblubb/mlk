@@ -11,11 +11,9 @@
 
 #include <mlk/console/console.h>
 #include <mlk/signals_slots/signal.h>
-#include <mlk/signals_slots/slot.h>
 #include <mlk/tools/enum_utl.h>
 #include <mlk/tools/stl_string_utl.h>
 
-#include <functional>
 #include <iostream>
 #include <sstream>
 #include <string>
