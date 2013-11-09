@@ -88,8 +88,8 @@ namespace mlk
 			{
 				if(m_need_open)
 				{
-					lerr() << "can not read from closed stream.";
-					return;
+					lout("mlk::fs") << "can not read from closed stream. opening in mode 'std::ios::in'";
+					this->open_io(std::ios::in);
 				}
 
 				int64_t was_pos{m_stream.tellg()};
@@ -108,8 +108,8 @@ namespace mlk
 			{
 				if(m_need_open)
 				{
-					lerr() << "can not write into closed stream.";
-					return -1;
+					lout("mlk::fs") << "can not write into closed stream. opening in mode 'std::ios::out | std::ios::app'";
+					this->open_io(std::ios::out | std::ios::app);
 				}
 				int64_t start{m_stream.tellp()};
 				m_stream.write(str.c_str(), str.length());
