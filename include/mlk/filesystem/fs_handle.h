@@ -84,7 +84,7 @@ namespace mlk
 				return this->write_impl(str);
 			}
 
-			void read_all(std::string& dest)
+			std::size_t read_all(std::string& dest)
 			{
 				if(m_need_open)
 				{
@@ -94,13 +94,15 @@ namespace mlk
 
 				int64_t was_pos{m_stream.tellg()};
 				std::string s;
+				std::size_t count{0};
 				m_stream.seekg(0);
 				while(std::getline(m_stream, s))
 				{
 					dest += s + "\n";
+					++count;
 				}
-
 				m_stream.seekg(was_pos);
+				return count;
 			}
 
 		private:
