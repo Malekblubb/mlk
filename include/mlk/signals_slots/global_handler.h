@@ -57,10 +57,7 @@ namespace mlk
 			void emit_signal(const signal& si, E... arg)
 			{
 				if(!si.m_registered) // signal not found
-				{
-					std::cout << "\n[Error] warning: signal with uid " << si.m_uid << " not found, ignoring emit";
 					return;
-				}
 
 				for(auto& a : m_content[si])
 					std::static_pointer_cast<slot<void(E...)>>(a)->call_funcs(arg...);
