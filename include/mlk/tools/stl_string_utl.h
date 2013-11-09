@@ -7,6 +7,10 @@
 #define MLK_TOOLS_STL_STRING_UTL_H
 
 
+#include <mlk/tools/type_utl.h>
+
+#include <algorithm>
+#include <cstdint>
 #include <string>
 #include <sstream>
 #include <type_traits>
@@ -34,6 +38,9 @@ namespace mlk
 			stre >> ret;
 			return ret;
 		}
+
+		inline std::size_t count_of(char find, const std::string str)
+		{return std::count(str.begin(), str.end(), find);}
 	}
 }
 
