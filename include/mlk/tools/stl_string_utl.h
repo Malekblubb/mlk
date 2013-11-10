@@ -28,7 +28,7 @@ namespace mlk
 			return stre.str();
 		}
 
-		template<typename T>
+		template<typename T = int>
 		T to_int(const std::string& val)
 		{
 			static_assert(std::is_integral<T>::value, "only integral types supported");
