@@ -7,6 +7,7 @@
 #define MLK_CONTAINERS_CONTAINER_UTL_H
 
 
+#include <algorithm>
 #include <cstdint>
 #include <stdexcept>
 #include <vector>
@@ -63,6 +64,12 @@ namespace mlk
 			result |= (vec.data()[begin + 2] << 16);
 			result |= (vec.data()[begin + 3] << 24);
 			return result;
+		}
+
+		template<typename T, typename E>
+		typename E::iterator find_in(const T& value, const E& cnt)
+		{
+			std::find(cnt.begin(), cnt.end(), value);
 		}
 	}
 }
