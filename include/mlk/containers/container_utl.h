@@ -66,11 +66,12 @@ namespace mlk
 			return result;
 		}
 
+		// if 'value' is found in 'cnt', an iter will be returned
+		// to the found element
 		template<typename T, typename E>
-		typename E::iterator find_in(const T& value, const E& cnt)
-		{
-			std::find(cnt.begin(), cnt.end(), value);
-		}
+		auto find_in(const T& value, const E& cnt)
+		-> decltype(std::find(cnt.begin(), cnt.end(), value))
+		{return std::find(cnt.begin(), cnt.end(), value);}
 	}
 }
 
