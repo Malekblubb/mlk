@@ -39,6 +39,17 @@ namespace mlk
 			return ret;
 		}
 
+		template<typename T = int>
+		T to_hex_int(const std::string& val)
+		{
+			static_assert(std::is_integral<T>::value, "only integral types supported");
+
+			std::istringstream stre{val};
+			T ret;
+			stre >> std::hex >> ret;
+			return ret;
+		}
+
 		inline std::size_t count_of(char find, const std::string& str)
 		{return std::count(str.begin(), str.end(), find);}
 
