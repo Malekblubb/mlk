@@ -49,7 +49,7 @@ namespace mlk
 			int num_erased{0};
 			for(;;)
 			{
-				auto a = str.find(erase);
+				auto a(str.find(erase));
 				if(a == std::string::npos)
 					break;
 
