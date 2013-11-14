@@ -31,14 +31,10 @@ namespace mlk
 		{
 			// low level ntw stuff
 			inline int get_sock(int type, int proto)
-			{
-				return socket(AF_INET, type, proto);
-			}
+			{return socket(AF_INET, type, proto);}
 
 			inline void close_sock(int sock)
-			{
-				close(sock);
-			}
+			{close(sock);}
 
 			inline int bind_sock(int sock, const std::string& ip, const uint16_t port)
 			{
@@ -53,9 +49,7 @@ namespace mlk
 			}
 
 			inline void set_no_blocking(int sock)
-			{
-				fcntl(sock, F_SETFL, O_NONBLOCK);
-			}
+			{fcntl(sock, F_SETFL, O_NONBLOCK);}
 
 			inline std::string ip_from_host(const std::string& host)
 			{
@@ -71,15 +65,11 @@ namespace mlk
 			}
 
 			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
-			{
-				return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
-			}
+			{return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};}
 
 			inline auto from_sockaddr_in(const sockaddr_in& sock_addr)
 			-> std::pair<std::string, uint16_t>
-			{
-				return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));
-			}
+			{return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));}
 		}
 	}
 }
