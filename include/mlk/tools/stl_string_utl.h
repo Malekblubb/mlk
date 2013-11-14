@@ -33,7 +33,7 @@ namespace mlk
 		{
 			static_assert(std::is_integral<T>::value, "only integral types supported");
 
-			std::stringstream stre{val};
+			std::istringstream stre{val};
 			T ret;
 			stre >> ret;
 			return ret;
