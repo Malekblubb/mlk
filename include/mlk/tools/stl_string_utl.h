@@ -59,10 +59,18 @@ namespace mlk
 			return num_erased;
 		}
 
-		// erases first found character 'erase'
+		// erases first found character 'erase' in 'str'
 		inline void erase_first(char erase, std::string& str)
 		{
 			auto a(str.find_first_of(erase));
+			if(a != std::string::npos)
+				str.erase(a);
+		}
+
+		// erases last found character 'erase' in 'str'
+		inline void erase_last(char erase, std::string& str)
+		{
+			auto a(str.find_last_of(erase));
 			if(a != std::string::npos)
 				str.erase(a);
 		}
