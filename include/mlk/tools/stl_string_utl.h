@@ -58,6 +58,14 @@ namespace mlk
 			}
 			return num_erased;
 		}
+
+		// erased first found character 'erase'
+		inline void erase_first(char erase, std::string& str)
+		{
+			auto a(str.find_first_of(erase));
+			if(a != std::string::npos)
+				str.erase(a);
+		}
 	}
 }
 
