@@ -37,17 +37,18 @@ namespace mlk
 			}
 
 			ip_address(ip_address&& o) noexcept :
-				m_port(std::move(o.m_port)),
-				m_resolved_ip(std::move(o.m_resolved_ip))
+				m_port{std::move(o.m_port)},
+				m_resolved_ip{std::move(o.m_resolved_ip)}
 			{ }
 
 			ip_address& operator=(const ip_address&) = default;
 
 			template<typename T>
 			ip_address(const std::string& address, const T& port) :
-				m_port{stl_string::to_string(port)},
+				m_port{stl_string::is_numeric(port) ? stl_string::to_string(port) : "0"},
 				m_resolved_ip{internal::ip_from_host(address)}
 			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
+
 
 			const std::string& ip() const noexcept {return m_resolved_ip;}
 
