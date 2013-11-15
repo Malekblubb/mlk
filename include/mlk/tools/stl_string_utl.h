@@ -75,7 +75,7 @@ namespace mlk
 		{
 			auto a(str.find_first_of(erase));
 			if(a != std::string::npos)
-				str.erase(a);
+				str.erase(a, 1);
 		}
 
 		// erases last found character 'erase' in 'str'
@@ -83,7 +83,7 @@ namespace mlk
 		{
 			auto a(str.find_last_of(erase));
 			if(a != std::string::npos)
-				str.erase(a);
+				str.erase(a, 1);
 		}
 	}
 }
