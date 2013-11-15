@@ -45,7 +45,7 @@ namespace mlk
 
 			template<typename T>
 			ip_address(const std::string& address, const T& port) :
-				m_port{stl_string::is_numeric(port) ? stl_string::to_string(port) : "0"},
+				m_port{stl_string::is_numeric(mlk::stl_string::to_string(port)) ? stl_string::to_string(port) : "0"},
 				m_resolved_ip{internal::ip_from_host(address)}
 			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
 
