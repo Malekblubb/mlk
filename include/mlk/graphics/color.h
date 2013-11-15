@@ -19,13 +19,14 @@ namespace mlk
 			int m_r{0}, m_g{0}, m_b{0}, m_a{255};
 
 		public:
+			color_rgb() = default;
+
 			color_rgb(int red, int green, int blue, int alpha) :
 				m_r{red},
 				m_g{green},
 				m_b{blue},
 				m_a{alpha}
 			{ }
-
 
 			color_rgb(const std::string& hex_str)
 			{this->init_from_hex(hex_str);}
