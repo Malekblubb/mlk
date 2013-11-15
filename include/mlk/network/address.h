@@ -44,21 +44,17 @@ namespace mlk
 			ip_address& operator=(const ip_address&) = default;
 
 			template<typename T>
-			ip_address(const std::string& address, const T& port)
-			{
-				static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");
+			ip_address(const std::string& address, const T& port) :
+				m_port{stl_string::to_string(port)},
+				m_resolved_ip{internal::ip_from_host(address)}
+			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
 
-				m_resolved_ip = internal::ip_from_host(address);
-				m_port = stl_string::to_string(port);
-			}
+			const std::string& ip() const noexcept {return m_resolved_ip;}
 
-			std::string ip() const noexcept {return m_resolved_ip;}
-
-			template<typename T>
+			template<typename T = int>
 			T port() const noexcept
 			{
-				static_assert(std::is_integral<T>::value, "integral type required");
-
+				static_assert(std::is_integral<T>(), "integral type required");
 				return stl_string::to_int<T>(m_port);
 			}
 		};
