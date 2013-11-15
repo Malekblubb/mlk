@@ -19,25 +19,28 @@ namespace mlk
 {
 	namespace ntw
 	{
-		inline auto split_address(const std::string& addrStr)
-		-> std::pair<std::string, std::string>
+		namespace internal
 		{
-			if(addrStr.find(':') == std::string::npos)
-				return std::make_pair("", "");
+			inline auto split_address(const std::string& addrStr)
+			-> std::pair<std::string, std::string>
+			{
+				if(addrStr.find(':') == std::string::npos)
+					return std::make_pair("", "");
 
-			uint64_t colonPos{addrStr.find(':')};
-			return std::make_pair(addrStr.substr(0, colonPos),
-								  addrStr.substr(colonPos + 1, addrStr.length() - colonPos - 1));
-		}
+				uint64_t colonPos{addrStr.find(':')};
+				return std::make_pair(addrStr.substr(0, colonPos),
+									  addrStr.substr(colonPos + 1, addrStr.length() - colonPos - 1));
+			}
 
-		template<typename T>
-		std::string merge_address(const std::pair<std::string, T>& pair)
-		{
-			static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");
+			template<typename T>
+			std::string merge_address(const std::pair<std::string, T>& pair)
+			{
+				static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");
 
-			std::ostringstream strm;
-			strm << pair.first << ":" << pair.second;
-			return strm.str();
+				std::ostringstream strm;
+				strm << pair.first << ":" << pair.second;
+				return strm.str();
+			}
 		}
 	}
 }

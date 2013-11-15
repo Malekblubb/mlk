@@ -29,15 +29,15 @@ namespace mlk
 		public:
 			ip_address(const std::string& address, bool resolve = true)
 			{
-				std::pair<std::string, std::string> p{split_address(address)};
+				std::pair<std::string, std::string> p{internal::split_address(address)};
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 			}
 
 			template<typename T>
 			ip_address(const std::string& address, const T& port, bool resolve = true) :
-				ip_address{merge_address(std::make_pair(address,
-														stl_string::is_numeric(stl_string::to_string(port)) ? stl_string::to_string(port) : "0")), resolve}
+				ip_address{internal::merge_address(std::make_pair(address,
+																  stl_string::is_numeric(stl_string::to_string(port)) ? stl_string::to_string(port) : "0")), resolve}
 			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
 
 
