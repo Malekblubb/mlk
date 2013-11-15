@@ -15,6 +15,8 @@
 
 #include "filesystem/filesystem.h"
 
+#include "graphics/graphics.h"
+
 #include "log/log.h"
 #include "log/log.inl"
 
