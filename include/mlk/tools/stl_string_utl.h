@@ -10,6 +10,7 @@
 #include <mlk/tools/type_utl.h>
 
 #include <algorithm>
+#include <cctype>
 #include <cstdint>
 #include <string>
 #include <sstream>
@@ -48,6 +49,14 @@ namespace mlk
 			T ret;
 			stre >> std::hex >> ret;
 			return ret;
+		}
+
+		// checks whether given string 'str'
+		// contains only digits
+		inline bool is_numeric(const std::string& str)
+		{
+			return !str.empty() &&
+					(std::find_if(str.begin(), str.end(), [](char find){return !std::isdigit(find);}) == str.end());
 		}
 
 		inline std::size_t count_of(char find, const std::string& str)
