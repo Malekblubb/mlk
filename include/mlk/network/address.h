@@ -27,26 +27,17 @@ namespace mlk
 			std::string m_resolved_ip{""};
 
 		public:
-			ip_address(const ip_address&) = default;
-
-			ip_address(const std::string& address)
+			ip_address(const std::string& address, bool resolve = true)
 			{
 				std::pair<std::string, std::string> p{split_address(address)};
-				m_resolved_ip = internal::ip_from_host(p.first);
+				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 			}
 
-			ip_address(ip_address&& o) noexcept :
-				m_port{std::move(o.m_port)},
-				m_resolved_ip{std::move(o.m_resolved_ip)}
-			{ }
-
-			ip_address& operator=(const ip_address&) = default;
-
 			template<typename T>
-			ip_address(const std::string& address, const T& port) :
-				m_port{stl_string::is_numeric(mlk::stl_string::to_string(port)) ? stl_string::to_string(port) : "0"},
-				m_resolved_ip{internal::ip_from_host(address)}
+			ip_address(const std::string& address, const T& port, bool resolve = true) :
+				ip_address{merge_address(std::make_pair(address,
+														stl_string::is_numeric(stl_string::to_string(port)) ? stl_string::to_string(port) : "0")), resolve}
 			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
 
 
