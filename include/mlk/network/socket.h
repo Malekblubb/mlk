@@ -44,14 +44,10 @@ namespace mlk
 
 			public:
 				~sock_base()
-				{
-					internal::close_sock(m_sock);
-				}
+				{internal::close_sock(m_sock);}
 
-				void set_blocking(bool b)
-				{
-					b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);
-				}
+				void set_blocking(bool b) noexcept
+				{b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);}
 
 				virtual ssize_t send(const ip_address& to, const data_packet& data) = 0;
 				virtual ssize_t recv(ip_address& from, data_packet& data, size_t max_len) = 0;
@@ -68,10 +64,8 @@ namespace mlk
 				}
 
 			protected:
-				void reset_error() const
-				{
-					errno = 0;
-				}
+				void reset_error() const noexcept
+				{errno = 0;}
 			};
 		}
 	}
