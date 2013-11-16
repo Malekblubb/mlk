@@ -37,6 +37,13 @@ namespace mlk
 
 	public:
 		slot() = default;
+
+		template<typename E>
+		slot(E func) :
+			m_funcs{func},
+			m_func_set{true}
+		{ }
+
 		~slot() = default;
 
 		template<typename E>
