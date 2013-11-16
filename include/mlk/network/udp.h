@@ -20,9 +20,9 @@ namespace mlk
 		class sock<sock_type::udp, blocking> : public internal::sock_base
 		{
 		public:
-			sock(const ip_address& bind_address = ip_address{"0.0.0.0", 0})
+			sock(const ip_address& bind_address = ip_address{"0.0.0.0", 0}) :
+				internal::sock_base{internal::get_sock(SOCK_DGRAM, 0)}
 			{
-				m_sock = internal::get_sock(SOCK_DGRAM, 0);
 				internal::bind_sock(m_sock, bind_address.ip(), bind_address.port<uint16_t>());
 				this->set_blocking(blocking);
 			}

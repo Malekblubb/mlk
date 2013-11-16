@@ -44,6 +44,10 @@ namespace mlk
 				int m_sock;
 
 			public:
+				sock_base(int sock) :
+					m_sock{sock}
+				{ }
+
 				~sock_base()
 				{internal::close_sock(m_sock);}
 
