@@ -26,10 +26,11 @@ namespace mlk
 			tcp
 		};
 
-		enum sock_error : int
+		enum class sock_error : char
 		{
 			ok = 0,
-			again
+			again,
+			error
 		};
 
 		template<sock_type type, bool blocking>
@@ -52,16 +53,19 @@ namespace mlk
 				virtual ssize_t send(const ip_address& to, const data_packet& data) = 0;
 				virtual ssize_t recv(ip_address& from, data_packet& data, size_t max_len) = 0;
 
-				int error() const noexcept
+				sock_error error_type() const noexcept
 				{
 					if((errno == EWOULDBLOCK) || (errno == EAGAIN))
-						return again;
+						return sock_error::again;
 
 					if(errno != 0)
-						return errno;
+						return sock_error::error;
 
-					return ok;
+					return sock_error::ok;
 				}
+
+				bool error() const noexcept
+				{return error_type() != sock_error::ok;}
 
 			protected:
 				void reset_error() const noexcept

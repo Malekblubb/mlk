@@ -29,6 +29,7 @@ namespace mlk
 
 			ssize_t send(const ip_address& to, const data_packet& data) override
 			{
+				this->reset_error();
 				sockaddr_in sock_addr = internal::to_sockaddr_in(to.ip(), to.port<uint16_t>());
 				return sendto(m_sock, data.data(), data.size(), 0, reinterpret_cast<sockaddr*>(&sock_addr), sizeof sock_addr);
 			}
