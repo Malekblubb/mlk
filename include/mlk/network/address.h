@@ -23,10 +23,12 @@ namespace mlk
 	{
 		class ip_address
 		{
-			std::string m_port{""};
-			std::string m_resolved_ip{""};
+			std::string m_port{"0"};
+			std::string m_resolved_ip{"0.0.0.0"};
 
 		public:
+			ip_address() = default;
+
 			ip_address(const std::string& address, bool resolve = true)
 			{
 				std::pair<std::string, std::string> p{internal::split_address(address)};
