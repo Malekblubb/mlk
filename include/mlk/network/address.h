@@ -49,11 +49,19 @@ namespace mlk
 				static_assert(std::is_integral<T>(), "integral type required");
 				return stl_string::to_int<T>(m_port);
 			}
+
+			friend std::ostream& operator<<(std::ostream&, const ip_address&);
 		};
 
 		template<>
 		inline std::string ip_address::port<std::string>() const noexcept
 		{return m_port;}
+
+		inline std::ostream& operator<<(std::ostream& os, const ip_address& address)
+		{
+			os << address.m_resolved_ip << ":" << address.m_port;
+			return os;
+		}
 	}
 }
 
