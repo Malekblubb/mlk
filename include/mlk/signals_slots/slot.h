@@ -32,7 +32,6 @@ namespace mlk
 	class slot : public internal::basic_slot
 	{
 		std::vector<std::function<T>> m_funcs;
-		bool m_func_set{false};
 		friend class internal::global_signal_handler;
 
 	public:
@@ -40,18 +39,14 @@ namespace mlk
 
 		template<typename E>
 		slot(E func) :
-			m_funcs{func},
-			m_func_set{true}
+			m_funcs{func}
 		{ }
 
 		~slot() = default;
 
 		template<typename E>
 		void add_func(E func) // non const ref for lambda support
-		{
-			m_funcs.push_back(func);
-			m_func_set = true;
-		}
+		{m_funcs.push_back(func);}
 
 		template<typename E>
 		void operator+=(E func)
@@ -59,10 +54,12 @@ namespace mlk
 
 
 	private:
+		bool has_funcs() const noexcept {return !m_funcs.empty();}
+
 		template<typename... M>
 		void call_funcs(M... arg)
 		{
-			if(m_func_set)
+			if(has_funcs())
 				for(auto& a : m_funcs)
 					a(arg...);
 		}
