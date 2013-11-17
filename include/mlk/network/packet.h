@@ -39,7 +39,7 @@ namespace mlk
 			{
 				if(data.size() <= 0)
 				{
-					lerr() << "data with invalid size passed";
+					lerr()["mlk::ntw::packet::add"] << "data with invalid size passed";
 					return;
 				}
 				m_data.insert(m_data.end(), data.begin(), data.end());

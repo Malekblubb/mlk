@@ -36,7 +36,7 @@ namespace mlk
 
 				if(z_error != Z_OK)
 				{
-					lerr()() << "Error while compress data. Zlib returned: " << z_error;
+					lerr()["mlk::cmprs::compressor<zlib>::pack"] << "error while compress data. zlib returned: " << z_error;
 					return z_error;
 				}
 
@@ -53,7 +53,7 @@ namespace mlk
 
 				if(z_error != Z_OK)
 				{
-					lerr()() << "Error while uncompress data. Zlib returned: " << z_error;
+					lerr()["mlk::cmprs::compressor<zlib>::pack"] << "error while uncompress data. elib returned: " << z_error;
 					return z_error;
 				}
 
