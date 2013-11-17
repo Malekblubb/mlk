@@ -29,8 +29,8 @@ namespace mlk
 				m_data{data}
 			{ }
 
-			ip_address addr() const noexcept {return m_addr;}
-			data_packet data() const noexcept {return m_data;}
+			const ip_address& addr() const noexcept {return m_addr;}
+			const data_packet& data() const noexcept {return m_data;}
 			size_t size() const noexcept {return m_data.size();}
 
 			void clear() noexcept {m_data.clear();}
