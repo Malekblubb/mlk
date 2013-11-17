@@ -9,6 +9,7 @@
 
 #include "address.h"
 
+#include <mlk/log/log.h>
 #include <mlk/types/types.h>
 
 #include <vector>
@@ -37,8 +38,10 @@ namespace mlk
 			void add(const data_packet& data)
 			{
 				if(data.size() <= 0)
+				{
+					lerr() << "data with invalid size passed";
 					return;
-
+				}
 				m_data.insert(m_data.end(), data.begin(), data.end());
 			}
 		};
