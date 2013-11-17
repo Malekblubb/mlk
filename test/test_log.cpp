@@ -18,6 +18,7 @@ int main()
 {
 	mlk::lout("Log \"title\"") << "some string"; // prints: [Log "title"] some string
 	mlk::lerr() << "some error string " << 5.5 << " test"; // prints: [Error] some error string 5.5 test; in red color
+	mlk::lerr()["my function?"] << "more error text"; // prints: [Error] [my function?] more error text; in red color
 	MLK_DBG("debug message"); // prints: [Debug in fnc: int main()] debug message; in white color
 
 
@@ -49,7 +50,7 @@ int main()
 
 
 	// output:
-	//[Error #0] some custom error msg my extra function
-	//more error msg
-	//[Error #2]  terminate called without an active exception
+	// [Error #0] some custom error msg my extra function
+	// more error msg
+	// [Error #2]  terminate called without an active exception
 }
