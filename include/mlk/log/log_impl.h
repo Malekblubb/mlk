@@ -164,6 +164,15 @@ namespace mlk
 				this->brace_operator_impl(std::string("\n[Error] "));
 				return *this;
 			}
+
+			template<typename T>
+			log_base& operator[](const T& value)
+			{
+				std::ostringstream tmp;
+				tmp << "[" << value << "] ";
+				this->brace_operator_impl(tmp.str());
+				return *this;
+			}
 		};
 	}
 
