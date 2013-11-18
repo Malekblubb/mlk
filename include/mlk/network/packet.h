@@ -34,7 +34,7 @@ namespace mlk
 				m_data{data}
 			{ }
 
-			void set_address(const ip_address& addr) const noexcept {m_addr = addr;}
+			void set_address(const ip_address& addr) noexcept {m_addr = addr;}
 
 			const ip_address& addr() const noexcept {return m_addr;}
 			const data_packet& data() const noexcept {return m_data;}
