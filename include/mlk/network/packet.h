@@ -21,14 +21,20 @@ namespace mlk
 	{		
 		class packet
 		{
-			ip_address m_addr;
+			ip_address m_addr{"0.0.0.0", 0};
 			data_packet m_data;
 
 		public:
+			packet(const data_packet& data) :
+				m_data{data}
+			{ }
+
 			packet(const ip_address& to, const data_packet& data) :
 				m_addr{to},
 				m_data{data}
 			{ }
+
+			void set_address(const ip_address& addr) const noexcept {m_addr = addr;}
 
 			const ip_address& addr() const noexcept {return m_addr;}
 			const data_packet& data() const noexcept {return m_data;}
