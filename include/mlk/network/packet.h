@@ -35,14 +35,15 @@ namespace mlk
 			size_t size() const noexcept {return m_data.size();}
 
 			void clear() noexcept {m_data.clear();}
-			void add(const data_packet& data)
+			const packet& add(const data_packet& data)
 			{
 				if(data.size() <= 0)
 				{
 					lerr()["mlk::ntw::packet::add"] << "data with invalid size passed";
-					return;
+					return *this;
 				}
 				m_data.insert(m_data.end(), data.begin(), data.end());
+				return *this;
 			}
 		};
 	}
