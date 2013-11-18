@@ -8,6 +8,7 @@
 
 
 #include "enum_utl.h"
+#include "random_utl.h"
 #include "stl_string_utl.h"
 #include "type_utl.h"
 
