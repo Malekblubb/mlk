@@ -54,6 +54,7 @@ namespace mlk
 
 			friend std::ostream& operator<<(std::ostream&, const ip_address&);
 			friend bool operator==(const ip_address&, const ip_address&);
+			friend bool operator!=(const ip_address&, const ip_address&);
 		};
 
 		template<>
@@ -68,6 +69,9 @@ namespace mlk
 
 		inline bool operator==(const ip_address& lhs, const ip_address& rhs)
 		{return ((lhs.m_resolved_ip == rhs.m_resolved_ip) && (lhs.m_port == rhs.m_port));}
+
+		inline bool operator!=(const ip_address& lhs, const ip_address& rhs)
+		{return !operator ==(lhs, rhs);}
 	}
 }
 
