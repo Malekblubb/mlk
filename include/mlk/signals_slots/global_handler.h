@@ -29,7 +29,6 @@ namespace mlk
 			// every slot of "signal" is called, when "signal" is called
 			std::map<signal, std::vector<std::shared_ptr<basic_slot>>> m_content;
 			int m_current_uid{1};
-			std::vector<int> m_linked_uids;
 
 		public:
 			static global_signal_handler& instance()
