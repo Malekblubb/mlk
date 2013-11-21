@@ -52,6 +52,12 @@ namespace mlk
 				return stl_string::to_int<T>(m_port);
 			}
 
+			void reset() noexcept
+			{
+				m_port = "0";
+				m_resolved_ip = "0.0.0.0";
+			}
+
 			friend std::ostream& operator<<(std::ostream&, const ip_address&);
 			friend bool operator==(const ip_address&, const ip_address&);
 			friend bool operator!=(const ip_address&, const ip_address&);
