@@ -44,6 +44,7 @@ namespace mlk
 				socklen_t addr_size{sizeof sock_addr};
 				ssize_t got{recvfrom(m_sock, &data[0], max_len, 0, reinterpret_cast<sockaddr*>(&sock_addr), &addr_size)};
 
+				data.shrink_to_fit();
 				from = ip_address{internal::merge_address(internal::from_sockaddr_in(sock_addr))};
 				return got;
 			}
