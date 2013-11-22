@@ -13,6 +13,11 @@
 #include <vector>
 
 
+// inserts elements of 'from' to the end of 'result'
+template<typename T>
+void operator+=(std::vector<T>& result, const std::vector<T>& from)
+{result.insert(result.end(), from.begin(), from.end());}
+
 namespace mlk
 {
 	namespace cnt
