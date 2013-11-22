@@ -59,7 +59,8 @@ namespace mlk
 					return;
 
 				for(auto& a : m_content[si])
-					std::static_pointer_cast<slot<E...>>(a)->call_funcs(args...);
+					if(a->num_args() == sizeof...(E))
+						std::static_pointer_cast<slot<E...>>(a)->call_funcs(args...);
 			}
 		};
 	}
