@@ -13,13 +13,10 @@
 
 namespace mlk
 {
-
-	namespace internal
-	{class global_signal_handler;}
-
-
 	namespace internal
 	{
+		class global_signal_handler;
+
 		class basic_slot
 		{
 		public:
@@ -28,40 +25,36 @@ namespace mlk
 	}
 
 
-	template<typename T = void()>
+	template<typename... T>
 	class slot : public internal::basic_slot
 	{
-		std::vector<std::function<T>> m_funcs;
+		std::vector<std::function<void(T...)>> m_funcs;
 		friend class internal::global_signal_handler;
 
 	public:
 		slot() = default;
 
-		template<typename E>
-		slot(E func) :
+		slot(const std::function<void(T...)>& func) :
 			m_funcs{func}
 		{ }
 
 		~slot() = default;
 
-		template<typename E>
-		void add_func(E func) // non const ref for lambda support
+		void add_func(const std::function<void(T...)>& func)
 		{m_funcs.push_back(func);}
 
-		template<typename E>
-		void operator+=(E func)
+		void operator+=(const std::function<void(T...)>& func)
 		{this->add_func(func);}
 
 
 	private:
 		bool has_funcs() const noexcept {return !m_funcs.empty();}
 
-		template<typename... M>
-		void call_funcs(M... arg)
+		void call_funcs(T... args)
 		{
 			if(has_funcs())
 				for(auto& a : m_funcs)
-					a(arg...);
+					a(args...);
 		}
 	};
 }
