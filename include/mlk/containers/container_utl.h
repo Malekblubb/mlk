@@ -72,6 +72,11 @@ namespace mlk
 		auto find_in(const T& value, const E& cnt)
 		-> decltype(std::find(cnt.begin(), cnt.end(), value))
 		{return std::find(cnt.begin(), cnt.end(), value);}
+
+		template<typename T, typename E>
+		auto find_in_if(const T& pred, const E& cnt)
+		-> decltype(std::find_if(cnt.begin(), cnt.end(), pred))
+		{return std::find_if(cnt.begin(), cnt.end(), pred);}
 	}
 }
 
