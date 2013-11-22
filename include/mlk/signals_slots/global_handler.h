@@ -10,13 +10,8 @@
 #include "signal.h"
 #include "slot.h"
 
-#include <mlk/containers/container_utl.h>
-
-#include <algorithm>
-#include <iostream>
 #include <map>
 #include <memory>
-#include <vector>
 
 
 namespace mlk
