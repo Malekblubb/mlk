@@ -176,7 +176,6 @@ namespace mlk
 		};
 	}
 
-	// standard options (can be changed while runtime)
 	template<typename... T>
 	logger::log_base<logger::log_level::normal>& lout(T... var)
 	{return logger::log_base<logger::log_level::normal>::instance()(var...);}
