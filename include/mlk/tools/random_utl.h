@@ -34,5 +34,4 @@ namespace mlk
 }
 
 
-
 #endif // MLK_TOOLS_RANDOM_UTL_H

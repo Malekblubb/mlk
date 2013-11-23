@@ -62,13 +62,10 @@ namespace mlk
 			}
 
 			const data_packet& get() const noexcept override
-			{
-				return m_work_data;
-			}
+			{return m_work_data;}
 		};
 	}
 }
-
 
 
 #endif // MLK_COMPRESSION_ZLIB_MODE_H

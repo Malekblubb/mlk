@@ -29,7 +29,6 @@ namespace mlk
 			auto tp = std::chrono::high_resolution_clock::now();
 			auto tt = std::chrono::system_clock::to_time_t(tp);
 			std::string time{std::ctime(&tt)};
-
 			return time.substr(0, time.length() - 1);
 		}
 

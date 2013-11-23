@@ -22,9 +22,7 @@ namespace mlk
 
 			public:
 				void set_error_container(const cnt::error_container& cnt)
-				{
-					m_cnt = cnt;
-				}
+				{m_cnt = cnt;}
 
 				template<typename T>
 				void try_call(const T& error_code) const noexcept
@@ -46,9 +44,7 @@ namespace mlk
 
 				template<typename T>
 				void link_error(const T& error_code, const std::string& msg, const std::function<void()>& fnc)
-				{
-					m_cnt.link(error_code, msg, fnc);
-				}
+				{m_cnt.link(error_code, msg, fnc);}
 			};
 		}
 	}

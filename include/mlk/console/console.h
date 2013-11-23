@@ -30,9 +30,7 @@ namespace mlk
 		};
 
 		inline void reset_color()
-		{
-			std::cout << "\033[0m";
-		}
+		{std::cout << "\033[0m";}
 
 		inline void set_color(const console_color& color)
 		{

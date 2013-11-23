@@ -18,9 +18,7 @@ namespace mlk
 	namespace cmprs
 	{
 		enum class cmprs_mode : char
-		{
-			zlib = 0
-		};
+		{zlib = 0};
 
 		namespace internal
 		{

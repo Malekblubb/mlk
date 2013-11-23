@@ -23,10 +23,7 @@ namespace mlk
 	namespace fs
 	{
 		enum class fs_type : char
-		{
-			dir = 0,
-			file
-		};
+		{dir = 0, file};
 
 
 		template<fs_type type>

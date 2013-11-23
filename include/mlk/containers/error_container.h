@@ -24,7 +24,6 @@ namespace mlk
 			std::vector<std::shared_ptr<internal::error_type_base>> m_errors;
 
 		public:
-
 			template<typename T>
 			void link(const T& error_code, const std::string& msg, const std::function<void()>& fnc)
 			{
