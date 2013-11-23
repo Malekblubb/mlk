@@ -1,5 +1,8 @@
 #include <mlk/network/network.h>
 
+#include <iostream>
+
+
 int main()
 {
 	// create a udp socket
