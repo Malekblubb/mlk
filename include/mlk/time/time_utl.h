@@ -18,7 +18,7 @@ namespace mlk
 	namespace tm
 	{
 		template<typename T = std::chrono::microseconds>
-		llong time_stmp()
+		ullong time_stmp()
 		{
 			return std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() +
 					std::chrono::duration_cast<T>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
