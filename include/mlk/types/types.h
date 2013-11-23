@@ -14,6 +14,7 @@
 namespace mlk
 {
 	using llong = long long;
+	using ullong = unsigned llong;
 	using ulong = unsigned long;
 	using ushort = unsigned short;
 	using uchar = unsigned char;
