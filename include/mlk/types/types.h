@@ -13,14 +13,23 @@
 
 namespace mlk
 {
+	// ints
 	using llong = long long;
 	using ullong = unsigned llong;
 	using ulong = unsigned long;
 	using ushort = unsigned short;
 	using uchar = unsigned char;
+
+	// containers
 	using data_packet = std::vector<uchar>;
+
+	// time
 	using hrs_time_pnt = std::chrono::time_point<std::chrono::high_resolution_clock>;
 	using sys_time_pnt = std::chrono::time_point<std::chrono::system_clock>;
+	using seconds = std::chrono::seconds;
+	using milli_s = std::chrono::milliseconds;
+	using micro_s = std::chrono::microseconds;
+	using nano_s = std::chrono::nanoseconds;
 }
 
 
