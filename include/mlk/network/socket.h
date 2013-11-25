@@ -42,6 +42,7 @@ namespace mlk
 			{
 			protected:
 				int m_sock;
+				bool m_error{true};
 
 			public:
 				sock_base(int sock) :
@@ -59,6 +60,9 @@ namespace mlk
 
 				sock_error error_type() const noexcept
 				{
+					if(m_error)
+						return sock_error::error;
+
 					if((errno == EWOULDBLOCK) || (errno == EAGAIN))
 						return sock_error::again;
 
@@ -72,8 +76,8 @@ namespace mlk
 				{return error_type() != sock_error::ok;}
 
 			protected:
-				void reset_error() const noexcept
-				{errno = 0;}
+				void reset_error() noexcept
+				{errno = 0; m_error = false;}
 			};
 		}
 	}
