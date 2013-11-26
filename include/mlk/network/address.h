@@ -27,6 +27,9 @@ namespace mlk
 			std::string m_resolved_ip{"0.0.0.0"};
 
 		public:
+			// TODO: rework this class
+			// do more checking, 'http://, ...' remove etc.
+
 			ip_address() = default;
 
 			ip_address(const std::string& address, bool resolve = true)
@@ -34,6 +37,8 @@ namespace mlk
 				std::pair<std::string, std::string> p{internal::split_address(address)};
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
+
+				if(!m_resolved_ip.size()) this->reset();
 			}
 
 			template<typename T>
