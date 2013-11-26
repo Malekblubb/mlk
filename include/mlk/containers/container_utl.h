@@ -20,7 +20,7 @@ void operator+=(std::vector<T>& result, const std::vector<T>& from)
 
 namespace mlk
 {
-	namespace cnt
+	namespace cnt // TODO: do utils with iterators
 	{
 		template<typename T>
 		bool is_out_of_bounds(const std::vector<T>& vec, std::size_t index)
@@ -50,7 +50,7 @@ namespace mlk
 			if(is_out_of_bounds(source, to - 1))
 				throw std::out_of_range("mlk::cnt::cut_vec: out of bounds");
 
-			std::vector<T> new_vec((to - from) + 1);
+			std::vector<T> new_vec(to - from);
 			std::copy(source.begin() + from, source.begin() + to, new_vec.begin());
 			return new_vec;
 		}
