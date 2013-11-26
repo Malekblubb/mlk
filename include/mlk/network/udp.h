@@ -37,15 +37,17 @@ namespace mlk
 			ssize_t recv(ip_address& from, data_packet& data, size_t max_len) override
 			{
 				data.clear();
-				data.resize(max_len);
 				this->reset_error();
 
+				data_packet tmp(max_len);
 				sockaddr_in sock_addr{}; // TODO: clang dont supports this yet: {} ??
 				socklen_t addr_size{sizeof sock_addr};
-				ssize_t got{recvfrom(m_sock, &data[0], max_len, 0, reinterpret_cast<sockaddr*>(&sock_addr), &addr_size)};
+				ssize_t got{recvfrom(m_sock, tmp.data(), max_len, 0, reinterpret_cast<sockaddr*>(&sock_addr), &addr_size)};
 				m_error = (got < 0);
 
-				data.shrink_to_fit();
+				if(!this->error())
+					data.insert(data.begin(), tmp.begin(), tmp.begin() + got);
+
 				from = ip_address{internal::merge_address(internal::from_sockaddr_in(sock_addr))};
 				return got;
 			}
