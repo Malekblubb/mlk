@@ -24,9 +24,7 @@ namespace mlk
 	{
 		template<typename T>
 		bool is_out_of_bounds(const std::vector<T>& vec, std::size_t index)
-		{
-			return index >= vec.size();
-		}
+		{return index >= vec.size();}
 
 		// compare lhs and rhs, starting from 'from' end by 'to'
 		template<typename T>
