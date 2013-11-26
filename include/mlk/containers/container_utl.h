@@ -64,10 +64,10 @@ namespace mlk
 				return -1;
 
 			int result{0};
-			result |= (vec.data()[begin]);
-			result |= (vec.data()[begin + 1] << 8);
-			result |= (vec.data()[begin + 2] << 16);
-			result |= (vec.data()[begin + 3] << 24);
+			result |= (vec[begin]);
+			result |= (vec[begin + 1] << 8);
+			result |= (vec[begin + 2] << 16);
+			result |= (vec[begin + 3] << 24);
 			return result;
 		}
 
