@@ -45,7 +45,6 @@ namespace mlk
 						std::is_same<T, uchar>()};
 			constexpr operator bool() const {return m_value;}
 			constexpr bool operator()() const {return m_value;}
-
 		};
 	}
 }

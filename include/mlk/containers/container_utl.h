@@ -7,6 +7,8 @@
 #define MLK_CONTAINERS_CONTAINER_UTL_H
 
 
+#include <mlk/tools/type_utl.h>
+
 #include <algorithm>
 #include <cstdint>
 #include <stdexcept>
@@ -56,8 +58,10 @@ namespace mlk
 		// creates an int out of 4 chars
 		// works on little endian
 		template<typename T>
-		int make_int(int begin, const std::vector<T>& vec) // TODO: add checking for char types
+		int make_int(int begin, const std::vector<T>& vec)
 		{
+			static_assert(type_utl::is_char<T>(), "only char types allowed");
+
 			if(is_out_of_bounds(vec, begin + 3))
 				return -1;
 
