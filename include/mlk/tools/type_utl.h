@@ -7,6 +7,8 @@
 #define MLK_TOOLS_TYPE_UTL_H
 
 
+#include <mlk/types/types.h>
+
 #include <string>
 #include <type_traits>
 
@@ -36,6 +38,16 @@ namespace mlk
 						std::is_integral<T>()};
 			constexpr operator bool() const {return m_value;}
 			constexpr bool operator()() const {return m_value;}
+		};
+
+		template<typename T>
+		struct is_char
+		{
+			static constexpr bool m_value{std::is_same<T, char>() ||
+						std::is_same<T, uchar>()};
+			constexpr operator bool() const {return m_value;}
+			constexpr bool operator()() const {return m_value;}
+
 		};
 	}
 }
