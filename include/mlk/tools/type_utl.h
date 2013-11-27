@@ -19,9 +19,8 @@ namespace mlk
 	{
 		// checks if given type "T" is from type string
 		template<typename T>
-		class is_str
+		struct is_str
 		{
-		public:
 			static constexpr bool m_value{std::is_same<T, std::string>() ||
 						std::is_same<typename std::decay<T>::type, const char*>() ||
 						std::is_same<typename std::decay<T>::type, char*>()};
@@ -31,9 +30,8 @@ namespace mlk
 
 		// checks if given type "T" is from type string or int
 		template<typename T>
-		class is_str_or_int
+		struct is_str_or_int
 		{
-		public:
 			static constexpr bool m_value{is_str<T>::m_value ||
 						std::is_integral<T>()};
 			constexpr operator bool() const {return m_value;}
