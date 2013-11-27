@@ -46,6 +46,16 @@ namespace mlk
 			constexpr operator bool() const {return m_value;}
 			constexpr bool operator()() const {return m_value;}
 		};
+
+		template<typename T, typename E>
+		T to_type(const E& from)
+		{
+			std::stringstream strm;
+			T result;
+			strm << from;
+			strm >> result;
+			return result;
+		}
 	}
 }
 
