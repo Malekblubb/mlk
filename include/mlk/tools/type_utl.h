@@ -56,6 +56,10 @@ namespace mlk
 			strm >> result;
 			return result;
 		}
+
+		template<>
+		inline std::string to_type<std::string, std::string>(const std::string& from)
+		{return from;}
 	}
 }
 
