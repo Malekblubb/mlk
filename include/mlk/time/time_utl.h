@@ -41,6 +41,11 @@ namespace mlk
 		-> decltype(std::chrono::duration_cast<T>(end-start).count())
 		{return std::chrono::duration_cast<T>(end-start).count();}
 
+		template<typename T, typename E = std::milli, typename M>
+		auto duration_as(const std::chrono::time_point<M>& start, const std::chrono::time_point<M>& end)
+		-> decltype(duration<std::chrono::duration<T, E>>(start, end))
+		{return duration<std::chrono::duration<T, E>>(start, end);}
+
 		// returns true when the duration of 'start_pnt' and now is >= 'max'
 		template<typename T = std::chrono::milliseconds>
 		inline bool timed_out(decltype(std::chrono::high_resolution_clock::now()) start_pnt, llong max)
