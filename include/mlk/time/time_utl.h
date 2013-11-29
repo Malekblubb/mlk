@@ -17,10 +17,10 @@ namespace mlk
 {
 	namespace tm
 	{
-		template<typename T = std::chrono::microseconds>
+		template<typename T = mlk::micro_s>
 		ullong time_stmp()
 		{
-			return std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() +
+			return std::chrono::duration_cast<mlk::seconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() +
 					std::chrono::duration_cast<T>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 		}
 
@@ -36,7 +36,7 @@ namespace mlk
 		-> decltype(std::chrono::high_resolution_clock::now())
 		{return std::chrono::high_resolution_clock::now();}
 
-		template<typename T = std::chrono::milliseconds, typename E>
+		template<typename T = mlk::milli_s, typename E>
 		auto duration(const std::chrono::time_point<E>& start, const std::chrono::time_point<E>& end)
 		-> decltype(std::chrono::duration_cast<T>(end-start).count())
 		{return std::chrono::duration_cast<T>(end-start).count();}
@@ -47,7 +47,7 @@ namespace mlk
 		{return duration<std::chrono::duration<T, E>>(start, end);}
 
 		// returns true when the duration of 'start_pnt' and now is >= 'max'
-		template<typename T = std::chrono::milliseconds>
+		template<typename T = mlk::milli_s>
 		inline bool timed_out(decltype(std::chrono::high_resolution_clock::now()) start_pnt, llong max)
 		{return duration<T>(start_pnt, time_pnt()) >= max;}
 	}
