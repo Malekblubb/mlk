@@ -25,6 +25,7 @@ namespace mlk
 		{
 			std::string m_port{"0"};
 			std::string m_resolved_ip{"0.0.0.0"};
+			bool m_valid{false};
 
 		public:
 			// TODO: rework this class
@@ -38,7 +39,8 @@ namespace mlk
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 
-				if(!m_resolved_ip.size()) this->reset();
+				if(!m_resolved_ip.size() || m_port.size()) this->reset();
+				else m_valid = true;
 			}
 
 			template<typename T>
@@ -61,11 +63,15 @@ namespace mlk
 			{
 				m_port = "0";
 				m_resolved_ip = "0.0.0.0";
+				m_valid = false;
 			}
 
 			friend std::ostream& operator<<(std::ostream&, const ip_address&);
 			friend bool operator==(const ip_address&, const ip_address&);
 			friend bool operator!=(const ip_address&, const ip_address&);
+
+		private:
+
 		};
 
 		template<>
