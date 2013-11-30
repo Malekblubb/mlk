@@ -28,20 +28,21 @@ namespace mlk
 			bool m_valid{false};
 
 		public:
-			// TODO: rework this class
-			// do more checking, 'http://, ...' remove etc.
-
 			ip_address() = default;
 
 			ip_address(const std::string& address, bool resolve = true)
 			{
-				auto p(internal::split_address(address));
+				if((stl_string::count_of(':', address) != 1) || stl_string::count_of('.', address) < 1)
+				{this->reset(); return;}
+
+				auto p(internal::split_address(address)); // split address and port
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 
-				if(!m_resolved_ip.size() || m_port.size()) this->reset();
+				if(!m_resolved_ip.size() || !m_port.size()) this->reset();
 				else m_valid = true;
 			}
+
 
 			template<typename T>
 			ip_address(const std::string& address, const T& port, bool resolve = true) :
@@ -59,6 +60,9 @@ namespace mlk
 				return stl_string::to_int<T>(m_port);
 			}
 
+			bool valid() const noexcept
+			{return m_valid;}
+
 			void reset() noexcept
 			{
 				m_port = "0";
@@ -69,9 +73,6 @@ namespace mlk
 			friend std::ostream& operator<<(std::ostream&, const ip_address&);
 			friend bool operator==(const ip_address&, const ip_address&);
 			friend bool operator!=(const ip_address&, const ip_address&);
-
-		private:
-
 		};
 
 		template<>
