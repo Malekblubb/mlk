@@ -35,7 +35,7 @@ namespace mlk
 
 			ip_address(const std::string& address, bool resolve = true)
 			{
-				std::pair<std::string, std::string> p{internal::split_address(address)};
+				auto p(internal::split_address(address));
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 
