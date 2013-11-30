@@ -32,7 +32,7 @@ namespace mlk
 
 			ip_address(const std::string& address, bool resolve = true)
 			{
-				if((stl_string::count_of(':', address) != 1) || stl_string::count_of('.', address) < 1)
+				if((stl_string::count_of(':', address) != 1) || (stl_string::count_of('.', address) < 1))
 				{this->reset(); return;}
 
 				auto p(internal::split_address(address)); // split address and port
@@ -43,11 +43,11 @@ namespace mlk
 				else m_valid = true;
 			}
 
-
 			template<typename T>
 			ip_address(const std::string& address, const T& port, bool resolve = true) :
-				ip_address{internal::merge_address(std::make_pair(address,
-																  stl_string::is_numeric(stl_string::to_string(port)) ? stl_string::to_string(port) : "0")), resolve}
+				ip_address{internal::merge_address(
+							   std::make_pair(address, stl_string::is_numeric(stl_string::to_string(port)) ? stl_string::to_string(port) : "0")),
+						   resolve}
 			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
 
 
@@ -60,7 +60,7 @@ namespace mlk
 				return stl_string::to_int<T>(m_port);
 			}
 
-			bool valid() const noexcept
+			bool is_valid() const noexcept
 			{return m_valid;}
 
 			void reset() noexcept
