@@ -59,6 +59,12 @@ namespace mlk
 					(std::find_if(str.begin(), str.end(), [](char find){return !std::isdigit(find);}) == str.end());
 		}
 
+		inline bool contains_number(const std::string& str)
+		{
+			return !str.empty() &&
+					(std::find_if(str.begin(), str.end(), [](char find){return std::isdigit(find);}) != str.end());
+		}
+
 		inline std::size_t count_of(char find, const std::string& str)
 		{return std::count(str.begin(), str.end(), find);}
 
@@ -77,6 +83,18 @@ namespace mlk
 				++num_erased;
 			}
 			return num_erased;
+		}
+
+		inline int erase_all(const std::string& erase, std::string& str)
+		{
+			int num_erased{0};
+			auto pos(str.find(erase));
+			while(pos != std::string::npos)
+			{
+				str.erase(str.begin() + pos, str.begin() + (pos + erase.size()));
+				pos = str.find(erase);
+				++num_erased;
+			}
 		}
 
 		// erases first found character 'erase' in 'str'
