@@ -84,6 +84,17 @@ namespace mlk
 		auto find_in_if(const T& pred, const E& cnt)
 		-> decltype(std::find_if(cnt.begin(), cnt.end(), pred))
 		{return std::find_if(cnt.begin(), cnt.end(), pred);}
+
+		// return true if at least one element of 'find_one'
+		// is found in 'in'
+		template<typename T, typename E>
+		bool match_one(const T& find_one, const E& in)
+		{
+			for(auto& a : find_one)
+				if(std::find(in.begin(), in.end(), a) != in.end())
+					return true;
+			return false;
+		}
 	}
 }
 
