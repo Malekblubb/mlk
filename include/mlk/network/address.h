@@ -39,7 +39,7 @@ namespace mlk
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 
-				if(!m_resolved_ip.size() || !m_port.size()) this->reset();
+				if(!m_resolved_ip.size() || !m_port.size() || !stl_string::is_numeric(m_port)) this->reset();
 				else m_valid = true;
 			}
 
