@@ -11,6 +11,7 @@
 
 #include <chrono>
 #include <string>
+#include <thread>
 
 
 namespace mlk
@@ -50,6 +51,10 @@ namespace mlk
 		template<typename T = mlk::milli_s>
 		inline bool timed_out(decltype(std::chrono::high_resolution_clock::now()) start_pnt, llong max)
 		{return duration<T>(start_pnt, time_pnt()) >= max;}
+
+		template<typename T = milli_s>
+		void sleep(llong time)
+		{std::this_thread::sleep_for(T(time));}
 	}
 }
 
