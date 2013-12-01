@@ -46,9 +46,10 @@ namespace mlk
 				m_error = (got < 0);
 
 				if(!this->error())
+				{
 					data.insert(data.begin(), tmp.begin(), tmp.begin() + got);
-
-				from = ip_address{internal::merge_address(internal::from_sockaddr_in(sock_addr))};
+					from = ip_address{internal::merge_address(internal::from_sockaddr_in(sock_addr))};
+				}
 				return got;
 			}
 		};
