@@ -112,6 +112,12 @@ namespace mlk
 			if(a != std::string::npos)
 				str.erase(a, 1);
 		}
+
+		// return true if 'str' contains 'char_str'
+		// false otherwise
+		template<typename T>
+		bool contains(const T& char_str, const std::string& str)
+		{return str.find(char_str) != std::string::npos;}
 	}
 }
 
