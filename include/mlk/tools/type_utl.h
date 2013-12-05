@@ -9,6 +9,7 @@
 
 #include <mlk/types/types.h>
 
+#include <sstream>
 #include <string>
 #include <type_traits>
 
