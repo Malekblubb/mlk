@@ -15,7 +15,7 @@ namespace mlk
 {
 	// ints
 	using llong = long long;
-	using ullong = unsigned llong;
+	using ullong = unsigned long long;
 	using ulong = unsigned long;
 	using ushort = unsigned short;
 	using uchar = unsigned char;
