@@ -95,6 +95,7 @@ namespace mlk
 				pos = str.find(erase);
 				++num_erased;
 			}
+			return num_erased;
 		}
 
 		// erases first found character 'erase' in 'str'
