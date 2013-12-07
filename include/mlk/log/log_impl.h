@@ -11,6 +11,7 @@
 
 #include <mlk/console/console.h>
 #include <mlk/signals_slots/signal.h>
+#include <mlk/time/time.h>
 #include <mlk/tools/enum_utl.h>
 #include <mlk/tools/stl_string_utl.h>
 
@@ -63,12 +64,16 @@ namespace mlk
 
 
 			template<typename T>
-			log_base& operator()(const T& val)
+			log_base& operator()(const T& val, bool add_timestamp = false)
 			{
 				console::reset_color();
 
 				std::ostringstream tmp;
-				tmp << "\n[" << val << "] ";
+				if(add_timestamp)
+					tmp << "\n[" << tm::time_str() << "]" <<
+						   "[" << val << "] ";
+				else
+					tmp << "\n[" << val << "] ";
 
 				this->brace_operator_impl(tmp.str());
 				return *this;
@@ -114,12 +119,16 @@ namespace mlk
 			}
 
 			template<typename T>
-			log_base& operator()(const T& val)
+			log_base& operator()(const T& val, bool add_timestamp = false)
 			{
 				console::set_color(console::console_color::white);
 
 				std::ostringstream tmp;
-				tmp << "\n[Debug in fnc: " << val << "] ";
+				if(add_timestamp)
+					tmp << "\n[" << tm::time_str() << "]" <<
+						   "[Debug in fnc: " << val << "] ";
+				else
+					tmp << "\n[Debug in fnc: " << val << "] ";
 
 				this->brace_operator_impl(tmp.str());
 				return *this;
@@ -143,7 +152,7 @@ namespace mlk
 			}
 
 			template<typename T>
-			log_base& operator()(const T& error_code)
+			log_base& operator()(const T& error_code, bool add_timestamp)
 			{
 				static_assert(std::is_enum<T>::value ||
 							  std::is_integral<T>::value, "enum or integral type required");
@@ -151,7 +160,11 @@ namespace mlk
 				console::set_color(console::console_color::red);
 
 				std::ostringstream tmp;
-				tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
+				if(add_timestamp)
+					tmp << "\n[" << tm::time_str() << "]" <<
+						   "[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
+				else
+					tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
 
 				this->brace_operator_impl(tmp.str());
 				this->try_call(error_code); // call error function if it is available
@@ -190,22 +203,22 @@ namespace mlk
 
 
 	template<typename T = logger::log_base<mlk::logger::log_level::normal>>
-	T& lout_i()
+										   T& lout_i()
 	{return T::instance();}
 
-	template<typename T = logger::log_base<mlk::logger::log_level::debug>>
-	T& ldbg_i()
+										   template<typename T = logger::log_base<mlk::logger::log_level::debug>>
+																				  T& ldbg_i()
 	{return T::instance();}
 
-	template<typename T = logger::log_base<mlk::logger::log_level::internal_error>>
-	T& lerr_i()
+																				  template<typename T = logger::log_base<mlk::logger::log_level::internal_error>>
+																														 T& lerr_i()
 	{return T::instance();}
 
 
-	#ifndef MLK_DBG
-	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
-	#endif
+																													 #ifndef MLK_DBG
+																													 #define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
+																													 #endif
 }
 
 
-#endif // MLK_LOG_LOG_IMPL_H
+																													 #endif // MLK_LOG_LOG_IMPL_H
