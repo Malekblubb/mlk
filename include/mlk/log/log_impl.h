@@ -152,7 +152,7 @@ namespace mlk
 			}
 
 			template<typename T>
-			log_base& operator()(const T& error_code, bool add_timestamp)
+			log_base& operator()(const T& error_code, bool add_timestamp = false)
 			{
 				static_assert(std::is_enum<T>::value ||
 							  std::is_integral<T>::value, "enum or integral type required");
