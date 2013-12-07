@@ -24,9 +24,6 @@ namespace mlk
 			inline auto split_address(const std::string& addrStr)
 			-> std::pair<std::string, std::string>
 			{
-				if(addrStr.find(':') == std::string::npos)
-					return std::make_pair("", "");
-
 				uint64_t colonPos{addrStr.find(':')};
 				return std::make_pair(addrStr.substr(0, colonPos),
 									  addrStr.substr(colonPos + 1, addrStr.length() - colonPos - 1));
