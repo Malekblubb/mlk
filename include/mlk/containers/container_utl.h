@@ -95,6 +95,12 @@ namespace mlk
 					return true;
 			return false;
 		}
+
+		// appends elements of 'app'
+		// to 'to'
+		template<typename T, typename E>
+		void append(const T& app, E& to)
+		{std::copy(app.begin(), app.end(), std::back_inserter<E>(to));}
 	}
 }
 
