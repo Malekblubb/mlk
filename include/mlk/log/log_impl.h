@@ -203,22 +203,22 @@ namespace mlk
 
 
 	template<typename T = logger::log_base<mlk::logger::log_level::normal>>
-										   T& lout_i()
+	T& lout_i()
 	{return T::instance();}
 
-										   template<typename T = logger::log_base<mlk::logger::log_level::debug>>
-																				  T& ldbg_i()
+	template<typename T = logger::log_base<mlk::logger::log_level::debug>>
+	T& ldbg_i()
 	{return T::instance();}
 
-																				  template<typename T = logger::log_base<mlk::logger::log_level::internal_error>>
-																														 T& lerr_i()
+	template<typename T = logger::log_base<mlk::logger::log_level::internal_error>>
+	T& lerr_i()
 	{return T::instance();}
 
 
-																													 #ifndef MLK_DBG
-																													 #define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
-																													 #endif
+	#ifndef MLK_DBG
+	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
+	#endif
 }
 
 
-																													 #endif // MLK_LOG_LOG_IMPL_H
+#endif // MLK_LOG_LOG_IMPL_H
