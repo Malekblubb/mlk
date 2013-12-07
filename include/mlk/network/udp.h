@@ -37,6 +37,7 @@ namespace mlk
 			ssize_t recv(ip_address& from, data_packet& data, size_t max_len) override
 			{
 				data.clear();
+				from.reset();
 				this->reset_error();
 
 				data_packet tmp(max_len);
