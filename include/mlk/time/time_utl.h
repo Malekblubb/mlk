@@ -37,6 +37,10 @@ namespace mlk
 		-> decltype(std::chrono::high_resolution_clock::now())
 		{return std::chrono::high_resolution_clock::now();}
 
+		inline auto sys_time_pnt()
+		-> decltype(std::chrono::system_clock::now())
+		{return std::chrono::system_clock::now();}
+
 		template<typename T = mlk::milli_s, typename E>
 		auto duration(const std::chrono::time_point<E>& start, const std::chrono::time_point<E>& end)
 		-> decltype(std::chrono::duration_cast<T>(end-start).count())
