@@ -10,6 +10,7 @@
 #include "address.h"
 
 #include <mlk/log/log.h>
+#include <mlk/tools/type_utl.h>
 #include <mlk/types/types.h>
 
 #include <vector>
@@ -49,6 +50,15 @@ namespace mlk
 					return *this;
 				}
 				m_data.insert(m_data.end(), data.begin(), data.end());
+				return *this;
+			}
+
+			template<typename T>
+			const packet& append(const T& app)
+			{
+				static_assert(std::is_same<T, mlk::data_packet>() ||
+							  type_utl::is_str<T>(), "string or mlk::data_packet required");
+				cnt::append(app, m_data);
 				return *this;
 			}
 		};
