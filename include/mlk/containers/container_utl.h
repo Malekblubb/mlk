@@ -119,6 +119,12 @@ namespace mlk
 			[&](const T& t)
 			{return (t == value) && (--work_count < count - num_not);}), vec.end());
 		}
+
+		// returns true if element 'value' exists
+		// multiple times in 'vec'
+		template<typename T>
+		bool exists_multiple(const T& value, const std::vector<T>& vec)
+		{return cnt::count_of(value, vec) > 1;}
 	}
 }
 
