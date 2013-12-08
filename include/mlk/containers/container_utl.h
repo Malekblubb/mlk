@@ -113,7 +113,7 @@ namespace mlk
 		template<typename T>
 		void remove_but(int num_not, const T& value, std::vector<T>& vec)
 		{
-			auto work_count(mlk::cnt::count_of(value, vec));
+			auto work_count(count_of(value, vec));
 			auto count(work_count);
 			vec.erase(std::remove_if(vec.begin(), vec.end(),
 			[&](const T& t)
@@ -124,7 +124,7 @@ namespace mlk
 		// multiple times in 'vec'
 		template<typename T>
 		bool exists_multiple(const T& value, const std::vector<T>& vec)
-		{return cnt::count_of(value, vec) > 1;}
+		{return count_of(value, vec) > 1;}
 
 		// removes all elements that exists
 		// multiple times in 'vec'
