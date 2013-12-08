@@ -1,4 +1,4 @@
-//
+﻿//
 // Copyright (c) 2013 Christoph Malek
 // See LICENSE for more information.
 //
@@ -25,6 +25,7 @@ namespace mlk
 		{
 			std::string m_port{"0"};
 			std::string m_resolved_ip{"0.0.0.0"};
+			std::string m_fallback_ip_port{"0.0.0.0:0"};
 			bool m_valid{false};
 
 		public:
@@ -39,7 +40,7 @@ namespace mlk
 				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
 				m_port = p.second;
 
-				if(!m_resolved_ip.size() || !m_port.size() || !stl_string::is_numeric(m_port)) this->reset();
+				if(!m_resolved_ip.size() || !m_port.size() || !stl_string::is_numeric(m_port)) this->invalidate(p.first);
 				else m_valid = true;
 			}
 
@@ -73,6 +74,13 @@ namespace mlk
 			friend std::ostream& operator<<(std::ostream&, const ip_address&);
 			friend bool operator==(const ip_address&, const ip_address&);
 			friend bool operator!=(const ip_address&, const ip_address&);
+
+		private:
+			void invalidate(const std::string& inv_address) noexcept
+			{
+				m_fallback_ip_port = inv_address + ":" + m_port;
+				this->reset();
+			}
 		};
 
 		template<>
@@ -81,7 +89,10 @@ namespace mlk
 
 		inline std::ostream& operator<<(std::ostream& os, const ip_address& address)
 		{
-			os << address.m_resolved_ip << ":" << address.m_port;
+			if(address.is_valid())
+				os << address.m_resolved_ip << ":" << address.m_port;
+			else
+				os << address.m_fallback_ip_port;
 			return os;
 		}
 
