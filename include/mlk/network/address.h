@@ -61,6 +61,13 @@ namespace mlk
 				return stl_string::to_int<T>(m_port);
 			}
 
+			std::string to_string() const noexcept
+			{
+				if(!this->is_valid())
+					return m_fallback_ip_port;
+				return m_resolved_ip + ":" + m_port;
+			}
+
 			bool is_valid() const noexcept
 			{return m_valid;}
 
