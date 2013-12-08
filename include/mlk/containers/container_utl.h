@@ -85,7 +85,7 @@ namespace mlk
 		-> decltype(std::find_if(cnt.begin(), cnt.end(), pred))
 		{return std::find_if(cnt.begin(), cnt.end(), pred);}
 
-		// return true if at least one element of 'find_one'
+		// returns true if at least one element of 'find_one'
 		// is found in 'in'
 		template<typename T, typename E>
 		bool match_one(const T& find_one, const E& in)
@@ -101,6 +101,12 @@ namespace mlk
 		template<typename T, typename E>
 		void append(const T& app, E& to)
 		{std::copy(app.begin(), app.end(), std::back_inserter<E>(to));}
+
+		// returns the count of 'value' in 'in'
+		template<typename T>
+		auto count_of(const T& value, const std::vector<T>& in)
+		-> decltype(std::count(in.begin(), in.end(), value))
+		{return std::count(in.begin(), in.end(), value);}
 	}
 }
 
