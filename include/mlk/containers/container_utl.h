@@ -125,6 +125,16 @@ namespace mlk
 		template<typename T>
 		bool exists_multiple(const T& value, const std::vector<T>& vec)
 		{return cnt::count_of(value, vec) > 1;}
+
+		// removes all elements that exists
+		// multiple times in 'vec'
+		template<typename T>
+		void remove_multiple_but_one(std::vector<T>& vec)
+		{
+			for(auto& a : vec)
+				if(exists_multiple(a, vec))
+					remove_but(1, a, vec);
+		}
 	}
 }
 
