@@ -33,7 +33,7 @@ namespace mlk
 		template<typename T>
 		struct is_str_or_int
 		{
-			static constexpr bool m_value{is_str<T>::m_value ||
+			static constexpr bool m_value{is_str<T>() ||
 						std::is_integral<T>()};
 			constexpr operator bool() const {return m_value;}
 			constexpr bool operator()() const {return m_value;}

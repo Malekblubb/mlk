@@ -32,7 +32,7 @@ namespace mlk
 		template<typename T = int>
 		T to_int(const std::string& val)
 		{
-			static_assert(std::is_integral<T>::value, "only integral types supported");
+			static_assert(std::is_integral<T>(), "only integral types supported");
 
 			std::istringstream stre{val};
 			T ret;
@@ -43,7 +43,7 @@ namespace mlk
 		template<typename T = int>
 		T to_hex_int(const std::string& val)
 		{
-			static_assert(std::is_integral<T>::value, "only integral types supported");
+			static_assert(std::is_integral<T>(), "only integral types supported");
 
 			std::istringstream stre{val};
 			T ret;
