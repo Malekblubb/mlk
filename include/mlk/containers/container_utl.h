@@ -91,7 +91,7 @@ namespace mlk
 		bool match_one(const T& find_one, const E& in)
 		{
 			for(auto& a : find_one)
-				if(std::find(in.begin(), in.end(), a) != in.end())
+				if(find_in(a, in) != in.end())
 					return true;
 			return false;
 		}
