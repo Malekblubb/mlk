@@ -107,6 +107,18 @@ namespace mlk
 		auto count_of(const T& value, const std::vector<T>& in)
 		-> decltype(std::count(in.begin(), in.end(), value))
 		{return std::count(in.begin(), in.end(), value);}
+
+		// removes all found elements 'value' in 'vec'
+		// but keeps 'num_not' elements
+		template<typename T>
+		void remove_but(int num_not, const T& value, std::vector<T>& vec)
+		{
+			auto work_count(mlk::cnt::count_of(value, vec));
+			auto count(work_count);
+			vec.erase(std::remove_if(vec.begin(), vec.end(),
+			[&](const T& t)
+			{return (t == value) && (--work_count < count - num_not);}), vec.end());
+		}
 	}
 }
 
