@@ -77,6 +77,9 @@ namespace mlk
 			bool reopen(std::ios::openmode modes)
 			{return this->open_io(modes);}
 
+			void set_pos_begin() noexcept
+			{m_stream.seekg(0);}
+
 			template<typename T>
 			int64_t write(const T& val)
 			{
