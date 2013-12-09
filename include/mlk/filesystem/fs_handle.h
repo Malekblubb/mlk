@@ -37,8 +37,11 @@ namespace mlk
 				fs_base{path}
 			{ }
 
-			bool exists() const noexcept override {return dir::exists(m_path);}
-			bool create() const noexcept override {return dir::create(m_path);}
+			bool exists() const noexcept override
+			{return dir::exists(m_path);}
+
+			bool create() const noexcept override
+			{return dir::create(m_path);}
 		};
 
 		template<>
@@ -57,8 +60,12 @@ namespace mlk
 					m_stream.close();
 			}
 
-			bool exists() const noexcept override {return file::exists(m_path);}
-			bool create() const noexcept override {return file::create(m_path);}
+			bool exists() const noexcept override
+			{return file::exists(m_path);}
+
+			bool create() const noexcept override
+			{return file::create(m_path);}
+
 			bool open_io(std::ios::openmode modes)
 			{
 				m_stream.close();

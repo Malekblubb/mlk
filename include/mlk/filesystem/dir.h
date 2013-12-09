@@ -26,9 +26,7 @@ namespace mlk
 			}
 
 			inline bool create(const std::string& path)
-			{
-				return mkdir(path.c_str(), 0755);
-			}
+			{return mkdir(path.c_str(), 0755);}
 		}
 	}
 }

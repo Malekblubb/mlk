@@ -26,7 +26,8 @@ namespace mlk
 					m_path{path}
 				{ }
 
-				const std::string& path() const noexcept {return m_path;}
+				const std::string& path() const noexcept
+				{return m_path;}
 
 				virtual bool exists() const noexcept = 0;
 				virtual bool create() const noexcept = 0;
