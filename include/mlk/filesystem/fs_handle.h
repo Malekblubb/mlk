@@ -59,7 +59,7 @@ namespace mlk
 
 			bool exists() const noexcept override {return file::exists(m_path);}
 			bool create() const noexcept override {return file::create(m_path);}
-			bool open_io(const std::ios::openmode& modes)
+			bool open_io(std::ios::openmode modes)
 			{
 				m_stream.close();
 				m_stream.open(m_path, modes);
