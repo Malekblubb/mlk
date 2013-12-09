@@ -67,6 +67,8 @@ namespace mlk
 				return m_stream.is_open();
 			}
 
+			bool reopen(std::ios::openmode modes)
+			{return this->open_io(modes);}
 
 			template<typename T>
 			int64_t write(const T& val)
