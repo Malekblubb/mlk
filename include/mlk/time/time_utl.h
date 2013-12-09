@@ -53,7 +53,7 @@ namespace mlk
 
 		// returns true when the duration of 'start_pnt' and now is >= 'max'
 		template<typename T = mlk::milli_s>
-		bool timed_out(decltype(std::chrono::high_resolution_clock::now()) start_pnt, llong max)
+		bool timed_out(const decltype((std::chrono::high_resolution_clock::now())) start_pnt, llong max)
 		{return duration<T>(start_pnt, time_pnt()) >= max;}
 
 		template<typename T = milli_s>
