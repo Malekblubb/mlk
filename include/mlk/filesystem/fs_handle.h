@@ -84,11 +84,7 @@ namespace mlk
 
 			std::size_t read_all(std::string& dest)
 			{
-				if(m_need_open)
-				{
-					lout("mlk::fs") << "can not read from closed stream. opening in mode 'std::ios::in'";
-					this->open_io(std::ios::in);
-				}
+				this->check_open();
 
 				int64_t was_pos{m_stream.tellg()};
 				std::string s;
@@ -101,6 +97,12 @@ namespace mlk
 				}
 				m_stream.seekg(was_pos);
 				return count;
+			}
+
+			bool read_line(std::string& line) noexcept
+			{
+				this->check_open();
+				return std::getline(m_stream, line) != nullptr;
 			}
 
 		private:
@@ -116,6 +118,15 @@ namespace mlk
 				int64_t end{m_stream.tellp()};
 
 				return end - start;
+			}
+
+			void check_open() noexcept
+			{
+				if(m_need_open)
+				{
+					lout("mlk::fs") << "can not read from closed stream. opening in mode 'std::ios::in'";
+					this->open_io(std::ios::in);
+				}
 			}
 		};
 	}
