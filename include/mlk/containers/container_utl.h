@@ -85,6 +85,15 @@ namespace mlk
 		-> decltype(std::find_if(cnt.begin(), cnt.end(), pred))
 		{return std::find_if(cnt.begin(), cnt.end(), pred);}
 
+		// checks if 'value' exists in 'cnt'
+		template<typename T, typename E>
+		bool exists(const T& value, const E& cnt)
+		{return find_in(value, cnt) != cnt.end();}
+
+		template<typename T, typename E>
+		bool exists_if(const T& pred, const E& cnt)
+		{return find_in_if(pred, cnt) != cnt.end();}
+
 		// returns true if at least one element of 'find_one'
 		// is found in 'in'
 		template<typename T, typename E>
