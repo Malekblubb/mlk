@@ -42,23 +42,26 @@ namespace mlk
 			bool m_save_history, m_write_on_exit;
 			std::string m_save_path;
 			std::ostringstream m_history;
+			std::ios::openmode m_mode;
 
 		public:
 			signal m_entry_added;
 
 			log_base() = default;
-			log_base(bool save_history, bool write_on_exit, const std::string& save_path);
+			log_base(bool save_history, bool write_on_exit, bool override_old_log, const std::string& save_path);
 			~log_base();
 
 			static log_base& instance()
 			{
-				static log_base instance{true, true, "./log.log"};
+				static log_base instance{true, true, true, "./log.log"};
 				return instance;
 			}
 
 			void set_save_path(const std::string& path) {m_save_path = path;}
 			void set_save_history(bool b) {m_save_history = b;}
 			void set_write_on_exit(bool b) {m_write_on_exit = b;}
+			void set_override_old_log(bool b)
+			{b ? m_mode = std::ios::out | std::ios::trunc : m_mode = std::ios::out | std::ios::app;}
 
 			std::string history() const noexcept {return m_history.str();}
 
@@ -108,13 +111,13 @@ namespace mlk
 		class log_base<log_level::debug> : public log_base<log_level::normal>
 		{
 		public:
-			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
-				log_base<log_level::normal>{save_history, write_on_exit, save_path}
+			log_base(bool save_history, bool write_on_exit, bool override_old_log, const std::string& save_path) :
+				log_base<log_level::normal>{save_history, write_on_exit, override_old_log, save_path}
 			{ }
 
 			static log_base& instance()
 			{
-				static log_base instance{false, false, "./debug.log"};
+				static log_base instance{false, false, true, "./debug.log"};
 				return instance;
 			}
 
@@ -141,13 +144,13 @@ namespace mlk
 				public internal::error_handler
 		{
 		public:
-			log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
-				log_base<log_level::normal>{save_history, write_on_exit, save_path}
+			log_base(bool save_history, bool write_on_exit, bool override_old_log, const std::string& save_path) :
+				log_base<log_level::normal>{save_history, write_on_exit, override_old_log, save_path}
 			{ }
 
 			static log_base& instance()
 			{
-				static log_base instance{true, false, "./error.log"};
+				static log_base instance{true, false, true, "./error.log"};
 				return instance;
 			}
 

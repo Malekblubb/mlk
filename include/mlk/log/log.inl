@@ -17,10 +17,11 @@ namespace mlk
 {
 	namespace logger
 	{
-		inline log_base<mlk::logger::log_level::normal>::log_base(bool save_history, bool write_on_exit, const std::string& save_path) :
+		inline log_base<mlk::logger::log_level::normal>::log_base(bool save_history, bool write_on_exit, bool override_old_log, const std::string& save_path) :
 			m_save_history{save_history},
 			m_write_on_exit{write_on_exit},
-			m_save_path{save_path}
+			m_save_path{save_path},
+			m_mode{override_old_log ? m_mode = std::ios::out | std::ios::trunc : m_mode = std::ios::out | std::ios::app}
 		{ }
 
 		inline log_base<mlk::logger::log_level::normal>::~log_base()
@@ -32,7 +33,7 @@ namespace mlk
 				if(!m_save_path.empty())
 				{
 					fs::fs_handle<fs::fs_type::file> file{m_save_path};
-					file.open_io(std::ios::out | std::ios::trunc);
+					file.open_io(m_mode);
 					file.write(m_history.str());
 				}
 			}
