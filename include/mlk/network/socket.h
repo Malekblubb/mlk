@@ -21,17 +21,10 @@ namespace mlk
 	namespace ntw
 	{
 		enum class sock_type : char
-		{
-			udp = 0,
-			tcp
-		};
+		{udp, tcp};
 
 		enum class sock_error : char
-		{
-			ok = 0,
-			again,
-			error
-		};
+		{ok, again, error};
 
 		template<sock_type type, bool blocking>
 		class sock;
