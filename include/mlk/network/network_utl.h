@@ -39,7 +39,7 @@ namespace mlk
 			inline int bind_sock(int sock, const std::string& ip, const uint16_t port)
 			{
 				sockaddr_in tmp{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
-				return bind(sock, (sockaddr*)&tmp, sizeof tmp);
+				return bind(sock, reinterpret_cast<sockaddr*>(&tmp), sizeof tmp);
 			}
 
 			inline void set_blocking(int sock)
