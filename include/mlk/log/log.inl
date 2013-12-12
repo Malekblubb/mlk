@@ -37,6 +37,8 @@ namespace mlk
 					file.write(m_history.str());
 				}
 			}
+
+			std::cout << std::endl;
 		}
 
 		inline void log_base<mlk::logger::log_level::normal>::entry_added(const std::string& last_entry)
