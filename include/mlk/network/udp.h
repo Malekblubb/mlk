@@ -27,14 +27,14 @@ namespace mlk
 				this->set_blocking(blocking);
 			}
 
-			ssize_t send(const ip_address& to, const data_packet& data) override
+			ssize_t send(const ip_address& to, const data_packet& data)
 			{
 				this->reset_error();
 				sockaddr_in sock_addr = internal::to_sockaddr_in(to.ip(), to.port<uint16_t>());
 				return sendto(m_sock, data.data(), data.size(), 0, reinterpret_cast<sockaddr*>(&sock_addr), sizeof sock_addr);
 			}
 
-			ssize_t recv(ip_address& from, data_packet& data, size_t max_len) override
+			ssize_t recv(ip_address& from, data_packet& data, size_t max_len)
 			{
 				data.clear();
 				from.reset();
