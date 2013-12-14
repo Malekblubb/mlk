@@ -42,22 +42,17 @@ namespace mlk
 			size_t size() const noexcept {return m_data.size();}
 
 			void clear() noexcept {m_data.clear();}
-			const packet& add(const data_packet& data)
-			{
-				if(data.size() <= 0)
-				{
-					lerr()["mlk::ntw::packet::add"] << "data with invalid size passed";
-					return *this;
-				}
-				m_data.insert(m_data.end(), data.begin(), data.end());
-				return *this;
-			}
 
 			template<typename T>
 			const packet& append(const T& app)
 			{
 				static_assert(std::is_same<T, mlk::data_packet>() ||
 							  type_utl::is_str<T>(), "string or mlk::data_packet required");
+				if(app.size() <= 0)
+				{
+					lerr()["mlk::ntw::packet::add"] << "data with invalid size passed";
+					return *this;
+				}
 				cnt::append(app, m_data);
 				return *this;
 			}
