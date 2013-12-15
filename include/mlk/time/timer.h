@@ -34,17 +34,17 @@ namespace mlk
 			{ }
 
 			~timer()
-			{
-				m_running = false;
-				if(m_run_future.valid())
-					m_run_future.get();
-			}
+			{this->stop();}
 
 			void run() noexcept
 			{m_start = time_pnt(); m_running = true; this->run_impl();}
 
 			void stop() noexcept
-			{m_running = false; m_run_future.get();}
+			{
+				m_running = false;
+				if(m_run_future.valid())
+					m_run_future.get();
+			}
 
 			auto elapsed_time() const noexcept
 			-> decltype(duration_to_now(m_start))
