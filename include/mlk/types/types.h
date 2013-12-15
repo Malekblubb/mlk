@@ -19,6 +19,7 @@ namespace mlk
 	using ulong = unsigned long;
 	using ushort = unsigned short;
 	using uchar = unsigned char;
+	using uint = unsigned int;
 
 	// containers
 	using data_packet = std::vector<uchar>;
