@@ -51,6 +51,13 @@ namespace mlk
 		-> decltype(duration<std::chrono::duration<T, E>>(start, end))
 		{return duration<std::chrono::duration<T, E>>(start, end);}
 
+		// return the duration to now
+		// starting by 'start'
+		template<typename T = milli_s, typename E>
+		auto duration_to_now(const std::chrono::time_point<E>& start)
+		-> decltype(duration<T>(start, time_pnt()))
+		{return duration<T>(start, time_pnt());}
+
 		// returns true when the duration of 'start_pnt' and now is >= 'max'
 		template<typename T = milli_s>
 		bool timed_out(const decltype((std::chrono::high_resolution_clock::now())) start_pnt, llong max)
