@@ -8,6 +8,7 @@
 
 
 #include "time_utl.h"
+#include "timer.h"
 
 
 #endif // MLK_TIME_TIME_H
