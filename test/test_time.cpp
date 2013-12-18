@@ -16,7 +16,7 @@ int main()
   
     auto start(mlk::tm::time_pnt());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000)); // do work
+    mlk::tm::sleep(5000); // do work
     
     auto end(mlk::tm::time_pnt());
 
