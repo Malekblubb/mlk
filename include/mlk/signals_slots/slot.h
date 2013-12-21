@@ -52,8 +52,12 @@ namespace mlk
 		int num_args() const noexcept override
 		{return m_num_args;}
 
+		void operator()(T... args)
+		{this->call_funcs(args...);}
+
 	private:
-		bool has_funcs() const noexcept {return !m_funcs.empty();}
+		bool has_funcs() const noexcept
+		{return !m_funcs.empty();}
 
 		void call_funcs(T... args)
 		{
