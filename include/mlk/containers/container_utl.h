@@ -117,6 +117,12 @@ namespace mlk
 		-> decltype(std::count(in.begin(), in.end(), value))
 		{return std::count(in.begin(), in.end(), value);}
 
+		// returns true if element 'value' exists
+		// multiple times in 'vec'
+		template<typename T>
+		bool exists_multiple(const T& value, const std::vector<T>& vec)
+		{return count_of(value, vec) > 1;}
+
 		// removes all found elements 'value' in 'vec'
 		// but keeps 'num_not' elements
 		template<typename T>
@@ -129,12 +135,6 @@ namespace mlk
 			{return (t == value) && (--work_count < count - num_not);}), vec.end());
 		}
 
-		// returns true if element 'value' exists
-		// multiple times in 'vec'
-		template<typename T>
-		bool exists_multiple(const T& value, const std::vector<T>& vec)
-		{return count_of(value, vec) > 1;}
-
 		// removes all elements that exists
 		// multiple times in 'vec'
 		template<typename T>
@@ -144,6 +144,12 @@ namespace mlk
 				if(exists_multiple(a, vec))
 					remove_but(1, a, vec);
 		}
+
+		// removes all elements matching 'value'
+		// in 'vec'
+		template<typename T>
+		void remove_all(const T& value, std::vector<T>& vec)
+		{remove_but(0, value, vec);}
 	}
 }
 
