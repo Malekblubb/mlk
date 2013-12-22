@@ -122,7 +122,7 @@ namespace mlk
 			{
 				if(m_need_open)
 				{
-					lout("mlk::fs") << "can not write into closed stream. opening in mode 'std::ios::out | std::ios::app'";
+					lout("mlk::fs::fs_handle<fs_type::file>") << "can not write into closed stream. opening in mode 'std::ios::out | std::ios::app'";
 					this->open_io(std::ios::out | std::ios::app);
 				}
 				int64_t start{m_stream.tellp()};
@@ -136,7 +136,7 @@ namespace mlk
 			{
 				if(m_need_open)
 				{
-					lout("mlk::fs") << "can not read from closed stream. opening in mode 'std::ios::in'";
+					lout("mlk::fs::fs_handle<fs_type::file>") << "can not read from closed stream. opening in mode 'std::ios::in'";
 					this->open_io(std::ios::in);
 				}
 			}

@@ -50,7 +50,7 @@ namespace mlk
 							  type_utl::is_str<T>(), "string or mlk::data_packet required");
 				if(app.size() <= 0)
 				{
-					lerr()["mlk::ntw::packet::add"] << "data with invalid size passed";
+					lerr()["mlk::ntw::packet"] << "data with invalid size passed";
 					return *this;
 				}
 				cnt::append(app, m_data);
