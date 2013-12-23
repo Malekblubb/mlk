@@ -20,9 +20,9 @@ namespace mlk
 		{return static_cast<enum_type>(enum_member);}
 
 		// returns a cast of (enum member) param "enumMember" to an int
-		template<typename enum_value>
+		template<typename int_type = int, typename enum_value>
 		constexpr int to_int(const enum_value &enum_member)
-		{return static_cast<int>(enum_member);}
+		{return static_cast<int_type>(enum_member);}
 	}
 }
 
