@@ -107,9 +107,11 @@ namespace mlk
 
 		// appends elements of 'app'
 		// to 'to'
+		// NOTICE: 2 different types:
+		// append std::string to mlk::data_packet works
 		template<typename T, typename E>
 		void append(const T& app, E& to)
-		{std::copy(app.begin(), app.end(), std::back_inserter<E>(to));}
+		{to.insert(to.end(), app.begin(), app.end());}
 
 		// returns the count of 'value' in 'in'
 		template<typename T>
