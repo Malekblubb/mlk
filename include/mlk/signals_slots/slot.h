@@ -61,7 +61,7 @@ namespace mlk
 
 		void call_funcs(T... args)
 		{
-			if(has_funcs())
+			if(this->has_funcs())
 				for(auto& a : m_funcs)
 					a(args...);
 		}
