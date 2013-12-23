@@ -22,19 +22,21 @@ namespace mlk
 		std::bitset<size> m_bitset;
 
 	public:
+		using type = T;
+
 		bitset() = default;
 
-		void operator|=(T value)
+		void operator|=(type value)
 		{m_bitset[enum_utl::to_int<std::size_t>(value)] = true;}
 
-		auto operator[](T test_value)
+		auto operator[](type test_value)
 		-> decltype(m_bitset[enum_utl::to_int<std::size_t>(test_value)])
 		{return m_bitset[enum_utl::to_int<std::size_t>(test_value)];}
 
-		bool operator&(T test_value) const
+		bool operator&(type test_value) const
 		{return m_bitset[enum_utl::to_int<std::size_t>(test_value)] == true;}
 
-		void remove(T value)
+		void remove(type value)
 		{m_bitset[enum_utl::to_int<std::size_t>(value)] = false;}
 	};
 }
