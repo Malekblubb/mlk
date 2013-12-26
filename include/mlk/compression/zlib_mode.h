@@ -26,7 +26,7 @@ namespace mlk
 				compressor_base{data}
 			{ }
 
-			int64_t pack() override
+			std::int64_t pack() override
 			{
 				uint64_t bound{compressBound(m_input_datasize)};
 				data_packet tmp(bound);
@@ -44,7 +44,7 @@ namespace mlk
 				return m_work_data.size();
 			}
 
-			int64_t unpack(uint64_t unpacked_size) override
+			std::int64_t unpack(std::uint64_t unpacked_size) override
 			{
 				data_packet tmp(unpacked_size);
 
