@@ -22,7 +22,7 @@ void operator+=(std::vector<T>& result, const std::vector<T>& from)
 
 namespace mlk
 {
-	namespace cnt // TODO: do utils with iterators
+	namespace cnt
 	{
 		template<typename T>
 		bool is_out_of_bounds(const std::vector<T>& vec, std::size_t index)
@@ -42,18 +42,12 @@ namespace mlk
 			return true;
 		}
 
-		// creates a new std::vector<T> from the given source [from, to)
+		// creates a new object with type 'T
+		// from/to the given iterators
 		template<typename T>
-		auto cut_vec(int from, int to, const std::vector<T>& source)
-		-> std::vector<T>
-		{
-			if(is_out_of_bounds(source, to - 1))
-				throw std::out_of_range("mlk::cnt::cut_vec: out of bounds");
-
-			std::vector<T> new_vec(to - from);
-			std::copy(source.begin() + from, source.begin() + to, new_vec.begin());
-			return new_vec;
-		}
+		T cut_vec(const typename T::const_iterator& from,
+				  const typename T::const_iterator& to)
+		{return T{from, to};}
 
 		// creates an int out of 4 chars
 		// works on little endian
