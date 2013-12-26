@@ -7,7 +7,8 @@
 #define MLK_CONTAINERS_ERROR_TYPE_H
 
 
-#include <functional>
+#include <mlk/signals_slots/slot.h>
+
 #include <string>
 #include <type_traits>
 
@@ -21,10 +22,10 @@ namespace mlk
 			class error_type_base
 			{
 				std::string m_msg;
-				std::function<void()> m_on_called;
+				slot<> m_on_called;
 
 			public:
-				error_type_base(const std::string& msg, const std::function<void()>& on_called) noexcept :
+				error_type_base(const std::string& msg, const mlk::slot<>& on_called) noexcept :
 					m_msg{msg},
 					m_on_called{on_called}
 				{ }
@@ -32,9 +33,7 @@ namespace mlk
 				virtual ~error_type_base() = default;
 
 				void call()
-				{
-					m_on_called();
-				}
+				{m_on_called();}
 
 				std::string msg() const noexcept {return m_msg;}
 			};
@@ -46,7 +45,7 @@ namespace mlk
 				std::is_integral<T>(), T>::type m_code;
 
 			public:
-				error_type(const T& code, const std::string& msg, const std::function<void()>& on_called) noexcept :
+				error_type(const T& code, const std::string& msg, const mlk::slot<>& on_called) noexcept :
 					error_type_base{msg, on_called},
 					m_code{code}
 				{ }
@@ -54,9 +53,7 @@ namespace mlk
 				~error_type() = default;
 
 				bool cmp_code(const T& other_code) const noexcept
-				{
-					return m_code == other_code;
-				}
+				{return m_code == other_code;}
 			};
 		}
 	}

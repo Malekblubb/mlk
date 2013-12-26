@@ -26,9 +26,7 @@ namespace mlk
 		public:
 			template<typename T>
 			void link(const T& error_code, const std::string& msg, const std::function<void()>& fnc)
-			{
-				m_errors.push_back(std::make_shared<internal::error_type<T>>({error_code, msg, fnc}));
-			}
+			{m_errors.push_back(std::make_shared<internal::error_type<T>>({error_code, msg, fnc}));}
 
 			template<typename T>
 			int find(const T& error_code) const
@@ -48,7 +46,6 @@ namespace mlk
 			{
 				if(is_out_of_bounds(m_errors, index))
 					throw std::out_of_range{"mlk::cnt::error_container::get_casted: index was out of bounds"};
-
 				return std::static_pointer_cast<internal::error_type<T>>(m_errors[index]);
 			}
 
@@ -56,7 +53,6 @@ namespace mlk
 			{
 				if(is_out_of_bounds(m_errors, index))
 					throw std::out_of_range{"mlk::cnt::error_container::get: index was out of bounds"};
-
 				return m_errors[index];
 			}
 		};
