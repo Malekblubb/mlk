@@ -25,11 +25,7 @@ namespace mlk
 	namespace logger
 	{
 		enum class log_level : unsigned char
-		{
-			normal = 0,
-			debug,
-			internal_error
-		};
+		{normal, debug, internal_error};
 
 
 		template<log_level level>
@@ -57,14 +53,14 @@ namespace mlk
 				return instance;
 			}
 
-			void set_save_path(const std::string& path) {m_save_path = path;}
-			void set_save_history(bool b) {m_save_history = b;}
-			void set_write_on_exit(bool b) {m_write_on_exit = b;}
-			void set_override_old_log(bool b)
+			void set_save_path(const std::string& path) noexcept {m_save_path = path;}
+			void set_save_history(bool b) noexcept {m_save_history = b;}
+			void set_write_on_exit(bool b) noexcept {m_write_on_exit = b;}
+			void set_override_old_log(bool b) noexcept
 			{b ? m_mode = std::ios::out | std::ios::trunc : m_mode = std::ios::out | std::ios::app;}
 
-			std::string history() const noexcept {return m_history.str();}
-
+			std::string history() const noexcept
+			{return m_history.str();}
 
 			template<typename T>
 			log_base& operator()(const T& val, bool add_timestamp = false)
@@ -177,7 +173,7 @@ namespace mlk
 			log_base& operator()() // empty request
 			{
 				console::set_color(console::console_color::red);
-				this->brace_operator_impl(std::string("\n[Error] "));
+				this->brace_operator_impl("\n[Error] ");
 				return *this;
 			}
 
