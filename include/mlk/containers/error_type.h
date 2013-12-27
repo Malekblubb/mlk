@@ -37,25 +37,25 @@ namespace mlk
 
 				std::string msg() const noexcept {return m_msg;}
 			};
-
-			template<typename T>
-			class error_type : public error_type_base
-			{
-				typename std::enable_if<std::is_enum<T>() ||
-				std::is_integral<T>(), T>::type m_code;
-
-			public:
-				error_type(const T& code, const std::string& msg, const mlk::slot<>& on_called) noexcept :
-					error_type_base{msg, on_called},
-					m_code{code}
-				{ }
-
-				~error_type() = default;
-
-				bool cmp_code(const T& other_code) const noexcept
-				{return m_code == other_code;}
-			};
 		}
+
+		template<typename T>
+		class error_type : public internal::error_type_base
+		{
+			typename std::enable_if<std::is_enum<T>() ||
+			std::is_integral<T>(), T>::type m_code;
+
+		public:
+			error_type(const T& code, const std::string& msg, const mlk::slot<>& on_called) noexcept :
+				error_type_base{msg, on_called},
+				m_code{code}
+			{ }
+
+			~error_type() = default;
+
+			bool cmp_code(const T& other_code) const noexcept
+			{return m_code == other_code;}
+		};
 	}
 }
 
