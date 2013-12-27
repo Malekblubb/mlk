@@ -25,8 +25,8 @@ namespace mlk
 
 		public:
 			template<typename T>
-			void link(const T& error_code, const std::string& msg, const std::function<void()>& fnc)
-			{m_errors.push_back(std::make_shared<internal::error_type<T>>({error_code, msg, fnc}));}
+			void link(const T& error_code, const std::string& msg, const mlk::slot<>& fnc)
+			{m_errors.push_back(std::make_shared<internal::error_type<T>>(error_code, msg, fnc));}
 
 			template<typename T>
 			int find(const T& error_code) const
