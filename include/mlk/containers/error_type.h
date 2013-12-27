@@ -46,7 +46,7 @@ namespace mlk
 			std::is_integral<T>(), T>::type m_code;
 
 		public:
-			error_type(const T& code, const std::string& msg, const mlk::slot<>& on_called) noexcept :
+			error_type(const T& code, const std::string& msg, const mlk::slot<>& on_called = {[]{}}) noexcept :
 				error_type_base{msg, on_called},
 				m_code{code}
 			{ }
