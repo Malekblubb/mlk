@@ -33,15 +33,15 @@ int main()
 
 	
 	// easy link while runtime
-	mlk::lerr_i().link(error2, "msg", []{std::cout << "my nice lambda" << std::endl;});
+	mlk::lerr_i().link_error(error2, "msg", {[]{std::cout << "my nice lambda" << std::endl;}});
 	
 	
 	// set new error_container (will override old "links")
 	mlk::cnt::error_container my_error_cnt;
 	my_error_cnt.link(error1,
 					  "some custom error msg",
-					  []{std::cout << "my extra function" << std::endl;}); // links parameter "msg" and "fnc" to error1
-	my_error_cnt.link(error3, "", &fnc_that_throws);
+					  {[]{std::cout << "my extra function" << std::endl;}}); // links parameter "msg" and "fnc" to error1
+	my_error_cnt.link(error3, "", {&fnc_that_throws});
 
 
 	mlk::lerr_i().set_error_container(my_error_cnt); // need to set the container
