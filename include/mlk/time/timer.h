@@ -37,7 +37,13 @@ namespace mlk
 			{this->stop();}
 
 			void run() noexcept
-			{m_start = time_pnt(); m_running = true; this->run_impl();}
+			{
+				if(m_running)
+					return;
+				m_start = time_pnt();
+				m_running = true;
+				this->run_impl();
+			}
 
 			void stop() noexcept
 			{
