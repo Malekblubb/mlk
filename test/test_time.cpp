@@ -27,4 +27,16 @@ int main()
     
     
     std::cout << mlk::tm::time_str() << std::endl; // prints the current time as string; f.e.: Sat Nov 32 12:13:44 2013
+
+
+    // timer
+
+    mlk::tm::timer timer{1000};
+	bool timed_out{false};
+	mlk::slot<> timeout_slot{[&]{timed_out = true;}}; // (!) will be emited from another thread
+	mlk::link_signal(timer.m_timeout, timeout_slot);
+
+	timer.run(); // start timer
+	while(!timed_out)
+		/* Do something... */;
 }
