@@ -58,7 +58,6 @@ namespace mlk
 				{
 					while(m_running)
 					{
-						std::cout << "running" << std::endl;
 						if(timed_out(m_start, m_interval))
 						{
 							// signal will be emited in another thread!
