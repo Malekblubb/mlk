@@ -128,12 +128,12 @@ namespace mlk
 		{return tail;}
 
 		template<typename T, typename... E>
-		std::string str_format(const std::string& str, const T& head, const E&... tail)
+		std::string str_format(const std::string& str, const T& head, E&&... tail)
 		{
 			std::string result{str};
 			auto pos(result.find("%%"));
 			if(pos < result.size() + 2)
-				result = str_format(result.replace(pos, 2, std::to_string(head)), tail...);
+				result = str_format(result.replace(pos, 2, std::to_string(head)), std::forward<E>(tail)...);
 			return result;
 		}
 	}
