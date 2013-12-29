@@ -119,6 +119,23 @@ namespace mlk
 		template<typename T>
 		bool contains(const T& char_str, const std::string& str)
 		{return str.find(char_str) != std::string::npos;}
+
+		// formats an input string
+		// e.g.: str_format("The value is: %", 10);
+		// will be formated to: "The value is 10"
+		template<typename T>
+		std::string str_format(const T& tail)
+		{return tail;}
+
+		template<typename T, typename... E>
+		std::string str_format(const std::string& str, const T& head, const E&... tail)
+		{
+			std::string result{str};
+			auto pos(result.find('%'));
+			if(pos < result.size() + 1)
+				result = str_format(result.replace(pos, 1, std::to_string(head)), tail...);
+			return result;
+		}
 	}
 }
 
