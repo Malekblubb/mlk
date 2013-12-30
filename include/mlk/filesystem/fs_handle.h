@@ -54,11 +54,15 @@ namespace mlk
 			fs_handle(const std::string& path) :
 				fs_base{path}
 			{ }
+
 			~fs_handle()
 			{
 				if(m_stream.is_open())
 					m_stream.close();
 			}
+
+			void close() noexcept
+			{m_stream.close(); m_need_open = true;}
 
 			bool exists() const noexcept override
 			{return file::exists(m_path);}
