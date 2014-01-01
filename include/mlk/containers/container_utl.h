@@ -163,15 +163,15 @@ namespace mlk
 
 		// map foreach
 		template<typename T, typename E, typename M>
-		void map_foreach(const std::map<T, E>& m, M&& pred)
+		void map_foreach(std::map<T, E>& m, M&& pred)
 		{for(auto& a : m) pred(a);}
 
 		template<typename T, typename E, typename M>
-		void map_first_foreach(const std::map<T, E>& m, M&& pred)
+		void map_first_foreach(std::map<T, E>& m, M&& pred)
 		{for(auto& a : m) pred(a.first);}
 
 		template<typename T, typename E, typename M>
-		void map_second_foreach(const std::map<T, E>& m, M&& pred)
+		void map_second_foreach(std::map<T, E>& m, M&& pred)
 		{for(auto& a : m) pred(a.second);}
 	}
 }
