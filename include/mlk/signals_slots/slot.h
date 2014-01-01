@@ -8,6 +8,7 @@
 
 
 #include <functional>
+#include <utility>
 #include <vector>
 
 
@@ -22,49 +23,41 @@ namespace mlk
 		public:
 			virtual ~basic_slot() = default;
 
-			virtual int num_args() const noexcept = 0;
+			virtual std::size_t num_args() const noexcept = 0;
 		};
 	}
 
 
-	template<typename... T>
+	template<typename Ret, typename... Args>
 	class slot : public internal::basic_slot
 	{
-		std::vector<std::function<void(T...)>> m_funcs;
-		static constexpr int m_num_args{sizeof...(T)};
+		static constexpr std::size_t m_num_args{sizeof...(Args)};
+		typedef Ret(*fn_ptr)(Args...);
+		std::vector<fn_ptr> m_funcs;
+
 		friend class internal::global_signal_handler;
 
 	public:
 		slot() = default;
 
-		slot(const std::function<void(T...)>& func) :
+		slot(fn_ptr&& func) :
 			m_funcs{func}
 		{ }
 
 		~slot() = default;
 
-		void add_func(const std::function<void(T...)>& func)
+		void operator()(Args&&... args) const
+		{for(auto& a : m_funcs) a(std::forward<Args>(args)...);}
+
+		void add_func(fn_ptr&& func) noexcept
 		{m_funcs.push_back(func);}
 
-		void operator+=(const std::function<void(T...)>& func)
+		void operator+=(fn_ptr&& func) noexcept
 		{this->add_func(func);}
 
-		int num_args() const noexcept override
+		std::size_t num_args() const noexcept override
 		{return m_num_args;}
 
-		void operator()(const T&... args)
-		{this->call_funcs(args...);}
-
-	private:
-		bool has_funcs() const noexcept
-		{return !m_funcs.empty();}
-
-		void call_funcs(const T&... args)
-		{
-			if(this->has_funcs())
-				for(auto& a : m_funcs)
-					a(args...);
-		}
 	};
 }
 
