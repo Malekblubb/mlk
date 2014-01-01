@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <map>
 #include <stdexcept>
 #include <vector>
 
@@ -159,6 +160,19 @@ namespace mlk
 		template<typename T>
 		void remove_all(const T& value, std::vector<T>& vec)
 		{remove_but(0, value, vec);}
+
+		// map foreach
+		template<typename T, typename E, typename M>
+		void map_foreach(const std::map<T, E>& m, M&& pred)
+		{for(auto& a : m) pred(a);}
+
+		template<typename T, typename E, typename M>
+		void map_first_foreach(const std::map<T, E>& m, M&& pred)
+		{for(auto& a : m) pred(a.first);}
+
+		template<typename T, typename E, typename M>
+		void map_second_foreach(const std::map<T, E>& m, M&& pred)
+		{for(auto& a : m) pred(a.second);}
 	}
 }
 
