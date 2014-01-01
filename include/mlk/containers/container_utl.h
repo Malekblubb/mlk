@@ -42,7 +42,7 @@ namespace mlk
 			return true;
 		}
 
-		// creates a new object with type 'T
+		// creates a new object with type 'T'
 		// from/to the given iterators
 		template<typename T>
 		T cut_vec(const typename T::const_iterator& from,
