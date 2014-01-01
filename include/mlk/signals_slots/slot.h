@@ -22,7 +22,7 @@ namespace mlk
 		public:
 			virtual ~basic_slot() = default;
 
-			virtual int num_args() const noexcept = 0;
+			virtual std::size_t num_args() const noexcept = 0;
 		};
 	}
 
@@ -31,7 +31,7 @@ namespace mlk
 	class slot : public internal::basic_slot
 	{
 		std::vector<std::function<void(T...)>> m_funcs;
-		static constexpr int m_num_args{sizeof...(T)};
+		static constexpr std::size_t m_num_args{sizeof...(T)};
 		friend class internal::global_signal_handler;
 
 	public:
@@ -49,17 +49,17 @@ namespace mlk
 		void operator+=(const std::function<void(T...)>& func)
 		{this->add_func(func);}
 
-		int num_args() const noexcept override
+		std::size_t num_args() const noexcept override
 		{return m_num_args;}
 
-		void operator()(T&&... args)
-		{this->call_funcs(std::forward<T>(args)...);}
+		void operator()(const T&... args)
+		{this->call_funcs(args...);}
 
 	private:
-		void call_funcs(T&&... args)
+		void call_funcs(const T&... args)
 		{
 			for(auto& a : m_funcs)
-				a(std::forward<T>(args)...);
+				a(args...);
 		}
 	};
 }
