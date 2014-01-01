@@ -32,8 +32,8 @@ namespace mlk
 				return instance;
 			}
 
-			template<typename Ret, typename... Args>
-			void link_signal(signal& si, const slot<Ret, Args...>& sl)
+			template<typename... T>
+			void link_signal(signal& si, const slot<T...>& sl)
 			{
 				// if signal is already registered, skip new register
 				if(!si.m_registered)
@@ -44,31 +44,31 @@ namespace mlk
 				}
 
 				// add slot to registered signal
-				m_content[si].push_back(std::make_shared<slot<Ret, Args...>>(sl));
+				m_content[si].push_back(std::make_shared<slot<T...>>(sl));
 			}
 
-			template<typename Ret, typename... Args>
-			void emit_signal(const signal& si, Args&&... args)
+			template<typename... E>
+			void emit_signal(const signal& si, E&&... args)
 			{
 				if(!si.m_registered) // signal not found
 					return;
 
 				for(auto& a : m_content[si])
-					if(a->num_args() == sizeof...(Args))
-						std::static_pointer_cast<slot<Ret, Args...>>(a)->operator()(std::forward<Args>(args)...);
+					if(a->num_args() == sizeof...(E))
+						std::static_pointer_cast<slot<E...>>(a)->call_funcs(std::forward<E>(args)...);
 			}
 		};
 	}
 
 
 	// functions to link and emit signals and slots
-	template<typename Ret, typename... Args>
-	void link_signal(signal& si, const slot<Ret, Args...>& sl)
+	template<typename... T>
+	void link_signal(signal& si, const slot<T...>& sl)
 	{internal::global_signal_handler::instance().link_signal(si, sl);}
 
-	template<typename Ret, typename... Args>
-	void emit_signal(const signal& si, Args&&... args)
-	{internal::global_signal_handler::instance().emit_signal<Ret, Args...>(si, std::forward<Args>(args)...);}
+	template<typename... E>
+	void emit_signal(const signal& si, E&&... args)
+	{internal::global_signal_handler::instance().emit_signal(si, std::forward<E>(args)...);}
 }
 
 

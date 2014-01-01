@@ -42,7 +42,7 @@ namespace mlk
 		}
 
 		inline void log_base<mlk::logger::log_level::normal>::entry_added(const std::string& last_entry)
-		{emit_signal<void>(m_entry_added, last_entry);}
+		{emit_signal(m_entry_added, last_entry);}
 	}
 }
 
