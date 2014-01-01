@@ -115,10 +115,11 @@ namespace mlk
 				return count;
 			}
 
-			bool read_line(std::string& line) noexcept
+			auto read_line(std::string& line) noexcept
+			-> decltype(std::getline(m_stream, line))
 			{
 				this->check_open();
-				return std::getline(m_stream, line) != nullptr;
+				return std::getline(m_stream, line);
 			}
 
 		private:
