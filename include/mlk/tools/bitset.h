@@ -41,6 +41,9 @@ namespace mlk
 
 		void remove_all() noexcept
 		{m_bitset.reset();}
+
+		bool is_empty() noexcept
+		{return m_bitset.none();}
 	};
 }
 
