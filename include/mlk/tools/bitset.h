@@ -38,6 +38,9 @@ namespace mlk
 
 		void remove(type value)
 		{m_bitset[enum_utl::to_int<std::size_t>(value)] = false;}
+
+		void remove_all() noexcept
+		{m_bitset.reset();}
 	};
 }
 
