@@ -36,6 +36,9 @@ namespace mlk
 		bool operator&(type test_value) const
 		{return m_bitset[enum_utl::to_int<std::size_t>(test_value)] == true;}
 
+		void toggle(type value)
+		{m_bitset.flip(enum_utl::to_int<std::size_t>(value));}
+
 		void remove(type value)
 		{m_bitset[enum_utl::to_int<std::size_t>(value)] = false;}
 
