@@ -9,6 +9,8 @@
 
 #include <mlk/tools/stl_string_utl.h>
 
+#include <cstdint>
+
 
 namespace mlk
 {
@@ -16,12 +18,12 @@ namespace mlk
 	{
 		class color_rgb
 		{
-			int m_r{0}, m_g{0}, m_b{0}, m_a{255};
+			std::uint8_t m_r{0}, m_g{0}, m_b{0}, m_a{255};
 
 		public:
 			color_rgb() = default;
 
-			color_rgb(int red, int green, int blue, int alpha) :
+			color_rgb(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha) :
 				m_r{red},
 				m_g{green},
 				m_b{blue},
@@ -34,7 +36,7 @@ namespace mlk
 		private:
 			void init_from_hex(const std::string& hex_str)
 			{
-				int as_int{stl_string::to_hex_int(this->prepare_str(hex_str))};
+				auto as_int(stl_string::to_hex_int(this->prepare_str(hex_str)));
 				m_r = (as_int & 0xff0000) >> 16;
 				m_g = (as_int & 0xff00) >> 8;
 				m_b = (as_int & 0xff);
@@ -45,15 +47,15 @@ namespace mlk
 				std::string cpy{hex_str};
 				if(cpy.length() > 7)
 					cpy = "#000000";
-				stl_string::erase_first('#', cpy);
+				stl_string::erase_all('#', cpy);
 				return cpy;
 			}
 
 		public:
-			int red() const noexcept {return m_r;}
-			int green() const noexcept {return m_g;}
-			int blue() const noexcept {return m_b;}
-			int alpha() const noexcept {return m_a;}
+			std::uint8_t red() const noexcept {return m_r;}
+			std::uint8_t green() const noexcept {return m_g;}
+			std::uint8_t blue() const noexcept {return m_b;}
+			std::uint8_t alpha() const noexcept {return m_a;}
 		};
 	}
 }
