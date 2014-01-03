@@ -25,6 +25,20 @@ namespace mlk
 {
 	namespace cnt
 	{
+		namespace internal
+		{
+			template<typename Vec_Type>
+			void make_vector_impl(std::vector<Vec_Type>& result, const Vec_Type& head)
+			{result.push_back(head);}
+
+			template<typename Vec_Type, typename... Args>
+			void make_vector_impl(std::vector<Vec_Type>& result, const Vec_Type& head, Args&&... tail)
+			{
+				result.push_back(head);
+				make_vector_impl(result, std::forward<Args>(tail)...);
+			}
+		}
+
 		template<typename T>
 		bool is_out_of_bounds(const std::vector<T>& vec, std::size_t index)
 		{return index >= vec.size();}
@@ -173,6 +187,20 @@ namespace mlk
 		template<typename T, typename E, typename M>
 		void map_second_foreach(std::map<T, E>& m, M&& pred)
 		{for(auto& a : m) pred(a.second);}
+
+		// makes a vector like std::make_tuple
+		template<typename Vec_Type, typename... Args>
+		auto make_vector(Args&&... args)
+		-> std::vector<Vec_Type>
+		{
+			std::vector<Vec_Type> result;
+			internal::make_vector_impl(result, std::forward<Args>(args)...);
+			return result;
+		}
+
+		template<typename Vec_Type, typename... Args>
+		void make_vector(std::vector<Vec_Type>& result, Args&&... args)
+		{internal::make_vector_impl(result, std::forward<Args>(args)...);}
 	}
 }
 
