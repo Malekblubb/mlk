@@ -61,6 +61,14 @@ namespace mlk
 		template<>
 		inline std::string to_type<std::string, std::string>(const std::string& from)
 		{return from;}
+
+		template<typename T>
+		T to_type(const std::string& from)
+		{
+			T result;
+			std::istringstream{from}>>result;
+			return result;
+		}
 	}
 }
 
