@@ -68,6 +68,18 @@ namespace mlk
 		inline std::size_t count_of(char find, const std::string& str)
 		{return std::count(str.begin(), str.end(), find);}
 
+		inline std::size_t count_of(const std::string& find, const std::string& str)
+		{
+			std::size_t count{0};
+			auto pos(str.find(find));
+			while(pos != std::string::npos)
+			{
+				pos = str.find(find, pos + find.size());
+				++count;
+			}
+			return count;
+		}
+
 		// erases all characters matching with 'erase' in 'str'
 		// and returns the count of the erased characters
 		inline int erase_all(char erase, std::string& str)
