@@ -28,6 +28,7 @@ namespace mlk
 
 			std::int64_t pack() override
 			{
+				this->reset_error();
 				uint64_t bound{compressBound(m_input_datasize)};
 				data_packet tmp(bound);
 
@@ -37,6 +38,7 @@ namespace mlk
 				if(z_error != Z_OK)
 				{
 					lerr()["mlk::cmprs::compressor<zlib>"] << "error while compress data. zlib returned: " << z_error;
+					this->set_error(z_error);
 					return z_error;
 				}
 
@@ -46,6 +48,7 @@ namespace mlk
 
 			std::int64_t unpack(std::uint64_t unpacked_size) override
 			{
+				this->reset_error();
 				data_packet tmp(unpacked_size);
 
 				int z_error{uncompress(reinterpret_cast<Bytef*>(&tmp[0]), &unpacked_size,
@@ -54,6 +57,7 @@ namespace mlk
 				if(z_error != Z_OK)
 				{
 					lerr()["mlk::cmprs::compressor<zlib>"] << "error while uncompress data. zlib returned: " << z_error;
+					this->set_error(z_error);
 					return z_error;
 				}
 

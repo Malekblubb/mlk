@@ -24,6 +24,8 @@ namespace mlk
 		{
 			class compressor_base
 			{
+				int m_error{0};
+
 			protected:
 				std::uint64_t m_input_datasize;
 				data_packet m_work_data;
@@ -33,6 +35,20 @@ namespace mlk
 					m_input_datasize{data.size()},
 					m_work_data{data}
 				{m_work_data.shrink_to_fit();}
+
+			protected:
+				void set_error(int error) noexcept
+				{m_error = error;}
+
+				void reset_error() noexcept
+				{m_error = 0;}
+
+			public:
+				bool is_valid() const noexcept
+				{return m_error == 0;}
+
+				int error_code() const noexcept
+				{return m_error;}
 
 				virtual std::int64_t pack() = 0;
 				virtual std::int64_t unpack(std::uint64_t unpacked_size) = 0;
