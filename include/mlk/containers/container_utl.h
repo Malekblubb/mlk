@@ -135,6 +135,12 @@ namespace mlk
 		void append(const T& app, E& to)
 		{to.insert(to.end(), app.begin(), app.end());}
 
+		// inserts elements of 'insert'
+		// to 'to' at front
+		template<typename T, typename E>
+		void insert_front(const T& insert, E& to)
+		{to.insert(to.begin(), insert.begin(), insert.end());}
+
 		// returns the count of 'value' in 'in'
 		template<typename T>
 		auto count_of(const T& value, const std::vector<T>& in)
