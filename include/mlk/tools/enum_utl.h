@@ -15,14 +15,14 @@ namespace mlk
 	namespace enum_utl
 	{
 		// returns a casts of (enum member) param "enumMember" to its enum type
-		template<typename enum_value, typename enum_type = typename std::underlying_type<enum_value>::type>
-		constexpr enum_type to_enum_type(enum_value enum_member)
-		{return static_cast<enum_type>(enum_member);}
+		template<typename Enum_Value, typename Enum_Type = typename std::underlying_type<Enum_Value>::type>
+		constexpr Enum_Type to_enum_type(Enum_Value enum_member)
+		{return static_cast<Enum_Type>(enum_member);}
 
 		// returns a cast of (enum member) param "enumMember" to an int
-		template<typename int_type = int, typename enum_value>
-		constexpr int_type to_int(enum_value enum_member)
-		{return static_cast<int_type>(enum_member);}
+		template<typename Int_Type = int, typename Enum_Value>
+		constexpr Int_Type to_int(Enum_Value enum_member)
+		{return static_cast<Int_Type>(enum_member);}
 	}
 }
 

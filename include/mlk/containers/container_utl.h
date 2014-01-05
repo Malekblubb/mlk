@@ -182,16 +182,16 @@ namespace mlk
 		{remove_but(0, value, vec);}
 
 		// map foreach
-		template<typename T, typename E, typename M>
-		void map_foreach(std::map<T, E>& m, M&& pred)
+		template<typename T, typename E, typename Pred>
+		void map_foreach(std::map<T, E>& m, Pred&& pred)
 		{for(auto& a : m) pred(a);}
 
-		template<typename T, typename E, typename M>
-		void map_first_foreach(std::map<T, E>& m, M&& pred)
+		template<typename T, typename E, typename Pred>
+		void map_first_foreach(std::map<T, E>& m, Pred&& pred)
 		{for(auto& a : m) pred(a.first);}
 
-		template<typename T, typename E, typename M>
-		void map_second_foreach(std::map<T, E>& m, M&& pred)
+		template<typename T, typename E, typename Pred>
+		void map_second_foreach(std::map<T, E>& m, Pred&& pred)
 		{for(auto& a : m) pred(a.second);}
 
 		// makes a vector like std::make_tuple
