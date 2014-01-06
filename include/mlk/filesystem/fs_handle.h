@@ -7,6 +7,7 @@
 #define MLK_FILESYSTEM_FS_HANDLE_H
 
 
+#include "dir_item.h"
 #include "fs_base.h"
 
 #include "dir.h"
@@ -15,6 +16,7 @@
 #include <mlk/log/log_impl.h>
 #include <mlk/tools/stl_string_utl.h>
 
+#include <vector>
 #include <cstdint>
 
 
@@ -25,6 +27,7 @@ namespace mlk
 		enum class fs_type : char
 		{dir = 0, file};
 
+		using dir_contents = std::vector<dir_item>;
 
 		template<fs_type type>
 		class fs_handle;
@@ -32,17 +35,92 @@ namespace mlk
 		template<>
 		class fs_handle<fs_type::dir> : public internal::fs_base
 		{
+			DIR* m_dir;
+
 		public:
 			fs_handle(const std::string& path) :
 				fs_base{path}
-			{ }
+			{this->init();}
+
+			~fs_handle()
+			{closedir(m_dir);}
 
 			bool exists() const noexcept override
 			{return dir::exists(m_path);}
 
 			bool create() const noexcept override
 			{return dir::create(m_path);}
+
+			template<bool recursive>
+			dir_contents get_content()
+			{
+				if(!this->is_dir_valid())
+					return {};
+
+				dir_contents result;
+				dirent* dir_entry;
+				while((dir_entry = readdir(m_dir)))
+				{
+					auto name(std::string{dir_entry->d_name});
+					auto path(m_path + name);
+					if(name == ".." || name == ".")
+						continue;
+
+					auto is_dir(dir::exists(path));
+					result.push_back({name, is_dir ? item_type::dir : item_type::file});
+					if(is_dir)
+					{
+						this->validate_path(path);
+						this->get_content_impl(path, result);
+					}
+				}
+				return result;
+			}
+
+		private:
+			void init()
+			{
+				this->validate_path(m_path);
+				m_dir = opendir(m_path.c_str());
+			}
+
+			void validate_path(std::string& path)
+			{
+				if(path.size() < 1)
+					return;
+				if(*path.end() - 1 != '/')
+					path += '/';
+			}
+
+			bool is_dir_valid() const noexcept
+			{return m_dir != nullptr;}
+
+			void get_content_impl(const std::string& path, dir_contents& result)
+			{
+				if(!this->is_dir_valid())
+					return;
+
+				auto d(opendir(path.c_str()));
+				dirent* dir_entry;
+				while((dir_entry = readdir(d)))
+				{
+					auto name(std::string{dir_entry->d_name});
+					if(name == ".." || name == ".")
+						continue;
+					result.push_back({name, dir::exists(path + name) ? item_type::dir : item_type::file});
+				}
+				closedir(d);
+			}
 		};
+
+		template<>
+		inline dir_contents fs_handle<fs_type::dir>::get_content<false>()
+		{
+			dir_contents result;
+			this->get_content_impl(m_path, result);
+			return result;
+		}
+
 
 		template<>
 		class fs_handle<fs_type::file> : public internal::fs_base
