@@ -21,7 +21,7 @@ namespace mlk
 			// checks if a file exists
 			inline bool exists(const std::string& path)
 			{
-				struct stat s; // {}
+				struct stat s{};
 				stat(path.c_str(), &s);
 				return s.st_mode & S_IFREG;
 			}
