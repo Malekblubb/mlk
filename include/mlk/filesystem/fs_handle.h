@@ -125,6 +125,12 @@ namespace mlk
 			bool reopen(std::ios::openmode modes)
 			{return this->open_io(modes);}
 
+			bool reopen(const std::string& path, std::ios::openmode modes)
+			{
+				m_path = path;
+				return this->reopen(modes);
+			}
+
 			void set_pos_begin() noexcept
 			{m_stream.seekg(0);}
 
@@ -145,6 +151,8 @@ namespace mlk
 			std::size_t read_all(std::string& dest)
 			{
 				this->check_open();
+				if(!this->is_valid())
+					return 0;
 
 				int64_t was_pos{m_stream.tellg()};
 				std::string s;
@@ -159,6 +167,21 @@ namespace mlk
 				return count;
 			}
 
+			mlk::data_packet read_all()
+			{
+				this->check_open();
+				if(!this->is_valid())
+					return {};
+
+				int64_t was_pos{m_stream.tellg()};
+				auto size(this->file_size());
+				this->set_pos_begin();
+				mlk::data_packet result(size);
+				m_stream.read(reinterpret_cast<char*>(result.data()), size);
+				m_stream.seekg(was_pos);
+				return result;
+			}
+
 			auto read_line(std::string& line) noexcept
 			-> decltype(std::getline(m_stream, line))
 			{
@@ -166,7 +189,19 @@ namespace mlk
 				return std::getline(m_stream, line);
 			}
 
+			std::size_t file_size()
+			{
+				auto pos(m_stream.tellg());
+				m_stream.seekg(0, std::ios::end);
+				auto size(m_stream.tellg());
+				m_stream.seekg(pos);
+				return size;
+			}
+
 		private:
+			bool is_valid() const noexcept
+			{return m_stream.is_open();}
+
 			int64_t write_impl(const std::string& str)
 			{
 				if(m_need_open)
