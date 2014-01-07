@@ -95,6 +95,10 @@ namespace mlk
 			bool m_need_open{true};
 
 		public:
+			fs_handle() :
+				fs_base{""}
+			{ }
+
 			fs_handle(const std::string& path) :
 				fs_base{path}
 			{ }
