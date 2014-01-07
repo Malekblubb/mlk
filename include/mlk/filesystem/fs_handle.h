@@ -139,6 +139,14 @@ namespace mlk
 			void set_pos_begin() noexcept
 			{m_stream.seekg(0);}
 
+			void write(const mlk::data_packet& data)
+			{
+				this->check_open();
+				if(!this->is_valid())
+					return;
+				m_stream.write(reinterpret_cast<const char*>(data.data()), data.size());
+			}
+
 			template<typename T>
 			int64_t write(const T& val)
 			{
