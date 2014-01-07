@@ -46,6 +46,9 @@ namespace mlk
 			bool create() const noexcept override
 			{return dir::create(m_path);}
 
+			const std::string& get_path() const noexcept
+			{return m_path;}
+
 			template<bool recursive>
 			dir_contents get_content()
 			{
