@@ -230,6 +230,9 @@ namespace mlk
 				}
 			}
 		};
+
+		using dir_handle = fs_handle<fs_type::dir>;
+		using file_handle = fs_handle<fs_type::file>;
 	}
 }
 
