@@ -20,6 +20,7 @@ namespace mlk
 		struct dir_item
 		{
 			std::string name;
+			std::string path;
 			item_type type;
 		};
 	}
