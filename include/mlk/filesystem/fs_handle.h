@@ -35,15 +35,10 @@ namespace mlk
 		template<>
 		class fs_handle<fs_type::dir> : public internal::fs_base
 		{
-			DIR* m_dir;
-
 		public:
 			fs_handle(const std::string& path) :
 				fs_base{path}
 			{this->init();}
-
-			~fs_handle()
-			{closedir(m_dir);}
 
 			bool exists() const noexcept override
 			{return dir::exists(m_path);}
@@ -54,35 +49,14 @@ namespace mlk
 			template<bool recursive>
 			dir_contents get_content()
 			{
-				if(!this->is_dir_valid())
-					return {};
-
 				dir_contents result;
-				dirent* dir_entry;
-				while((dir_entry = readdir(m_dir)))
-				{
-					auto name(std::string{dir_entry->d_name});
-					auto path(m_path + name);
-					if(name == ".." || name == ".")
-						continue;
-
-					auto is_dir(dir::exists(path));
-					result.push_back({name, is_dir ? item_type::dir : item_type::file});
-					if(is_dir)
-					{
-						this->validate_path(path);
-						this->get_content_impl(path, result);
-					}
-				}
+				this->get_content_impl<recursive>(m_path, result);
 				return result;
 			}
 
 		private:
 			void init()
-			{
-				this->validate_path(m_path);
-				m_dir = opendir(m_path.c_str());
-			}
+			{this->validate_path(m_path);}
 
 			void validate_path(std::string& path)
 			{
@@ -92,35 +66,27 @@ namespace mlk
 					path += '/';
 			}
 
-			bool is_dir_valid() const noexcept
-			{return m_dir != nullptr;}
-
+			template<bool recursive>
 			void get_content_impl(const std::string& path, dir_contents& result)
 			{
-				if(!this->is_dir_valid())
-					return;
-
 				auto d(opendir(path.c_str()));
 				dirent* dir_entry;
 				while((dir_entry = readdir(d)))
 				{
 					auto name(std::string{dir_entry->d_name});
+					auto full(path + name);
 					if(name == ".." || name == ".")
 						continue;
-					result.push_back({name, dir::exists(path + name) ? item_type::dir : item_type::file});
+
+					this->validate_path(full);
+					auto is_dir(dir::exists(full));
+					result.push_back({name, full, is_dir ? item_type::dir : item_type::file});
+					if(is_dir && recursive)
+						this->get_content_impl<recursive>(full, result);
 				}
 				closedir(d);
 			}
 		};
-
-		template<>
-		inline dir_contents fs_handle<fs_type::dir>::get_content<false>()
-		{
-			dir_contents result;
-			this->get_content_impl(m_path, result);
-			return result;
-		}
-
 
 		template<>
 		class fs_handle<fs_type::file> : public internal::fs_base
