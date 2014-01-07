@@ -60,10 +60,8 @@ namespace mlk
 
 			void validate_path(std::string& path)
 			{
-				if(path.size() < 1)
-					return;
-				if(*path.end() - 1 != '/')
-					path += '/';
+				if(path.size() < 1) return;
+				if(*(path.end() - 1) != '/') path += '/';
 			}
 
 			template<bool recursive>
@@ -78,8 +76,8 @@ namespace mlk
 					if(name == ".." || name == ".")
 						continue;
 
-					this->validate_path(full);
 					auto is_dir(dir::exists(full));
+					if(is_dir) this->validate_path(full);
 					result.push_back({name, full, is_dir ? item_type::dir : item_type::file});
 					if(is_dir && recursive)
 						this->get_content_impl<recursive>(full, result);
