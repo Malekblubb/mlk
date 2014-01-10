@@ -8,6 +8,7 @@
 
 
 #include <functional>
+#include <map>
 #include <vector>
 
 
@@ -62,6 +63,9 @@ namespace mlk
 				a(args...);
 		}
 	};
+
+	template<typename T, typename... SlotTypes>
+	using event_delegates = std::map<T, slot<SlotTypes...>>;
 }
 
 
