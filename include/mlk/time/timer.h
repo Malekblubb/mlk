@@ -36,7 +36,7 @@ namespace mlk
 			~timer()
 			{this->stop();}
 
-			void run() noexcept
+			void run()
 			{
 				if(m_running)
 					return;
@@ -45,7 +45,13 @@ namespace mlk
 				this->run_impl();
 			}
 
-			void stop() noexcept
+			void restart()
+			{
+				this->stop();
+				this->run();
+			}
+
+			void stop()
 			{
 				m_running = false;
 				if(m_run_future.valid())
