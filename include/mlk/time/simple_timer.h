@@ -31,8 +31,8 @@ namespace mlk
 				m_start = time_pnt();
 			}
 
-			void restart() noexcept
-			{this->run();}
+			void restart(ullong interval) noexcept
+			{m_interval = interval; this->run();}
 
 			auto elapsed_time() const noexcept
 			-> decltype(duration_to_now(m_start))
