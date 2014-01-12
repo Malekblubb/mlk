@@ -50,6 +50,7 @@ namespace mlk
 		{return m_bitset.none();}
 	};
 
+	// bitset for enum class type and enum class member-size (e.g.: my_enum::num)
 	template<typename T, typename std::enable_if<std::is_enum<T>::value, T>::type size>
 	class ebitset : public bitset<T, mlk::enum_utl::to_int<std::size_t>(size)>
 	{ };
