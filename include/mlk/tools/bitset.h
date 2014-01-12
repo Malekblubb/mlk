@@ -10,6 +10,7 @@
 #include "enum_utl.h"
 
 #include <bitset>
+#include <type_traits>
 
 
 namespace mlk
@@ -48,6 +49,10 @@ namespace mlk
 		bool is_empty() const noexcept
 		{return m_bitset.none();}
 	};
+
+	template<typename T, typename std::enable_if<std::is_enum<T>::value, T>::type size>
+	class ebitset : public bitset<T, mlk::enum_utl::to_int<std::size_t>(size)>
+	{ };
 }
 
 
