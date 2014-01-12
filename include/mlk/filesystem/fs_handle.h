@@ -52,6 +52,8 @@ namespace mlk
 			template<bool recursive>
 			dir_contents get_content()
 			{
+				if(!this->exists())
+					return {};
 				dir_contents result;
 				this->get_content_impl<recursive>(m_path, result);
 				return result;
