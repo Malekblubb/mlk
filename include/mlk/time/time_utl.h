@@ -7,6 +7,7 @@
 #define MLK_TIME_TIME_UTL_H
 
 
+#include <mlk/tools/stl_string_utl.h>
 #include <mlk/types/types.h>
 
 #include <chrono>
@@ -30,7 +31,8 @@ namespace mlk
 			auto tp = std::chrono::high_resolution_clock::now();
 			auto tt = std::chrono::system_clock::to_time_t(tp);
 			std::string time{std::ctime(&tt)};
-			return time.substr(0, time.length() - 1);
+			mlk::stl_string::erase_all('\n', time);
+			return time;
 		}
 
 		inline auto time_pnt()
