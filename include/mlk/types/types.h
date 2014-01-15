@@ -8,6 +8,7 @@
 
 
 #include <chrono>
+#include <memory>
 #include <vector>
 
 
@@ -31,6 +32,13 @@ namespace mlk
 	using milli_s = std::chrono::milliseconds;
 	using micro_s = std::chrono::microseconds;
 	using nano_s = std::chrono::nanoseconds;
+
+	// smart ptrs
+	template<typename T>
+	using sptr = std::shared_ptr<T>;
+
+	template<typename T>
+	using uptr = std::unique_ptr<T>;
 }
 
 
