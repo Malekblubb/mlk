@@ -8,6 +8,7 @@
 
 
 #include "color.h"
+#include "graphics_utl.h"
 
 
 #endif // MLK_GRAPHICS_GRAPHICS_H
