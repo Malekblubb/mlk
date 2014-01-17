@@ -50,6 +50,9 @@ namespace mlk
 		void operator+=(const std::function<void(T...)>& func)
 		{this->add_func(func);}
 
+		void clear() noexcept
+		{m_funcs.clear();}
+
 		std::size_t num_args() const noexcept override
 		{return m_num_args;}
 
