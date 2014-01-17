@@ -23,7 +23,7 @@ namespace mlk
 		public:
 			color_rgb() = default;
 
-			color_rgb(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha) :
+			color_rgb(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha = 255) :
 				m_r{red},
 				m_g{green},
 				m_b{blue},
