@@ -50,6 +50,13 @@ namespace mlk
 		void operator+=(const std::function<void(T...)>& func)
 		{this->add_func(func);}
 
+		template<typename Func>
+		void operator=(const Func&& f)
+		{
+			this->clear();
+			this->add_func(f);
+		}
+
 		void clear() noexcept
 		{m_funcs.clear();}
 
