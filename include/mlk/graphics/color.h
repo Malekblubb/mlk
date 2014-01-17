@@ -56,6 +56,11 @@ namespace mlk
 			std::uint8_t green() const noexcept {return m_g;}
 			std::uint8_t blue() const noexcept {return m_b;}
 			std::uint8_t alpha() const noexcept {return m_a;}
+
+			const std::uint8_t& r{m_r};
+			const std::uint8_t& g{m_g};
+			const std::uint8_t& b{m_b};
+			const std::uint8_t& a{m_a};
 		};
 	}
 }
