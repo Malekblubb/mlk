@@ -44,17 +44,19 @@ namespace mlk
 
 		~slot() = default;
 
-		void add_func(const std::function<void(T...)>& func)
+		template<typename Func>
+		void add_func(Func&& func)
 		{m_funcs.push_back(func);}
 
-		void operator+=(const std::function<void(T...)>& func)
+		template<typename Func>
+		void operator+=(Func&& func)
 		{this->add_func(func);}
 
 		template<typename Func>
-		void operator=(const Func&& f)
+		void operator=(Func&& func)
 		{
 			this->clear();
-			this->add_func(f);
+			this->add_func(func);
 		}
 
 		void clear() noexcept
@@ -63,11 +65,11 @@ namespace mlk
 		std::size_t num_args() const noexcept override
 		{return m_num_args;}
 
-		void operator()(const T&... args)
+		void operator()(const T&... args) const
 		{this->call_funcs(args...);}
 
 	private:
-		void call_funcs(const T&... args)
+		void call_funcs(const T&... args) const
 		{
 			for(auto& a : m_funcs)
 				a(args...);
