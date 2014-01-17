@@ -8,6 +8,7 @@
 
 
 #include "enum_utl.h"
+#include "type_utl.h"
 
 #include <bitset>
 #include <type_traits>
@@ -48,6 +49,10 @@ namespace mlk
 
 		bool is_empty() const noexcept
 		{return m_bitset.none();}
+
+		template<typename Ret_Type>
+		Ret_Type get_as() const noexcept
+		{return type_utl::to_type<Ret_Type>(m_bitset);}
 	};
 
 	// bitset for enum class type and enum class member-size (e.g.: my_enum::num)
