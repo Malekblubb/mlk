@@ -181,6 +181,10 @@ namespace mlk
 		void remove_all(const T& value, std::vector<T>& vec)
 		{remove_but(0, value, vec);}
 
+		template<typename Vec_Type, typename Pred>
+		void remove_all_if(Pred&& p, std::vector<Vec_Type>& vec)
+		{vec.erase(std::remove_if(std::begin(vec), std::end(vec), p), std::end(vec));}
+
 		// map foreach
 		template<typename T, typename E, typename Pred>
 		void map_foreach(std::map<T, E>& m, Pred&& pred)
