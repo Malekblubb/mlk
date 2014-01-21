@@ -29,6 +29,10 @@ namespace mlk
 			return stre.str();
 		}
 
+		template<>
+		std::string to_string<std::string>(const std::string& str)
+		{return str;}
+
 		template<typename T = int>
 		T to_int(const std::string& val)
 		{
