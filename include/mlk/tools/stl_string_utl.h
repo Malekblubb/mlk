@@ -23,11 +23,7 @@ namespace mlk
 	{
 		template<typename T>
 		std::string to_string(const T& val)
-		{return std::to_string(val);}
-
-		template<>
-		std::string to_string<std::string>(const std::string& str)
-		{return str;}
+		{return type_utl::to_type<std::string>(val);}
 
 		template<typename T = int>
 		T to_int(const std::string& val)
