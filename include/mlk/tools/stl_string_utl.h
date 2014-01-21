@@ -149,7 +149,7 @@ namespace mlk
 			std::string result{str};
 			auto pos(result.find("%%"));
 			if(pos < result.size() + 2)
-				result = str_format(result.replace(pos, 2, std::to_string(head)), std::forward<E>(tail)...);
+				result = str_format(result.replace(pos, 2, to_string(head)), std::forward<E>(tail)...);
 			return result;
 		}
 	}
