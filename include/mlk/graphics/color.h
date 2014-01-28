@@ -52,10 +52,17 @@ namespace mlk
 			}
 
 		public:
-			std::uint8_t red() const noexcept {return m_r;}
-			std::uint8_t green() const noexcept {return m_g;}
-			std::uint8_t blue() const noexcept {return m_b;}
-			std::uint8_t alpha() const noexcept {return m_a;}
+			std::uint8_t red() const noexcept
+			{return m_r;}
+
+			std::uint8_t green() const noexcept
+			{return m_g;}
+
+			std::uint8_t blue() const noexcept
+			{return m_b;}
+
+			std::uint8_t alpha() const noexcept
+			{return m_a;}
 
 			const std::uint8_t& r{m_r};
 			const std::uint8_t& g{m_g};
