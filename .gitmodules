@@ -1,6 +1,0 @@
-[submodule "external/zlib"]
-	path = external/zlib
-	url = git://github.com/madler/zlib.git
-[submodule "external/pnglite"]
-	path = external/pnglite
-	url = git://github.com/dankar/pnglite.git
