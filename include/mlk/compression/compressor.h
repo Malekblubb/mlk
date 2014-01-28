@@ -59,6 +59,8 @@ namespace mlk
 
 		template<cmprs_mode mode>
 		class compressor;
+
+		using compressor_zlib = compressor<cmprs_mode::zlib>;
 	}
 }
 
