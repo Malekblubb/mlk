@@ -22,7 +22,7 @@ namespace mlk
 	void exit_with(const std::string& reason, T& os = std::cerr)
 	{os << reason; std::exit(EXIT_FAILURE);}
 
-	bool parse_bool(const std::string& str)
+	inline bool parse_bool(const std::string& str)
 	{
 		auto cpy(str);
 		mlk::stl_string::erase_all(' ', cpy);
