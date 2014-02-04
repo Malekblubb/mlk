@@ -200,6 +200,14 @@ namespace mlk
 
 		// map exists
 		template<typename T, typename Map>
+		bool exists_map_first(const T& val, const Map& m)
+		{
+			return exists_if(
+				   [&val](const typename Map::value_type& p)
+				   {return p.first == val;}, m);
+		}
+
+		template<typename T, typename Map>
 		bool exists_map_second(const T& val, const Map& m)
 		{
 			return exists_if(
