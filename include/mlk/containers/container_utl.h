@@ -198,6 +198,15 @@ namespace mlk
 		void map_second_foreach(std::map<T, E>& m, Pred&& pred)
 		{for(auto& a : m) pred(a.second);}
 
+		// map exists
+		template<typename T, typename Map>
+		bool exists_map_second(const T& val, const Map& m)
+		{
+			return exists_if(
+				   [&val](const typename Map::value_type& p)
+				   {return p.second == val;}, m);
+		}
+
 		// makes a vector like std::make_tuple
 		template<typename Vec_Type, typename... Args>
 		auto make_vector(Args&&... args)
