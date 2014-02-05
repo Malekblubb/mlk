@@ -25,7 +25,7 @@ namespace mlk
 				{m_cnt = cnt;}
 
 				template<typename T>
-				void try_call(const T& error_code) const noexcept
+				void try_call(T error_code) const noexcept
 				{
 					int index{m_cnt.find(error_code)};
 					if(index != -1)
@@ -33,7 +33,7 @@ namespace mlk
 				}
 
 				template<typename T>
-				std::string error_str(const T& error_code) const noexcept
+				std::string error_str(T error_code) const noexcept
 				{
 					int index{m_cnt.find(error_code)};
 					if(index != -1)
@@ -43,7 +43,7 @@ namespace mlk
 				}
 
 				template<typename T>
-				void link_error(const T& error_code, const std::string& msg, const mlk::slot<void>& fnc = {[]{}})
+				void link_error(T error_code, const std::string& msg, const mlk::slot<void>& fnc = {[]{}})
 				{m_cnt.link(error_code, msg, fnc);}
 
 				template<typename T>
