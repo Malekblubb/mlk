@@ -35,7 +35,7 @@ namespace mlk
 				void call()
 				{m_on_called();}
 
-				std::string msg() const noexcept
+				const std::string& msg() const noexcept
 				{return m_msg;}
 			};
 		}
