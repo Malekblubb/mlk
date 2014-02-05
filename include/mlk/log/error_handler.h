@@ -49,6 +49,15 @@ namespace mlk
 				template<typename T>
 				void link_error(const cnt::error_type<T>& error)
 				{m_cnt.link(error);}
+
+				template<typename T>
+				cnt::error_type<T> get_error(T error_code) const noexcept
+				{
+					auto index(m_cnt.find(error_code));
+					if(index == -1)
+						throw std::runtime_error{"mlk::[...]::error_handler: error_code not found"};
+					return *m_cnt.get_casted<T>(index);
+				}
 			};
 		}
 	}
