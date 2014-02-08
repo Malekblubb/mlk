@@ -25,6 +25,11 @@ namespace mlk
 		public:
 			color_rgb() = default;
 
+			template<typename Color_Type>
+			color_rgb(const Color_Type& type) :
+				color_rgb{type.r, type.g, type.b, type.a}
+			{ }
+
 			color_rgb(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha = 255) :
 				m_r{red},
 				m_g{green},
