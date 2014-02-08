@@ -10,6 +10,7 @@
 #include <mlk/tools/stl_string_utl.h>
 
 #include <cstdint>
+#include <iomanip>
 
 
 namespace mlk
@@ -19,6 +20,7 @@ namespace mlk
 		class color_rgb
 		{
 			std::uint8_t m_r{0}, m_g{0}, m_b{0}, m_a{255};
+			std::string m_hex;
 
 		public:
 			color_rgb() = default;
@@ -28,10 +30,32 @@ namespace mlk
 				m_g{green},
 				m_b{blue},
 				m_a{alpha}
-			{ }
+			{this->generate_hex();}
 
-			color_rgb(const std::string& hex_str)
-			{this->init_from_hex(hex_str);}
+			color_rgb(const std::string& hex_str) :
+				m_hex{hex_str}
+			{this->init_from_hex(hex_str);}			
+
+		public:
+			std::uint8_t red() const noexcept
+			{return m_r;}
+
+			std::uint8_t green() const noexcept
+			{return m_g;}
+
+			std::uint8_t blue() const noexcept
+			{return m_b;}
+
+			std::uint8_t alpha() const noexcept
+			{return m_a;}
+
+			std::string hex() const noexcept
+			{return m_hex;}
+
+			const std::uint8_t& r{m_r};
+			const std::uint8_t& g{m_g};
+			const std::uint8_t& b{m_b};
+			const std::uint8_t& a{m_a};
 
 		private:
 			void init_from_hex(const std::string& hex_str)
@@ -51,23 +75,15 @@ namespace mlk
 				return cpy;
 			}
 
-		public:
-			std::uint8_t red() const noexcept
-			{return m_r;}
-
-			std::uint8_t green() const noexcept
-			{return m_g;}
-
-			std::uint8_t blue() const noexcept
-			{return m_b;}
-
-			std::uint8_t alpha() const noexcept
-			{return m_a;}
-
-			const std::uint8_t& r{m_r};
-			const std::uint8_t& g{m_g};
-			const std::uint8_t& b{m_b};
-			const std::uint8_t& a{m_a};
+			void generate_hex()
+			{
+				std::ostringstream strm;
+				strm << std::setfill('0') << std::hex <<
+						std::setw(2) << static_cast<int>(m_r) <<
+						std::setw(2) << static_cast<int>(m_g) <<
+						std::setw(2) << static_cast<int>(m_b);
+				m_hex = strm.str();
+			}
 		};
 	}
 }
