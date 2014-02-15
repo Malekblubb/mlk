@@ -51,6 +51,9 @@ namespace mlk
 			inline void set_no_blocking(int sock)
 			{fcntl(sock, F_SETFL, O_NONBLOCK);}
 
+			inline void set_sock_opt(int& sock, int opt)
+			{int optval{1}; setsockopt(sock, SOL_SOCKET, opt, &optval, sizeof optval);}
+
 			inline std::string ip_from_host(const std::string& host)
 			{
 				hostent* h{gethostbyname(host.c_str())};
