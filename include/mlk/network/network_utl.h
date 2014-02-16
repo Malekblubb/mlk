@@ -54,6 +54,14 @@ namespace mlk
 			inline void set_sock_opt(int& sock, int opt)
 			{int optval{1}; setsockopt(sock, SOL_SOCKET, opt, &optval, sizeof optval);}
 
+			inline int get_sock_opt(const int& sock, int opt)
+			{
+				int result{0};
+				unsigned int len{sizeof result};
+				getsockopt(sock, SOL_SOCKET, opt, &result, &len);
+				return result;
+			}
+
 			inline std::string ip_from_host(const std::string& host)
 			{
 				hostent* h{gethostbyname(host.c_str())};
