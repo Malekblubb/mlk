@@ -31,11 +31,17 @@ namespace mlk
 				this->init();
 			}
 
-			ssize_t send(const data_packet& data)
-			{return send(m_sock, data.data(), data.size());}
+			ssize_t send(const data_packet& data) const
+			{return ::send(m_sock, data.data(), data.size(), 0);}
 
-			ssize_t recv(data_packet& data, size_t max_len)
-			{return recv(m_sock, data.data(), data.size());}
+			ssize_t recv(data_packet& data, size_t max_len) const
+			{return ::recv(m_sock, data.data(), max_len, 0);}
+
+			bool is_connected() const noexcept
+			{
+				data_packet dp{'d'};
+				return this->recv(dp, 1) > 0;
+			}
 
 		private:
 			void init()
