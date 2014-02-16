@@ -37,11 +37,19 @@ namespace mlk
 			ssize_t recv(data_packet& data, size_t max_len) const
 			{return ::recv(m_sock, data.data(), max_len, 0);}
 
-			bool is_connected() const noexcept
+			bool connect()
 			{
-				data_packet dp{'d'};
-				return this->recv(dp, 1) > 0;
+				auto target_si(internal::to_sockaddr_in(m_targetaddress.ip(), m_targetaddress.port<std::uint16_t>()));
+				if(::connect(m_sock, reinterpret_cast<sockaddr*>(&target_si), sizeof(sockaddr)) != 0)
+				{
+					m_error = true;
+					return false;
+				}
+				return this->is_connected();
 			}
+
+			bool is_connected() const noexcept
+			{return internal::get_sock_opt(m_sock, SO_ERROR) == 0;}
 
 		private:
 			void init()
@@ -54,12 +62,6 @@ namespace mlk
 				}
 				auto dest_si(internal::to_sockaddr_in(m_destaddress.ip(), m_destaddress.port<std::uint16_t>()));
 				if(bind(m_sock, reinterpret_cast<sockaddr*>(&dest_si), sizeof(sockaddr)) != 0)
-				{
-					m_error = true;
-					return;
-				}
-				auto target_si(internal::to_sockaddr_in(m_targetaddress.ip(), m_targetaddress.port<std::uint16_t>()));
-				if(connect(m_sock, reinterpret_cast<sockaddr*>(&target_si), sizeof(sockaddr)) != 0)
 				{
 					m_error = true;
 					return;
