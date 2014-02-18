@@ -21,7 +21,7 @@ namespace mlk
 			ip_address m_destaddress;
 
 		public:
-			sock(const ip_address& target, const ip_address& dest = {"0.0.0.0:0", false}) :
+			sock(const ip_address& target = {"0.0.0.0:0"}, const ip_address& dest = {"0.0.0.0:0", false}) :
 				internal::sock_base{internal::get_sock(SOCK_STREAM, 0)},
 				m_targetaddress{target},
 				m_destaddress{dest}
