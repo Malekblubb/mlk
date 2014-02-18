@@ -55,7 +55,7 @@ namespace mlk
 			}
 
 			bool is_connected() const noexcept
-			{return internal::get_sock_opt(m_sock, SO_ERROR) == 0;}
+			{return this->send({'p'}) != -1;}
 
 		private:
 			void init()
