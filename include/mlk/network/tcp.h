@@ -37,6 +37,12 @@ namespace mlk
 			ssize_t recv(data_packet& data, size_t max_len) const
 			{return ::recv(m_sock, data.data(), max_len, 0);}
 
+			bool connect(const ip_address& target)
+			{
+				m_targetaddress = target;
+				return this->connect();
+			}
+
 			bool connect()
 			{
 				auto target_si(internal::to_sockaddr_in(m_targetaddress.ip(), m_targetaddress.port<std::uint16_t>()));
