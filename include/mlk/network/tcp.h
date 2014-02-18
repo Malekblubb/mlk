@@ -51,7 +51,7 @@ namespace mlk
 					m_error = true;
 					return false;
 				}
-				return this->is_connected();
+				return true;
 			}
 
 			bool is_connected() const noexcept
