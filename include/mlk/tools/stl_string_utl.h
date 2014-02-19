@@ -101,6 +101,9 @@ namespace mlk
 			return num_erased;
 		}
 
+		inline void replace_all(char replace, char with, std::string& str)
+		{std::replace(std::begin(str), std::end(str), replace, with);}
+
 		inline int erase_all(const std::string& erase, std::string& str)
 		{
 			int num_erased{0};

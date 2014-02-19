@@ -32,10 +32,14 @@ namespace mlk
 			}
 
 			ssize_t send(const data_packet& data) const
-			{return ::send(m_sock, data.data(), data.size(), 0);}
+			{
+				return ::send(m_sock, data.data(), data.size(), 0);
+			}
 
 			ssize_t recv(data_packet& data, size_t max_len) const
-			{return ::recv(m_sock, data.data(), max_len, 0);}
+			{
+				return ::recv(m_sock, data.data(), max_len, 0);
+			}
 
 			bool connect(const ip_address& target)
 			{
@@ -45,6 +49,7 @@ namespace mlk
 
 			bool connect()
 			{
+				this->reset_error();
 				auto target_si(internal::to_sockaddr_in(m_targetaddress.ip(), m_targetaddress.port<std::uint16_t>()));
 				if(::connect(m_sock, reinterpret_cast<sockaddr*>(&target_si), sizeof(sockaddr)) != 0)
 				{
