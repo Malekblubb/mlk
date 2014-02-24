@@ -119,7 +119,11 @@ namespace mlk
 			inline char* get_sock_opt(const int& sock, int opt)
 			{
 				char* result{0};
+#ifdef MLK_LINUX
+				socklen_t len{sizeof result};
+#elif defined MLK_WIN
 				int len{sizeof result};
+#endif
 				getsockopt(sock, SOL_SOCKET, opt, result, &len);
 				return result;
 			}
