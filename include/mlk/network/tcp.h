@@ -27,13 +27,13 @@ namespace mlk
 				m_destaddress{dest}
 			{
 				this->set_blocking(blocking);
-				internal::set_sock_opt(m_sock, SO_REUSEADDR);
+                internal::set_sock_opt(m_sock, SO_REUSEADDR);
 				this->init();
 			}
 
 			ssize_t send(const data_packet& data) const
 			{
-				return ::send(m_sock, data.data(), data.size(), 0);
+                return ::send(m_sock, reinterpret_cast<const char*>(data.data()), data.size(), 0);
 			}
 
 			ssize_t recv(data_packet& data, size_t max_len) const

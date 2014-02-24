@@ -7,6 +7,8 @@
 #define MLK_FILESYSTEM_DIR_H
 
 
+#include <mlk/system/detect.h>
+
 #include <string>
 #include <dirent.h>
 #include <sys/stat.h>
@@ -21,13 +23,19 @@ namespace mlk
 			// checks if a dir exists
 			inline bool exists(const std::string& path)
 			{
-				struct stat s{};
+                struct stat s{};
 				stat(path.c_str(), &s);
 				return s.st_mode & S_IFDIR;
 			}
 
 			inline bool create(const std::string& path)
-			{return mkdir(path.c_str(), 0755);}
+            {
+#ifdef MLK_LINUX
+                return mkdir(path.c_str(), 0755);
+#elif defined MLK_WIN
+                return mkdir(path.c_str());
+#endif
+            }
 		}
 	}
 }

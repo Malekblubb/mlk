@@ -51,7 +51,7 @@ namespace mlk
 				{return m_error;}
 
 				virtual std::int64_t pack() = 0;
-				virtual std::int64_t unpack(std::uint64_t unpacked_size) = 0;
+                virtual std::int64_t unpack(long unsigned int unpacked_size) = 0;
 
 				virtual const data_packet& get() const noexcept = 0;
 			};

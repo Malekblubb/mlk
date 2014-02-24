@@ -43,10 +43,13 @@ namespace mlk
 				{ }
 
 				~sock_base()
-				{internal::close_sock(m_sock);}
+				{
+					internal::close_sock(m_sock);
+					internal::clean_ntw();
+				}
 
 				void set_blocking(bool b) noexcept
-				{b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);}
+				{ b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);}
 
 				sock_error error_type() const noexcept
 				{

@@ -7,8 +7,10 @@
 #define MLK_NETWORK_NETWORK_UTL_H
 
 
+#include <mlk/system/detect.h>
 #include "address.h"
 
+#ifdef MLK_LINUX
 #include <string>
 
 extern "C"
@@ -21,6 +23,11 @@ extern "C"
 #include <unistd.h>
 #include <fcntl.h>
 }
+#elif defined MLK_WIN
+#include <winsock2.h>
+#include <windows.h>
+using socklen_t = mlk::uint;
+#endif
 
 
 namespace mlk
@@ -30,35 +37,84 @@ namespace mlk
 		namespace internal
 		{
 			// low level ntw stuff
+			inline void init_ntw()
+			{
+#ifdef MLK_WIN
+				// win sux
+				WSADATA data;
+				WORD version{MAKEWORD(2, 2)};
+				WSAStartup(version, &data);
+#endif
+			}
+
+			inline void clean_ntw()
+			{
+#ifdef MLK_WIN
+				WSACleanup();
+#endif
+			}
+
 			inline int get_sock(int type, int proto)
-			{return socket(AF_INET, type, proto);}
+			{
+				init_ntw();
+				return socket(AF_INET, type, proto);
+			}
 
 			inline void close_sock(int sock)
 			{close(sock);}
 
+			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
+			{
+#ifdef MLK_LINUX
+				return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
+#elif defined MLK_WIN
+				sockaddr_in result{};
+				result.sin_family = AF_INET;
+				result.sin_port = htons(port);
+				result.sin_addr.S_un.S_addr = inet_addr(ip.c_str());
+				return result;
+#endif
+			}
+
+			inline auto from_sockaddr_in(const sockaddr_in& sock_addr)
+			-> std::pair<std::string, uint16_t>
+			{return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));}
+
 			inline int bind_sock(int sock, const std::string& ip, const uint16_t port)
 			{
-				sockaddr_in tmp{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
+				auto tmp(to_sockaddr_in(ip, port));
 				return bind(sock, reinterpret_cast<sockaddr*>(&tmp), sizeof tmp);
 			}
 
 			inline void set_blocking(int sock)
 			{
+#ifdef MLK_LINUX
 				int op{~O_NONBLOCK};
 				fcntl(sock, F_SETFL, op);
+#elif defined MLK_WIN
+				u_long mode{0};
+				ioctlsocket(sock, FIONBIO, &mode);
+#endif
 			}
 
 			inline void set_no_blocking(int sock)
-			{fcntl(sock, F_SETFL, O_NONBLOCK);}
+			{
+#ifdef MLK_LINUX
+				fcntl(sock, F_SETFL, O_NONBLOCK);
+#elif defined MLK_WIN
+				u_long mode{1};
+				ioctlsocket(sock, FIONBIO, &mode);
+#endif
+			}
 
 			inline void set_sock_opt(int& sock, int opt)
-			{int optval{1}; setsockopt(sock, SOL_SOCKET, opt, &optval, sizeof optval);}
+			{const char* optval{"1"}; setsockopt(sock, SOL_SOCKET, opt, optval, sizeof optval);}
 
-			inline int get_sock_opt(const int& sock, int opt)
+			inline char* get_sock_opt(const int& sock, int opt)
 			{
-				int result{0};
-				unsigned int len{sizeof result};
-				getsockopt(sock, SOL_SOCKET, opt, &result, &len);
+				char* result{0};
+				int len{sizeof result};
+				getsockopt(sock, SOL_SOCKET, opt, result, &len);
 				return result;
 			}
 
@@ -74,13 +130,6 @@ namespace mlk
 
 				return inet_ntoa(*a);
 			}
-
-			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
-			{return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};}
-
-			inline auto from_sockaddr_in(const sockaddr_in& sock_addr)
-			-> std::pair<std::string, uint16_t>
-			{return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));}
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace mlk
 
 		public:
 			template<typename T>
-			void link(T error_code, const std::string& msg, const mlk::slot<>& fnc = {[]{}})
+            void link(T error_code, const std::string& msg, const mlk::slot<>& fnc = {})
 			{m_errors.push_back(std::make_shared<error_type<T>>(error_code, msg, fnc));}
 
 			template<typename T>
