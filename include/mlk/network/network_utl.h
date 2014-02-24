@@ -61,7 +61,13 @@ namespace mlk
 			}
 
 			inline void close_sock(int sock)
-			{close(sock);}
+			{
+#ifdef MLK_LINUX
+				close(sock);
+#elif defined MLK_WIN
+				closesocket(sock);
+#endif
+			}
 
 			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
 			{
