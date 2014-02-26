@@ -25,15 +25,13 @@ namespace mlk
 				internal::sock_base{internal::get_sock(SOCK_STREAM, 0), blocking},
 				m_targetaddress{target},
 				m_destaddress{dest}
-			{
-                internal::set_sock_opt(m_sock, SO_REUSEADDR);
-				this->init();
-			}
+			{this->init();}
 
 			void reset_socket() override
 			{
 				internal::close_sock(m_sock);
 				m_sock = internal::get_sock(SOCK_STREAM, 0);
+				this->init();
 			}
 
 			ssize_t send(const data_packet& data) const
@@ -76,6 +74,8 @@ namespace mlk
 			void init()
 			{
 				this->reset_error();
+				this->set_blocking(m_blocking);
+				internal::set_sock_opt(m_sock, SO_REUSEADDR);
 				if(m_sock < 0)
 				{
 					m_error = true;

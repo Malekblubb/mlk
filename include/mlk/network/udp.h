@@ -19,17 +19,19 @@ namespace mlk
 		template<bool blocking>
 		class sock<sock_type::udp, blocking> : public internal::sock_base
 		{
+			ip_address m_bindaddr;
+
 		public:
 			sock(const ip_address& bind_address = {"0.0.0.0:0", false}) :
-				internal::sock_base{internal::get_sock(SOCK_DGRAM, 0)}
-			{
-				internal::bind_sock(m_sock, bind_address.ip(), bind_address.port<uint16_t>());
-			}
+				internal::sock_base{internal::get_sock(SOCK_DGRAM, 0)},
+				m_bindaddr{bind_address}
+			{this->init();}
 
 			void reset_socket() override
 			{
 				internal::close_sock(m_sock);
 				m_sock = internal::get_sock(SOCK_DGRAM, 0);
+				this->init();
 			}
 
 			ssize_t send(const ip_address& to, const data_packet& data)
@@ -58,6 +60,10 @@ namespace mlk
 				}
 				return got;
 			}
+
+		private:
+			void init()
+			{internal::bind_sock(m_sock, m_bindaddr.ip(), m_bindaddr.port<uint16_t>());}
 		};
 	}
 }

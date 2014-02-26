@@ -52,7 +52,7 @@ namespace mlk
 				virtual void reset_socket() = 0;
 
 				void set_blocking(bool b) noexcept
-				{ b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock);}
+				{b ? internal::set_blocking(m_sock) : internal::set_no_blocking(m_sock); m_blocking = b;}
 
 				sock_error error_type() const noexcept
 				{
