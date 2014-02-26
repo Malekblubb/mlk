@@ -31,6 +31,12 @@ namespace mlk
 				this->init();
 			}
 
+			void reset_socket() override
+			{
+				internal::close_sock(m_sock);
+				m_sock = internal::get_sock(SOCK_STREAM, 0);
+			}
+
 			ssize_t send(const data_packet& data) const
 			{
                 return ::send(m_sock, reinterpret_cast<const char*>(data.data()), data.size(), 0);

@@ -27,6 +27,12 @@ namespace mlk
 				this->set_blocking(blocking);
 			}
 
+			void reset_socket() override
+			{
+				internal::close_sock(m_sock);
+				m_sock = internal::get_sock(SOCK_DGRAM, 0);
+			}
+
 			ssize_t send(const ip_address& to, const data_packet& data)
 			{
 				this->reset_error();
