@@ -24,7 +24,6 @@ namespace mlk
 				internal::sock_base{internal::get_sock(SOCK_DGRAM, 0)}
 			{
 				internal::bind_sock(m_sock, bind_address.ip(), bind_address.port<uint16_t>());
-				this->set_blocking(blocking);
 			}
 
 			void reset_socket() override

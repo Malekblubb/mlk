@@ -22,11 +22,10 @@ namespace mlk
 
 		public:
 			sock(const ip_address& target = {"0.0.0.0:0"}, const ip_address& dest = {"0.0.0.0:0", false}) :
-				internal::sock_base{internal::get_sock(SOCK_STREAM, 0)},
+				internal::sock_base{internal::get_sock(SOCK_STREAM, 0), blocking},
 				m_targetaddress{target},
 				m_destaddress{dest}
 			{
-				this->set_blocking(blocking);
                 internal::set_sock_opt(m_sock, SO_REUSEADDR);
 				this->init();
 			}

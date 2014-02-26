@@ -35,12 +35,13 @@ namespace mlk
 			{
 			protected:
 				int m_sock;
-				bool m_error{true};
+				bool m_error{true}, m_blocking;
 
 			public:
-				sock_base(int sock) :
-					m_sock{sock}
-				{ }
+				sock_base(int sock, bool blocking) :
+					m_sock{sock},
+					m_blocking{blocking}
+				{this->set_blocking(blocking);}
 
 				~sock_base()
 				{
