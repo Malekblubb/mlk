@@ -23,7 +23,7 @@ namespace mlk
 
 		public:
 			sock(const ip_address& bind_address = {"0.0.0.0:0", false}) :
-				internal::sock_base{internal::get_sock(SOCK_DGRAM, 0)},
+				internal::sock_base{internal::get_sock(SOCK_DGRAM, 0), blocking},
 				m_bindaddr{bind_address}
 			{this->init();}
 
