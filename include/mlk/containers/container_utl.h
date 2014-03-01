@@ -181,9 +181,9 @@ namespace mlk
 		void remove_all(const T& value, std::vector<T>& vec)
 		{remove_but(0, value, vec);}
 
-		template<typename Vec_Type, typename Pred>
-		void remove_all_if(Pred&& p, std::vector<Vec_Type>& vec)
-		{vec.erase(std::remove_if(std::begin(vec), std::end(vec), p), std::end(vec));}
+		template<typename Cnt_Type, typename Pred>
+		void remove_all_if(Pred&& p, Cnt_Type& cnt)
+		{cnt.erase(std::remove_if(std::begin(cnt), std::end(cnt), p), std::end(cnt));}
 
 		template<typename T>
 		void reverse_all(T& cnt)
