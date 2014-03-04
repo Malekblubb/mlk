@@ -21,7 +21,7 @@ namespace mlk
 			m_save_history{save_history},
 			m_write_on_exit{write_on_exit},
 			m_save_path{save_path},
-			m_mode{override_old_log ? m_mode = std::ios::out | std::ios::trunc : m_mode = std::ios::out | std::ios::app}
+			m_mode{override_old_log ? std::ios::out | std::ios::trunc : std::ios::out | std::ios::app}
 		{ }
 
 		inline log_base<mlk::logger::log_level::normal>::~log_base()
