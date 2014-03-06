@@ -76,6 +76,12 @@ namespace mlk
 				{errno = 0; m_error = false;}
 			};
 		}
+
+		template<bool blocking>
+		using udp_sock = sock<sock_type::udp, blocking>;
+
+		template<bool blocking>
+		using tcp_sock = sock<sock_type::tcp, blocking>;
 	}
 }
 
