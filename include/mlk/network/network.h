@@ -12,6 +12,7 @@
 #include "packet.h"
 #include "socket.h"
 #include "tcp.h"
+#include "telnet.h"
 #include "udp.h"
 
 
