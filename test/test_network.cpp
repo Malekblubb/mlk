@@ -11,6 +11,10 @@
 
 int main()
 {
+    mlk::ntw::udp_sock<true> udp_sock_alias; // create a blocking udp socket (alias)
+    mlk::ntw::tcp_sock<false> tcp_sock_alias; // create a non-blocking tcp socket (alias)
+
+
 	// create a udp socket
 	mlk::ntw::sock<mlk::ntw::sock_type::udp, false> udp_sock; // the boolean sets blocking mode(true) or non-blocking mode(false)
 	mlk::ntw::ip_address to_addr{"my_address.com:my_port"}; // <- this will look up the ip from host 'my_address.com'
