@@ -189,6 +189,15 @@ namespace mlk
 		void reverse_all(T& cnt)
 		{std::reverse(std::begin(cnt), std::end(cnt));}
 
+		// map remove_if
+		template<typename Pred, typename Map_Type>
+		void map_remove_if(Pred&& pred, Map_Type& map)
+		{
+			auto iter(std::begin(map));
+			while((iter = std::find_if(iter, std::end(map), pred)) != std::end(map))
+				map.erase(iter++);
+		}
+
 		// map foreach
 		template<typename T, typename E, typename Pred>
 		void map_foreach(std::map<T, E>& m, Pred&& pred)
