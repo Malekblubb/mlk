@@ -8,6 +8,7 @@
 
 
 #include <mlk/tools/type_utl.h>
+#include <mlk/types/types.h>
 
 #include <algorithm>
 #include <cctype>
@@ -54,6 +55,9 @@ namespace mlk
 			stre >> std::hex >> ret;
 			return ret;
 		}
+
+		inline mlk::data_packet to_data_packet(const std::string& str)
+		{return {std::begin(str), std::end(str)};}
 
 		// checks whether given string 'str'
 		// contains only digits
