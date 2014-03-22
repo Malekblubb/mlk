@@ -40,6 +40,9 @@ namespace mlk
 
 			ssize_t recv_line(mlk::data_packet& result, std::size_t max_len) const
 			{return m_socket.recv(result, max_len);}
+
+			const mlk::ntw::ip_address& address() const noexcept
+			{return m_socket.address();}
 		};
 	}
 }
