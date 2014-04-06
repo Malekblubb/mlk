@@ -10,9 +10,9 @@
 #include <mlk/system/detect.h>
 #include "address.h"
 
-#ifdef MLK_LINUX
 #include <string>
 
+#ifdef MLK_LINUX
 extern "C"
 {
 #include <sys/types.h>
