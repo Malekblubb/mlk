@@ -48,7 +48,7 @@ namespace mlk
 				this->reset_error();
 
 				data_packet tmp(max_len);
-				sockaddr_in sock_addr{};
+				sockaddr_in sock_addr{0, 0, {0}, {0}};
 				socklen_t addr_size{sizeof sock_addr};
 				ssize_t got{recvfrom(m_sock, tmp.data(), max_len, 0, reinterpret_cast<sockaddr*>(&sock_addr), &addr_size)};
 				m_error = (got < 0);

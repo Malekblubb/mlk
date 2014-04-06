@@ -74,7 +74,7 @@ namespace mlk
 #ifdef MLK_LINUX
 				return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
 #elif defined MLK_WIN
-				sockaddr_in result{};
+				sockaddr_in result{0, 0, {0}, {0}};
 				result.sin_family = AF_INET;
 				result.sin_port = htons(port);
 				result.sin_addr.S_un.S_addr = inet_addr(ip.c_str());
