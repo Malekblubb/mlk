@@ -19,8 +19,8 @@ namespace mlk
 	// calls operator<< of 'os' and exits
 	// with return EXIT_FAILURE
 	template<typename T = std::ostream>
-	void exit_with(const std::string& reason, T& os = std::cerr)
-	{os << reason; std::exit(EXIT_FAILURE);}
+	void exit_with(const std::string& reason, int exit_code = EXIT_FAILURE, T& os = std::cerr)
+	{os << reason; std::exit(exit_code);}
 
 	inline bool parse_bool(const std::string& str)
 	{
