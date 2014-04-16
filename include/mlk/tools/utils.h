@@ -7,11 +7,12 @@
 #define MLK_TOOLS_UTILS_H
 
 
+#include <mlk/tools/stl_string_utl.h>
+
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
-#include <string>
 
 
 namespace mlk
