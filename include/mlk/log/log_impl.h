@@ -201,15 +201,15 @@ namespace mlk
 	{return logger::log_base<logger::log_level::internal_error>::instance()(var...);}
 
 
-	template<typename T = logger::log_base<mlk::logger::log_level::normal>>
+	template<typename T = logger::log_base<logger::log_level::normal>>
 	T& lout_i()
 	{return T::instance();}
 
-	template<typename T = logger::log_base<mlk::logger::log_level::debug>>
+	template<typename T = logger::log_base<logger::log_level::debug>>
 	T& ldbg_i()
 	{return T::instance();}
 
-	template<typename T = logger::log_base<mlk::logger::log_level::internal_error>>
+	template<typename T = logger::log_base<logger::log_level::internal_error>>
 	T& lerr_i()
 	{return T::instance();}
 

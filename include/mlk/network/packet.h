@@ -46,7 +46,7 @@ namespace mlk
 			template<typename T>
 			const packet& append(const T& app)
 			{
-				static_assert(std::is_same<T, mlk::data_packet>() ||
+				static_assert(std::is_same<T, data_packet>() ||
 							  type_utl::is_str<T>(), "string or mlk::data_packet required");
 				if(app.size() <= 0)
 				{

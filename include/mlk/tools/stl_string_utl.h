@@ -56,7 +56,7 @@ namespace mlk
 			return ret;
 		}
 
-		inline mlk::data_packet to_data_packet(const std::string& str)
+		inline data_packet to_data_packet(const std::string& str)
 		{return {std::begin(str), std::end(str)};}
 
 		// checks whether given string 'str'

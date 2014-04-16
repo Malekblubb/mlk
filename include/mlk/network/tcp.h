@@ -63,7 +63,7 @@ namespace mlk
 				return true;
 			}
 
-			const mlk::ntw::ip_address& address() const noexcept
+			const ntw::ip_address& address() const noexcept
 			{return m_targetaddress;}
 
 			bool is_connected() const noexcept

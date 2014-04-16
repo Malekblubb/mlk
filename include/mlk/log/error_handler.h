@@ -43,7 +43,7 @@ namespace mlk
 				}
 
 				template<typename T>
-				void link_error(T error_code, const std::string& msg, const mlk::slot<>& fnc = {})
+				void link_error(T error_code, const std::string& msg, const slot<>& fnc = {})
 				{m_cnt.link(error_code, msg, fnc);}
 
 				template<typename T>

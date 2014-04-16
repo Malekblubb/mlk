@@ -182,7 +182,7 @@ namespace mlk
 				return count;
 			}
 
-			mlk::data_packet read_all()
+			data_packet read_all()
 			{
 				this->check_open();
 				if(!this->is_valid())
@@ -191,7 +191,7 @@ namespace mlk
 				int64_t was_pos{m_stream.tellg()};
 				auto size(this->file_size());
 				this->set_pos_begin();
-				mlk::data_packet result(size);
+				data_packet result(size);
 				m_stream.read(reinterpret_cast<char*>(result.data()), size);
 				m_stream.seekg(was_pos);
 				return result;

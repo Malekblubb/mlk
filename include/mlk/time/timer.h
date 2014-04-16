@@ -73,7 +73,7 @@ namespace mlk
 						if(timed_out(m_start, m_interval))
 						{
 							// signal will be emited in another thread!
-							mlk::emit_signal(m_timeout);
+							emit_signal(m_timeout);
 							m_start = time_pnt();
 						}
 					}

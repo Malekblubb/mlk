@@ -25,7 +25,7 @@ namespace mlk
 	inline bool parse_bool(const std::string& str)
 	{
 		auto cpy(str);
-		mlk::stl_string::erase_all(' ', cpy);
+		stl_string::erase_all(' ', cpy);
 		if(cpy.empty())
 			throw std::invalid_argument{"cant parse empty string"};
 

@@ -31,7 +31,7 @@ namespace mlk
 			auto tp(std::chrono::system_clock::now());
 			auto tt(std::chrono::system_clock::to_time_t(tp));
 			std::string time{std::ctime(&tt)};
-			mlk::stl_string::erase_all('\n', time);
+			stl_string::erase_all('\n', time);
 			return time;
 		}
 

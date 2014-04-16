@@ -20,7 +20,7 @@ namespace mlk
 		// one instance per run
 		inline std::mt19937& rnd_engine_i()
 		{
-			static std::mt19937 rnd_engine{mlk::tm::time_stmp<std::chrono::nanoseconds>()}; // seed with current nanoseconds
+			static std::mt19937 rnd_engine{tm::time_stmp<std::chrono::nanoseconds>()}; // seed with current nanoseconds
 			return rnd_engine;
 		}
 

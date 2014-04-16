@@ -25,7 +25,7 @@ namespace mlk
 				slot<> m_on_called;
 
 			public:
-				error_type_base(const std::string& msg, const mlk::slot<>& on_called) noexcept :
+				error_type_base(const std::string& msg, const slot<>& on_called) noexcept :
 					m_msg{msg},
 					m_on_called{on_called}
 				{ }
@@ -47,7 +47,7 @@ namespace mlk
 			std::is_integral<T>(), T>::type m_code;
 
 		public:
-			error_type(const T& code, const std::string& msg, const mlk::slot<>& on_called = {[]{}}) noexcept :
+			error_type(const T& code, const std::string& msg, const slot<>& on_called = {[]{}}) noexcept :
 				error_type_base{msg, on_called},
 				m_code{code}
 			{ }
