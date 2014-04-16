@@ -35,14 +35,10 @@ namespace mlk
 			}
 
 			ssize_t send(const data_packet& data) const
-			{
-                return ::send(m_sock, reinterpret_cast<const char*>(data.data()), data.size(), 0);
-			}
+			{return ::send(m_sock, reinterpret_cast<const char*>(data.data()), data.size(), 0);}
 
 			ssize_t recv(data_packet& data, size_t max_len) const
-			{
-				return ::recv(m_sock, reinterpret_cast<char*>(data.data()), max_len, 0);
-			}
+			{return ::recv(m_sock, reinterpret_cast<char*>(data.data()), max_len, 0);}
 
 			bool connect(const ip_address& target)
 			{
