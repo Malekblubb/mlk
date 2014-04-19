@@ -31,9 +31,9 @@ namespace mlk
 			inline bool create(const std::string& path)
             {
 #ifdef MLK_LINUX
-                return mkdir(path.c_str(), 0755);
+				return mkdir(path.c_str(), 0755) != -1;
 #elif defined MLK_WIN
-                return mkdir(path.c_str());
+				return mkdir(path.c_str()) != -1;
 #endif
             }
 		}
