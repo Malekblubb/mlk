@@ -120,7 +120,7 @@ namespace mlk
 			template<typename T>
 			log_base& operator()(const T& val, bool add_timestamp = false)
 			{
-				console::set_color(console::console_color::white);
+				console::set_color(console::console_color::cyan);
 
 				std::ostringstream tmp;
 				if(add_timestamp)
