@@ -105,6 +105,10 @@ namespace mlk
 			return num_erased;
 		}
 
+		// sets all characters in 'str' to 'set'
+		inline void set_all(char set, std::string& str)
+		{std::transform(std::begin(str), std::end(str), std::begin(str), [set](char){return set;});}
+
 		inline void replace_all(char replace, char with, std::string& str)
 		{std::replace(std::begin(str), std::end(str), replace, with);}
 
