@@ -20,6 +20,7 @@ namespace mlk
 		class image
 		{
 			mlk::data_packet m_raw_pixels;
+			mlk::uint m_width, m_height;
 
 			png_t m_pnghandle;
 
@@ -28,9 +29,10 @@ namespace mlk
 			{png_init(0, 0);}
 
 			image(const mlk::data_packet& raw_pixels, mlk::uint width, mlk::uint height) :
-				image{ },
-				m_raw_pixels{raw_pixels}
-			{ }
+				m_raw_pixels{raw_pixels},
+				m_width{width},
+				m_height{height}
+			{png_init(0, 0);}
 
 			~image()
 			{png_close_file(&m_pnghandle);}
@@ -48,8 +50,9 @@ namespace mlk
 				if(m_raw_pixels.empty())
 					mlk::lout("mlk::gcs::image") << "warning: pixelbuffer is empty";
 
-				png_set_data(&m_pnghandle, width, height, 8, PNG_TRUECOLOR_ALPHA, m_raw_pixels.data());
+				png_set_data(&m_pnghandle, m_width, m_height, 8, PNG_TRUECOLOR_ALPHA, m_raw_pixels.data());
 				png_close_file(&m_pnghandle);
+				return true;
 			}
 		};
 	}
