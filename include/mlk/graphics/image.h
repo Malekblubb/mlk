@@ -34,10 +34,6 @@ namespace mlk
 				m_height{height}
 			{png_init(0, 0);}
 
-			~image()
-			{png_close_file(&m_pnghandle);}
-
-
 			bool save(const std::string& file)
 			{
 				auto error(0);
