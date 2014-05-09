@@ -21,6 +21,7 @@ namespace mlk
 	using ushort = unsigned short;
 	using uchar = unsigned char;
 	using uint = unsigned int;
+	using st = std::size_t;
 
 	// containers
 	using data_packet = std::vector<uchar>;
