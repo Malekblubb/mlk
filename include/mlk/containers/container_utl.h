@@ -57,6 +57,11 @@ namespace mlk
 			return true;
 		}
 
+		// free memory of 'vec'
+		template<typename T>
+		void free_vec(std::vector<T>& vec)
+		{std::vector<T>{}.swap(vec);}
+
 		// creates a new object with type 'T'
 		// from/to the given iterators
 		template<typename T>
