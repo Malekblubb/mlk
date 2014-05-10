@@ -29,7 +29,7 @@ namespace mlk
 			std::int64_t pack() override
 			{
 				this->reset_error();
-                long unsigned int bound{compressBound(m_input_datasize)};
+				long unsigned int bound{compressBound(m_input_datasize)};
 				data_packet tmp(bound);
 
 				int z_error{compress(reinterpret_cast<Bytef*>(&tmp[0]), &bound,
@@ -46,7 +46,7 @@ namespace mlk
 				return m_work_data.size();
 			}
 
-            std::int64_t unpack(long unsigned int unpacked_size) override
+			std::int64_t unpack(long unsigned int unpacked_size) override
 			{
 				this->reset_error();
 				data_packet tmp(unpacked_size);
