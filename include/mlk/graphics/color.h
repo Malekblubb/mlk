@@ -27,7 +27,8 @@ namespace mlk
 
 			template<typename Color_Type>
 			color_rgb(const Color_Type& type) :
-				color_rgb{type.r, type.g, type.b, type.a}
+				color_rgb{static_cast<std::uint8_t>(type.r), static_cast<std::uint8_t>(type.g),
+						  static_cast<std::uint8_t>(type.b), static_cast<std::uint8_t>(type.a)}
 			{ }
 
 			color_rgb(std::uint8_t red, std::uint8_t green, std::uint8_t blue, std::uint8_t alpha = 255) :
