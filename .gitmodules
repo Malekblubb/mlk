@@ -1,0 +1,3 @@
+[submodule "external/pnglite"]
+	path = external/pnglite
+	url = https://github.com/dankar/pnglite.git
