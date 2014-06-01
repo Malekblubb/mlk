@@ -12,6 +12,11 @@
 #include <string>
 #include <dirent.h>
 #include <sys/stat.h>
+#ifdef MLK_LINUX
+#include <unistd.h>
+#elif defined MLK_WIN
+#include <direct.h>
+#endif
 
 
 namespace mlk
@@ -36,6 +41,15 @@ namespace mlk
 				return mkdir(path.c_str()) != -1;
 #endif
             }
+			
+			inline bool remove(const std::string& path)
+			{
+#ifdef MLK_LINUX
+				return rmdir(path.c_str()) != -1;
+#elif defined MLK_WIN
+				return _rmdir(path.c_str()) != -1;
+#endif
+			}
 		}
 	}
 }

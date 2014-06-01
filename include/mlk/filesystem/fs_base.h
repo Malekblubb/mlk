@@ -31,6 +31,7 @@ namespace mlk
 
 				virtual bool exists() const noexcept = 0;
 				virtual bool create() const noexcept = 0;
+				virtual bool remove() const = 0;
 			};
 		}
 	}

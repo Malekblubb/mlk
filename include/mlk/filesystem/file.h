@@ -7,6 +7,7 @@
 #define MLK_FILESYSTEM_FILE_H
 
 
+#include <cstdio>
 #include <fstream>
 #include <string>
 #include <sys/stat.h>
@@ -34,6 +35,9 @@ namespace mlk
 				stream.close();
 				return b;
 			}
+			
+			inline bool remove(const std::string& path)
+			{return std::remove(path.c_str()) == 0;}
 		}
 	}
 }

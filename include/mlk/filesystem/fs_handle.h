@@ -45,6 +45,9 @@ namespace mlk
 
 			bool create() const noexcept override
 			{return dir::create(m_path);}
+			
+			bool remove() const override
+			{return dir::remove(m_path);}
 
 			const std::string& get_path() const noexcept
 			{return m_path;}
@@ -120,6 +123,9 @@ namespace mlk
 
 			bool create() const noexcept override
 			{return file::create(m_path);}
+			
+			bool remove() const override
+			{return file::remove(m_path);}
 
 			bool open_io(std::ios::openmode modes)
 			{
