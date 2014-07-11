@@ -35,7 +35,7 @@ namespace mlk
 		class log_base<log_level::normal>
 		{
 		protected:
-			bool m_save_history, m_write_on_exit;
+			bool m_save_history, m_write_on_exit, m_show_thread{false};
 			std::string m_save_path;
 			std::ostringstream m_history;
 			std::ios::openmode m_mode;
@@ -51,6 +51,13 @@ namespace mlk
 			{
 				static log_base instance{true, true, true, "./log.log"};
 				return instance;
+			}
+			
+			template<bool show_thread>
+			log_base& st()
+			{
+				m_show_thread = show_thread;
+				return *this;
 			}
 
 			void set_save_path(const std::string& path) noexcept {m_save_path = path;}
@@ -68,11 +75,14 @@ namespace mlk
 				console::reset_color();
 
 				std::ostringstream tmp;
+				tmp << "\n";
 				if(add_timestamp)
-					tmp << "\n[" << tm::time_str() << "]" <<
-						   "[" << val << "] ";
-				else
-					tmp << "\n[" << val << "] ";
+					tmp << "[" << tm::time_str() << "]";
+				if(m_show_thread)
+					tmp << "[T:" << std::this_thread::get_id() << "]";
+					
+				
+				tmp << "[" << val << "] ";
 
 				this->brace_operator_impl(tmp.str());
 				return *this;
@@ -123,11 +133,14 @@ namespace mlk
 				console::set_color(console::console_color::cyan);
 
 				std::ostringstream tmp;
+				tmp << "\n";
 				if(add_timestamp)
-					tmp << "\n[" << tm::time_str() << "]" <<
-						   "[Debug in fnc: " << val << "] ";
-				else
-					tmp << "\n[Debug in fnc: " << val << "] ";
+					tmp << "[" << tm::time_str() << "]";
+				
+				if(m_show_thread)
+					tmp << "[T:" << std::this_thread::get_id() << "]";
+				
+				tmp << "[Debug in fnc: " << val << "] ";
 
 				this->brace_operator_impl(tmp.str());
 				return *this;
@@ -149,6 +162,15 @@ namespace mlk
 				static log_base instance{true, false, true, "./error.log"};
 				return instance;
 			}
+			
+			// need to override this function
+			// because log_base class has no operator[]
+			template<bool show_thread>
+			log_base& st()
+			{
+				m_show_thread = show_thread;
+				return *this;
+			}
 
 			template<typename T>
 			log_base& operator()(const T& error_code, bool add_timestamp = false)
@@ -159,11 +181,13 @@ namespace mlk
 				console::set_color(console::console_color::red);
 
 				std::ostringstream tmp;
+				tmp << "\n";
 				if(add_timestamp)
-					tmp << "\n[" << tm::time_str() << "]" <<
-						   "[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
-				else
-					tmp << "\n[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
+					tmp << "[" << tm::time_str() << "]";
+				if(m_show_thread)
+					tmp << "[T:" << std::this_thread::get_id() << "]";
+				
+				tmp << "[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
 
 				this->brace_operator_impl(tmp.str());
 				this->try_call(error_code); // call error function if it is available
@@ -188,17 +212,17 @@ namespace mlk
 		};
 	}
 
-	template<typename... T>
+	template<bool show_thread = true, typename... T>
 	logger::log_base<logger::log_level::normal>& lout(T... var)
-	{return logger::log_base<logger::log_level::normal>::instance()(var...);}
+	{return logger::log_base<logger::log_level::normal>::instance().st<show_thread>()(var...);}
 
-	template<typename... T>
+	template<bool show_thread = true, typename... T>
 	logger::log_base<logger::log_level::debug>& ldbg(T... var)
-	{return logger::log_base<logger::log_level::debug>::instance()(var...);}
+	{return logger::log_base<logger::log_level::debug>::instance().st<show_thread>()(var...);}
 
-	template<typename... T>
+	template<bool show_thread = true, typename... T>
 	logger::log_base<logger::log_level::internal_error>& lerr(T... var)
-	{return logger::log_base<logger::log_level::internal_error>::instance()(var...);}
+	{return logger::log_base<logger::log_level::internal_error>::instance().st<show_thread>()(var...);}
 
 
 	template<typename T = logger::log_base<logger::log_level::normal>>
