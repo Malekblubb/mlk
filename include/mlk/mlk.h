@@ -17,6 +17,8 @@
 
 #include "graphics/graphics.h"
 
+#include "jsoncpp_utils/jsoncpp_utils.h"
+
 #include "log/log.h"
 #include "log/log.inl"
 
