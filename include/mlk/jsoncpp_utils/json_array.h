@@ -10,13 +10,19 @@
 #include <jsoncpp/json/value.h>
 
 
-// a shortcut for Json::Value{Json::arrayValue}
-struct json_array : public Json::Value
+namespace mlk
 {
-	json_array() :
-		Json::Value{Json::arrayValue}
-	{ }
-};
+	namespace json
+	{
+		// a shortcut for Json::Value{Json::arrayValue}
+		struct array : public Json::Value
+		{
+			array() :
+				Json::Value{Json::arrayValue}
+			{ }
+		};
+	}
+}
 
 
 #endif // MLK_JSONCPP_UTILS_JSON_ARRAY_H 
