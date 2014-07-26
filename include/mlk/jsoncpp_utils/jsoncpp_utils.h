@@ -8,6 +8,7 @@
 
 
 #include "json_array.h"
+#include "json_filewriter.h"
 
 
 #endif // MLK_JSONCPP_UTILS_JSONCPP_UTILS_H
