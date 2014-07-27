@@ -126,6 +126,15 @@ namespace mlk
 				static log_base instance{false, false, true, "./debug.log"};
 				return instance;
 			}
+			
+			// need to override this function
+			// because log_base class has no operator[]
+			template<bool show_thread>
+			log_base& st()
+			{
+				m_show_thread = show_thread;
+				return *this;
+			}
 
 			template<typename T>
 			log_base& operator()(const T& val, bool add_timestamp = false)
