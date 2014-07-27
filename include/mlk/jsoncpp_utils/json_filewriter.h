@@ -7,7 +7,11 @@
 #define MLK_JSONCPP_UTILS_JSON_FILEWRITER_H
 
 
+#include <jsoncpp/json/value.h>
 #include <jsoncpp/json/writer.h>
+
+#include <fstream>
+#include <string>
 
 
 namespace mlk
