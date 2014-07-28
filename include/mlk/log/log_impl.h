@@ -246,7 +246,33 @@ namespace mlk
 	T& lerr_i()
 	{return T::instance();}
 
-
+	
+	// debug
+	
+	template<typename Logger>
+	void md_impl(Logger&)
+	{}
+	
+	template<typename Logger, typename Head, typename... Tail>
+	void md_impl(Logger& dbg_instance, const Head& h, Tail&&... tail)
+	{
+		dbg_instance << h << " ";
+		md_impl(dbg_instance, tail...);
+	}
+	
+	template<typename... Args>
+	void md(const std::string& funcname, Args&&... args)
+	{
+		auto& dbg_instance(ldbg(funcname));
+		md_impl(dbg_instance, args...);
+	}
+	
+	// debug macro which allows miultiple args
+	#ifndef MD
+	#define MD(...) mlk::md(__PRETTY_FUNCTION__, __VA_ARGS__)
+	#endif
+	
+	// default debug macro
 	#ifndef MLK_DBG
 	#define MLK_DBG(x) mlk::ldbg(__PRETTY_FUNCTION__) << x
 	#endif
