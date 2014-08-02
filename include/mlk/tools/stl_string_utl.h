@@ -17,6 +17,10 @@
 #include <sstream>
 #include <type_traits>
 
+// using the '+'-operator on any arithmetic type
+template<typename IntType>
+typename std::enable_if<std::is_arithmetic<IntType>::value, std::string>::type operator+(const std::string& s, IntType t)
+{return s + std::to_string(t);}
 
 namespace mlk
 {
