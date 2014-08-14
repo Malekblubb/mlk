@@ -196,7 +196,7 @@ namespace mlk
 				if(m_show_thread)
 					tmp << "[T:" << std::this_thread::get_id() << "]";
 				
-				tmp << "[Error #" << enum_utl::to_int(error_code) << "] " << this->error_str(error_code) << " ";
+				tmp << "[Error #" << enum_utl::to_int(error_code) << "]" << this->error_str(error_code);
 
 				this->brace_operator_impl(tmp.str());
 				this->try_call(error_code); // call error function if it is available
@@ -206,7 +206,11 @@ namespace mlk
 			log_base& operator()() // empty request
 			{
 				console::set_color(console::console_color::red);
-				this->brace_operator_impl("\n[Error] ");
+				std::ostringstream tmp;
+				tmp << "\n[Error]";
+				if(m_show_thread)
+					tmp << "[T:" << std::this_thread::get_id() << "]";
+				this->brace_operator_impl(tmp.str());
 				return *this;
 			}
 
