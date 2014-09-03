@@ -57,6 +57,21 @@ namespace mlk
 	struct TupleTypeIndex<T, std::tuple<U, Types...>> {
 	    static const std::size_t value = 1 + TupleTypeIndex<T, std::tuple<Types...>>::value;
 	};
+	
+	// iterate through a tuple
+	template<std::size_t index, std::size_t max, typename Tuple, typename Func>
+	typename std::enable_if<index == max>::type tupleIterationImpl(const Tuple&, Func&&) { }
+	
+	template<std::size_t index, std::size_t max, typename Tuple, typename Func>
+	typename std::enable_if<(index < max)>::type tupleIterationImpl(const Tuple& t, Func&& f) {
+		f(std::get<index>(t));
+		tupleIterationImpl<index + 1, max>(t, f);
+	}
+	
+	template<typename Tuple, typename Func>
+	void tupleIteration(const Tuple& t, Func&& f) {
+		tupleIterationImpl<0, std::tuple_size<Tuple>::value>(t, f);
+	}
 }
 
 
