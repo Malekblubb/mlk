@@ -7,6 +7,7 @@
 #define MLK_TOOLS_COMPILETIME_H
 
 
+#include <cstdlib>
 #include <tuple>
 
 
@@ -20,6 +21,7 @@ namespace mlk
 	constexpr T get_lower(T t)
 	{return t - 1;}
 
+	// get info of a lambda
 	template<typename Lambda>
 	struct lambda_info : public lambda_info<decltype(&Lambda::operator())>
 	{ };
@@ -40,6 +42,20 @@ namespace mlk
 			static_assert(arg_index < std::tuple_size<helper_tup>::value, "lambda_info: invalid argument index");
 			using type = typename std::tuple_element<arg_index, helper_tup>::type;
 		};
+	};
+	
+	// get index of type 'T' in tuple 'Tuple'
+	template<typename T, typename Tuple>
+	struct TupleTypeIndex;
+	
+	template<typename T, typename... Types>
+	struct TupleTypeIndex<T, std::tuple<T, Types...>> {
+	    static const std::size_t value = 0;
+	};
+	
+	template<typename T, typename U, typename... Types>
+	struct TupleTypeIndex<T, std::tuple<U, Types...>> {
+	    static const std::size_t value = 1 + TupleTypeIndex<T, std::tuple<Types...>>::value;
 	};
 }
 
