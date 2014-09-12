@@ -11,6 +11,9 @@
 #Editors
 *~
 
+#CLion
+*.idea
+
 #Libs
 *.so.*
 *.so
