@@ -65,7 +65,7 @@ namespace mlk
 	
 	template<std::size_t index, std::size_t max, typename Tuple, typename Func>
 	typename std::enable_if<(index < max)>::type tupleIterationImpl(const Tuple& t, Func&& f) {
-		f(std::get<index>(t));
+		f(std::get<index>(t), index);
 		tupleIterationImpl<index + 1, max>(t, f);
 	}
 	
