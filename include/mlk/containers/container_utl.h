@@ -45,12 +45,12 @@ namespace mlk
 
 		// compare lhs and rhs, starting from 'from' end by 'to'
 		template<typename T>
-		bool vec_cmp(int from, int to, const std::vector<T>& lhs, const std::vector<T>& rhs)
+        bool vec_cmp(std::size_t from, std::size_t to, const std::vector<T>& lhs, const std::vector<T>& rhs)
 		{
 			if(is_out_of_bounds(lhs, to) || is_out_of_bounds(rhs, to))
 				return false;
 
-			for(int i{from}; i <= to; ++i)
+            for(std::size_t i{from}; i <= to; ++i)
 				if(rhs[i] != lhs[i])
 					return false;
 
