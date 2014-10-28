@@ -33,6 +33,15 @@ namespace mlk
 		std::transform(std::begin(cpy), std::end(cpy), std::begin(cpy), [](char c){return std::tolower(c);});
 		return cpy[0] == 't' || cpy[0] == '1';
 	}
+
+    template<typename Func, typename... Args, typename Lambda_Return = typename mlk::lambda_info<Func>::return_type>
+    auto do_async(Func&& f, Args&&... args)
+    {
+        std::packaged_task<Lambda_Return(Args...)> task{f};
+        std::future<Lambda_Return> future{task.get_future()};
+        std::thread{std::move(task), std::forward<Args>(args)...}.detach();
+        return future;
+    }
 }
 
 
