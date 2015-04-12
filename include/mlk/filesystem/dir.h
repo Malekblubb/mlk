@@ -40,6 +40,7 @@ namespace mlk
 #elif defined MLK_WIN
 				return mkdir(path.c_str()) != -1;
 #endif
+                return false;
             }
 			
 			inline bool remove(const std::string& path)
@@ -49,6 +50,7 @@ namespace mlk
 #elif defined MLK_WIN
 				return _rmdir(path.c_str()) != -1;
 #endif
+                return false;
 			}
 		}
 	}
