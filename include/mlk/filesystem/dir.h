@@ -35,7 +35,7 @@ namespace mlk
 
 			inline bool create(const std::string& path)
             {
-#ifdef MLK_LINUX
+#ifdef MLK_LINUX || defined MLK_OS_MAC
 				return mkdir(path.c_str(), 0755) != -1;
 #elif defined MLK_WIN
 				return mkdir(path.c_str()) != -1;
@@ -45,7 +45,7 @@ namespace mlk
 			
 			inline bool remove(const std::string& path)
 			{
-#ifdef MLK_LINUX
+#ifdef MLK_LINUX || defined MLK_OS_MAC
 				return rmdir(path.c_str()) != -1;
 #elif defined MLK_WIN
 				return _rmdir(path.c_str()) != -1;
