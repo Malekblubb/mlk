@@ -52,7 +52,7 @@ namespace mlk
 				auto target_si(internal::to_sockaddr_in(m_targetaddress.ip(), m_targetaddress.port<std::uint16_t>()));
 				if(::connect(m_sock, reinterpret_cast<sockaddr*>(&target_si), sizeof(sockaddr)) != 0)
 				{
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 					if(errno == EISCONN) return true;
 #elif defined MLK_WIN
 					if(WSAGetLastError() == WSAEISCONN) return true;

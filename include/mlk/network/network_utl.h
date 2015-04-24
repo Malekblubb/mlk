@@ -12,7 +12,7 @@
 
 #include <string>
 
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 extern "C"
 {
 #include <sys/types.h>
@@ -62,7 +62,7 @@ namespace mlk
 
 			inline void close_sock(int sock)
 			{
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 				close(sock);
 #elif defined MLK_WIN
 				closesocket(sock);
@@ -71,7 +71,7 @@ namespace mlk
 
 			inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
 			{
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 				return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
 #elif defined MLK_WIN
 				sockaddr_in result{0, 0, {0}, {0}};
@@ -94,7 +94,7 @@ namespace mlk
 
 			inline void set_blocking(int sock)
 			{
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 				int op{~O_NONBLOCK};
 				fcntl(sock, F_SETFL, op);
 #elif defined MLK_WIN
@@ -105,7 +105,7 @@ namespace mlk
 
 			inline void set_no_blocking(int sock)
 			{
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 				fcntl(sock, F_SETFL, O_NONBLOCK);
 #elif defined MLK_WIN
 				u_long mode{1};
@@ -119,7 +119,7 @@ namespace mlk
 			inline char* get_sock_opt(const int& sock, int opt)
 			{
 				char* result{0};
-#ifdef MLK_LINUX
+#if defined(MLK_LINUX) || defined(MLK_OS_MAC)
 				socklen_t len{sizeof result};
 #elif defined MLK_WIN
 				int len{sizeof result};
