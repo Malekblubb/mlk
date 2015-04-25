@@ -21,6 +21,10 @@ template<typename T>
 void operator+=(std::vector<T>& result, const std::vector<T>& from)
 {result.insert(result.end(), from.begin(), from.end());}
 
+// returns true if contents of data are the same as contents of str
+bool operator==(const mlk::data_packet& data, const std::string& str)
+{return std::string{reinterpret_cast<const char*>(data.data()), data.size()} == str;}
+
 namespace mlk
 {
 	namespace cnt
