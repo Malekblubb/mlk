@@ -8,6 +8,7 @@
 
 
 #include <mlk/tools/stl_string_utl.h>
+#include "compiletime.h"
 
 #include <algorithm>
 #include <cstdlib>
