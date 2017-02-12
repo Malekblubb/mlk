@@ -1,21 +1,22 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_FILESYSTEM_DIR_ITEM_H
 #define MLK_FILESYSTEM_DIR_ITEM_H
 
-
 #include <string>
-
 
 namespace mlk
 {
 	namespace fs
 	{
 		enum class item_type : char
-		{dir, file};
+		{
+			dir,
+			file
+		};
 
 		struct dir_item
 		{
@@ -26,5 +27,4 @@ namespace mlk
 	}
 }
 
-
-#endif // MLK_FILESYSTEM_DIR_ITEM_H
+#endif// MLK_FILESYSTEM_DIR_ITEM_H

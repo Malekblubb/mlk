@@ -1,21 +1,19 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_NETWORK_TELNET_H
 #define MLK_NETWORK_TELNET_H
 
-
 #include "tcp.h"
 #include <mlk/containers/container_utl.h>
-
 
 namespace mlk
 {
 	namespace ntw
 	{
-		template<bool blocking>
+		template <bool blocking>
 		class telnet_client
 		{
 			sock<sock_type::tcp, blocking> m_socket;
@@ -23,14 +21,14 @@ namespace mlk
 		public:
 			telnet_client() = default;
 
-			telnet_client(const ip_address& addr)
-			{m_socket.connect(addr);}
+			telnet_client(const ip_address& addr) { m_socket.connect(addr); }
 
 			bool connect(const ip_address& addr)
-			{return m_socket.connect(addr);}
+			{
+				return m_socket.connect(addr);
+			}
 
-			void disconnect()
-			{m_socket.reset_socket();}
+			void disconnect() { m_socket.reset_socket(); }
 
 			ssize_t send_line(const data_packet& data) const
 			{
@@ -40,13 +38,16 @@ namespace mlk
 			}
 
 			ssize_t recv_line(data_packet& result, std::size_t max_len) const
-			{return m_socket.recv(result, max_len);}
+			{
+				return m_socket.recv(result, max_len);
+			}
 
 			const ip_address& address() const noexcept
-			{return m_socket.address();}
+			{
+				return m_socket.address();
+			}
 		};
 	}
 }
 
-
-#endif // MLK_NETWORK_TELNET_H
+#endif// MLK_NETWORK_TELNET_H

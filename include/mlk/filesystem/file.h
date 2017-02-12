@@ -1,17 +1,15 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_FILESYSTEM_FILE_H
 #define MLK_FILESYSTEM_FILE_H
 
-
 #include <cstdio>
 #include <fstream>
 #include <string>
 #include <sys/stat.h>
-
 
 namespace mlk
 {
@@ -22,7 +20,9 @@ namespace mlk
 			// checks if a file exists
 			inline bool exists(const std::string& path)
 			{
-				struct stat s{};
+				struct stat s
+				{
+				};
 				stat(path.c_str(), &s);
 				return s.st_mode & S_IFREG;
 			}
@@ -35,12 +35,13 @@ namespace mlk
 				stream.close();
 				return b;
 			}
-			
+
 			inline bool remove(const std::string& path)
-			{return std::remove(path.c_str()) == 0;}
+			{
+				return std::remove(path.c_str()) == 0;
+			}
 		}
 	}
 }
 
-
-#endif // MLK_FILESYSTEM_FILE_H
+#endif// MLK_FILESYSTEM_FILE_H

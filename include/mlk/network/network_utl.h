@@ -1,34 +1,31 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_NETWORK_NETWORK_UTL_H
 #define MLK_NETWORK_NETWORK_UTL_H
 
-
-#include <mlk/system/detect.h>
 #include "address.h"
+#include <mlk/system/detect.h>
 
 #include <string>
 
 #if defined(MLK_LINUX) || defined(MLK_OS_MAC)
-extern "C"
-{
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
+extern "C" {
 #include <arpa/inet.h>
-#include <netdb.h>
-#include <unistd.h>
 #include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 }
 #elif defined MLK_WIN
-#include <winsock2.h>
 #include <windows.h>
+#include <winsock2.h>
 using socklen_t = mlk::uint;
 #endif
-
 
 namespace mlk
 {
@@ -69,16 +66,18 @@ namespace mlk
 #endif
             }
 
-                        inline sockaddr_in to_sockaddr_in(const std::string& ip, uint16_t port)
+			inline sockaddr_in to_sockaddr_in(const std::string& ip,
+											  uint16_t port)
             {
 #if defined(MLK_LINUX)
-                                return sockaddr_in{AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
+				return sockaddr_in{
+					AF_INET, htons(port), {inet_addr(ip.c_str())}, {0}};
 #elif defined MLK_OS_MAC
-                                sockaddr_in result{};
-                                result.sin_family = AF_INET;
-                                result.sin_port = htons(port);
-                                result.sin_addr.s_addr = inet_addr(ip.c_str());
-                                return result;
+				sockaddr_in result{};
+				result.sin_family = AF_INET;
+				result.sin_port = htons(port);
+				result.sin_addr.s_addr = inet_addr(ip.c_str());
+				return result;
 #elif defined MLK_WIN
                 sockaddr_in result{0, 0, {0}, {0}};
                 result.sin_family = AF_INET;
@@ -89,13 +88,18 @@ namespace mlk
             }
 
             inline auto from_sockaddr_in(const sockaddr_in& sock_addr)
-            -> std::pair<std::string, uint16_t>
-            {return std::make_pair(inet_ntoa(sock_addr.sin_addr), htons(sock_addr.sin_port));}
+				-> std::pair<std::string, uint16_t>
+			{
+				return std::make_pair(inet_ntoa(sock_addr.sin_addr),
+									  htons(sock_addr.sin_port));
+			}
 
-            inline int bind_sock(int sock, const std::string& ip, const uint16_t port)
+			inline int bind_sock(int sock, const std::string& ip,
+								 const uint16_t port)
             {
                 auto tmp(to_sockaddr_in(ip, port));
-                return bind(sock, reinterpret_cast<sockaddr*>(&tmp), sizeof tmp);
+				return bind(sock, reinterpret_cast<sockaddr*>(&tmp),
+							sizeof tmp);
             }
 
             inline void set_blocking(int sock)
@@ -120,7 +124,10 @@ namespace mlk
             }
 
             inline void set_sock_opt(int& sock, int opt)
-            {const char* optval{"1"}; setsockopt(sock, SOL_SOCKET, opt, optval, sizeof optval);}
+			{
+				const char* optval{"1"};
+				setsockopt(sock, SOL_SOCKET, opt, optval, sizeof optval);
+			}
 
             inline char* get_sock_opt(const int& sock, int opt)
             {
@@ -137,12 +144,10 @@ namespace mlk
             inline std::string ip_from_host(const std::string& host)
             {
                 hostent* h{gethostbyname(host.c_str())};
-                if(h == nullptr)
-                    return "";
+				if(h == nullptr) return "";
 
                 in_addr* a{(in_addr*)h->h_addr_list[0]};
-                if(a == nullptr)
-                    return "";
+				if(a == nullptr) return "";
 
                 return inet_ntoa(*a);
             }
@@ -150,5 +155,4 @@ namespace mlk
     }
 }
 
-
-#endif // MLK_NETWORK_NETWORK_UTL_H
+#endif// MLK_NETWORK_NETWORK_UTL_H

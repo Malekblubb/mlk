@@ -1,11 +1,10 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_TOOLS_TOOLS_H
 #define MLK_TOOLS_TOOLS_H
-
 
 #include "bitset.h"
 #include "compiletime.h"
@@ -16,5 +15,4 @@
 #include "type_utl.h"
 #include "utils.h"
 
-
-#endif // MLK_TOOLS_TOOLS_H
+#endif// MLK_TOOLS_TOOLS_H

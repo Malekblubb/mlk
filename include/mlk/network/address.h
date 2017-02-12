@@ -1,12 +1,10 @@
 ﻿//
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
-
 #ifndef MLK_NETWORK_ADDRESS_H
 #define MLK_NETWORK_ADDRESS_H
-
 
 #include "address_utl.h"
 #include "network_utl.h"
@@ -15,7 +13,6 @@
 
 #include <string>
 #include <type_traits>
-
 
 namespace mlk
 {
@@ -33,28 +30,43 @@ namespace mlk
 
 			ip_address(const std::string& address, bool resolve = true)
 			{
-				if((stl_string::count_of(':', address) != 1) || (stl_string::count_of('.', address) < 1))
-				{this->reset(); return;}
+				if((stl_string::count_of(':', address) != 1) ||
+				   (stl_string::count_of('.', address) < 1))
+				{
+					this->reset();
+					return;
+				}
 
-				auto p(internal::split_address(address)); // split address and port
-				resolve ? m_resolved_ip = internal::ip_from_host(p.first) : m_resolved_ip = p.first;
+				auto p(
+					internal::split_address(address));// split address and port
+				resolve ? m_resolved_ip = internal::ip_from_host(p.first)
+						: m_resolved_ip = p.first;
 				m_port = p.second;
 
-				if(!m_resolved_ip.size() || !m_port.size() || !stl_string::is_numeric(m_port)) this->invalidate(p.first);
-				else m_valid = true;
+				if(!m_resolved_ip.size() || !m_port.size() ||
+				   !stl_string::is_numeric(m_port))
+					this->invalidate(p.first);
+				else
+					m_valid = true;
 			}
 
-			template<typename T>
-			ip_address(const std::string& address, const T& port, bool resolve = true) :
-				ip_address{internal::merge_address(
-							   std::make_pair(address, stl_string::is_numeric(stl_string::to_string(port)) ? stl_string::to_string(port) : "0")),
-						   resolve}
-			{static_assert(type_utl::is_str_or_int<T>(), "string or integral type required");}
+			template <typename T>
+			ip_address(const std::string& address, const T& port,
+					   bool resolve = true)
+				: ip_address{internal::merge_address(std::make_pair(
+								 address, stl_string::is_numeric(
+											  stl_string::to_string(port))
+											  ? stl_string::to_string(port)
+											  : "0")),
+							 resolve}
+			{
+				static_assert(type_utl::is_str_or_int<T>(),
+							  "string or integral type required");
+			}
 
+			const std::string& ip() const noexcept { return m_resolved_ip; }
 
-			const std::string& ip() const noexcept {return m_resolved_ip;}
-
-			template<typename T = int>
+			template <typename T = int>
 			T port() const noexcept
 			{
 				static_assert(std::is_integral<T>(), "integral type required");
@@ -63,13 +75,11 @@ namespace mlk
 
 			std::string to_string() const noexcept
 			{
-				if(!this->is_valid())
-					return m_fallback_ip_port;
+				if(!this->is_valid()) return m_fallback_ip_port;
 				return m_resolved_ip + ":" + m_port;
 			}
 
-			bool is_valid() const noexcept
-			{return m_valid;}
+			bool is_valid() const noexcept { return m_valid; }
 
 			void reset() noexcept
 			{
@@ -90,11 +100,14 @@ namespace mlk
 			}
 		};
 
-		template<>
+		template <>
 		inline std::string ip_address::port<std::string>() const noexcept
-		{return m_port;}
+		{
+			return m_port;
+		}
 
-		inline std::ostream& operator<<(std::ostream& os, const ip_address& address)
+		inline std::ostream& operator<<(std::ostream& os,
+										const ip_address& address)
 		{
 			if(address.is_valid())
 				os << address.m_resolved_ip << ":" << address.m_port;
@@ -104,12 +117,16 @@ namespace mlk
 		}
 
 		inline bool operator==(const ip_address& lhs, const ip_address& rhs)
-		{return ((lhs.m_resolved_ip == rhs.m_resolved_ip) && (lhs.m_port == rhs.m_port));}
+		{
+			return ((lhs.m_resolved_ip == rhs.m_resolved_ip) &&
+					(lhs.m_port == rhs.m_port));
+		}
 
 		inline bool operator!=(const ip_address& lhs, const ip_address& rhs)
-		{return !operator ==(lhs, rhs);}
+		{
+			return !operator==(lhs, rhs);
+		}
 	}
 }
 
-
-#endif // MLK_NETWORK_ADDRESS_H
+#endif// MLK_NETWORK_ADDRESS_H

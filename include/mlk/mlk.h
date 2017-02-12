@@ -1,11 +1,10 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_MLK_H
 #define MLK_MLK_H
-
 
 #include "compression/compression.h"
 
@@ -34,5 +33,4 @@
 
 #include "types/types.h"
 
-
-#endif // MLK_MLK_H
+#endif// MLK_MLK_H

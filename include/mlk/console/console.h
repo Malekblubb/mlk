@@ -1,16 +1,14 @@
 //
-// Copyright (c) 2013-2014 Christoph Malek
+// Copyright (c) 2013-2017 Christoph Malek
 // See LICENSE for more information.
 //
 
 #ifndef MLK_CONSOLE_CONSOLE_H
 #define MLK_CONSOLE_CONSOLE_H
 
-
 #include <mlk/tools/enum_utl.h>
 
 #include <iostream>
-
 
 namespace mlk
 {
@@ -29,13 +27,11 @@ namespace mlk
 			white
 		};
 
-		inline void reset_color()
-		{std::cout << "\033[0m";}
+		inline void reset_color() { std::cout << "\033[0m"; }
 
 		inline void set_color(const console_color& color)
 		{
-			if(color == console_color::none)
-			{
+			if(color == console_color::none) {
 				reset_color();
 				return;
 			}
@@ -44,5 +40,4 @@ namespace mlk
 	}
 }
 
-
-#endif // MLK_CONSOLE_CONSOLE_H
+#endif// MLK_CONSOLE_CONSOLE_H
