@@ -81,7 +81,7 @@ namespace mlk
 					}) != str.end());
 		}
 
-		inline std::size_t count_of(char find, const std::string& str)
+		inline long count_of(char find, const std::string& str)
 		{
 			return std::count(str.begin(), str.end(), find);
 		}
