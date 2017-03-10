@@ -102,15 +102,13 @@ namespace mlk
 		// and returns the count of the erased characters
 		inline int erase_all(char erase, std::string& str)
 		{
-			int num_erased{0};
-			for(;;) {
-				auto a(str.find(erase));
-				if(a == std::string::npos) break;
-
-				str.erase(str.begin() + a);
-				++num_erased;
-			}
-			return num_erased;
+			auto count{0};
+			std::remove_if(std::begin(str), std::end(str),
+						   [&erase, &count](char c) {
+							   if(c == erase) ++count;
+							   return c == erase;
+						   });
+			return count;
 		}
 
 		// sets all characters in 'str' to 'set'
