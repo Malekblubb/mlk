@@ -90,11 +90,10 @@ namespace mlk
 									const std::string& str)
 		{
 			std::size_t count{0};
-			auto pos(str.find(find));
-			while(pos != std::string::npos) {
-				pos = str.find(find, pos + find.size());
-				++count;
-			}
+			for(std::size_t pos{0};
+				(pos = str.find(find, pos)) != std::string::npos;
+				pos += find.length(), ++count)
+				;
 			return count;
 		}
 
