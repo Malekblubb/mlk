@@ -128,11 +128,12 @@ namespace mlk
 		inline int erase_all(const std::string& erase, std::string& str)
 		{
 			int num_erased{0};
-			auto pos(str.find(erase));
-			while(pos != std::string::npos) {
-				str.erase(str.begin() + pos,
-						  str.begin() + (pos + erase.size()));
-				pos = str.find(erase);
+			auto erase_size{erase.size()};
+			for(std::size_t pos{0};
+				(pos = str.find(erase)) != std::string::npos;)
+			{
+				str.erase(str.begin() + long(pos),
+						  str.begin() + long(pos + erase_size));
 				++num_erased;
 			}
 			return num_erased;
