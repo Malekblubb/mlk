@@ -45,7 +45,7 @@ namespace mlk
 			const std::string& last_entry)
 		{
 			emit_signal(m_entry_added, last_entry);
-			std::cout.flush();
+			if(m_use_flush) std::cout.flush();
 		}
 	}
 }

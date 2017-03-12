@@ -36,7 +36,8 @@ namespace mlk
 		class log_base<log_level::normal>
 		{
 		protected:
-			bool m_save_history, m_write_on_exit, m_show_thread{false};
+			bool m_save_history{false}, m_write_on_exit{false},
+				m_show_thread{false}, m_use_flush{true};
 			std::string m_save_path;
 			std::ostringstream m_history;
 			std::ios::openmode m_mode;
@@ -62,6 +63,8 @@ namespace mlk
 				return *this;
 			}
 
+			void flush() { std::cout.flush(); }
+
 			void set_save_path(const std::string& path) noexcept
 			{
 				m_save_path = path;
@@ -73,6 +76,7 @@ namespace mlk
 				b ? m_mode = std::ios::out | std::ios::trunc
 				  : m_mode = std::ios::out | std::ios::app;
 			}
+			void set_use_flush(bool b) noexcept { m_use_flush = b; }
 
 			std::string history() const noexcept { return m_history.str(); }
 
