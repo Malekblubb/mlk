@@ -102,11 +102,12 @@ namespace mlk
 		inline int erase_all(char erase, std::string& str)
 		{
 			auto count{0};
-			std::remove_if(std::begin(str), std::end(str),
-						   [&erase, &count](char c) {
-							   if(c == erase) ++count;
-							   return c == erase;
-						   });
+			str.erase(std::remove_if(std::begin(str), std::end(str),
+									 [&erase, &count](char c) {
+										 if(c == erase) ++count;
+										 return c == erase;
+									 }),
+					  std::end(str));
 			return count;
 		}
 
