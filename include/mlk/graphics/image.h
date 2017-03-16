@@ -18,19 +18,19 @@ namespace mlk
 		class image
 		{
 			mlk::data_packet m_raw_pixels;
-			mlk::st m_width, m_height;
+			mlk::uint m_width, m_height;
 
 			png_t m_pnghandle;
 
 		public:
-			image() { png_init(0, 0); }
-
-			image(const mlk::data_packet& raw_pixels, mlk::st width,
-				  mlk::st height)
+			image(const mlk::data_packet& raw_pixels, mlk::uint width,
+				  mlk::uint height)
 				: m_raw_pixels{raw_pixels}, m_width{width}, m_height{height}
 			{
-				png_init(0, 0);
+				png_init(nullptr, nullptr);
 			}
+
+			~image() { png_close_file(&m_pnghandle); }
 
 			bool save(const std::string& file)
 			{
