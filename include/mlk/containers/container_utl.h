@@ -93,7 +93,8 @@ namespace mlk
 		{
 			static_assert(type_utl::is_char<T>(), "only char types allowed");
 
-			if(is_out_of_bounds(vec, begin + 3)) return -1;
+			if(is_out_of_bounds(vec, begin + 3))
+				throw std::range_error{"mlk::cnt::make_int: out of bounds"};
 
 			int result{0};
 			result |= (vec[begin]);

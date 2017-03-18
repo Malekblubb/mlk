@@ -6,6 +6,8 @@
 #ifndef MLK_GRAPHICS_GRAPHICS_UTL_H
 #define MLK_GRAPHICS_GRAPHICS_UTL_H
 
+#include <cstdint>
+
 namespace mlk
 {
 	namespace gcs

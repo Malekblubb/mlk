@@ -63,7 +63,9 @@ namespace mlk
 			{
 				m_run_future = std::async(std::launch::async, [this] {
 					while(m_running) {
-						if(timed_out(m_start, m_interval)) {
+						if(timed_out(m_start,
+									 static_cast<long long>(m_interval)))
+						{
 							// signal will be emited in another thread!
 							emit_signal(m_timeout);
 							m_start = time_pnt();

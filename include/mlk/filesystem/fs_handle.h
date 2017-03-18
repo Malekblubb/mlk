@@ -34,7 +34,7 @@ namespace mlk
 		class fs_handle;
 
 		template <>
-		class fs_handle<fs_type::dir> : public internal::fs_base
+		class fs_handle<fs_type::dir> final : public internal::fs_base
 		{
 		public:
 			fs_handle(const std::string& path) : fs_base{path} { this->init(); }
@@ -93,7 +93,7 @@ namespace mlk
 		};
 
 		template <>
-		class fs_handle<fs_type::file> : public internal::fs_base
+		class fs_handle<fs_type::file> final : public internal::fs_base
 		{
 			std::fstream m_stream;
 			bool m_need_open{true};
@@ -152,7 +152,7 @@ namespace mlk
 				this->check_open();
 				if(!this->is_valid()) return;
 				m_stream.write(reinterpret_cast<const char*>(data.data()),
-							   data.size());
+							   long(data.size()));
 			}
 
 			template <typename T>
@@ -195,7 +195,8 @@ namespace mlk
 				auto size(this->file_size());
 				this->set_pos_begin();
 				data_packet result(size);
-				m_stream.read(reinterpret_cast<char*>(result.data()), size);
+				m_stream.read(reinterpret_cast<char*>(result.data()),
+							  long(size));
 				m_stream.seekg(was_pos);
 				return result;
 			}
@@ -213,7 +214,7 @@ namespace mlk
 				m_stream.seekg(0, std::ios::end);
 				auto size(m_stream.tellg());
 				m_stream.seekg(pos);
-				return size;
+				return std::size_t(size);
 			}
 
 		private:
@@ -228,7 +229,7 @@ namespace mlk
 					this->open_io(std::ios::out | std::ios::app);
 				}
 				int64_t start{m_stream.tellp()};
-				m_stream.write(str.c_str(), str.length());
+				m_stream.write(str.c_str(), long(str.length()));
 				int64_t end{m_stream.tellp()};
 
 				return end - start;

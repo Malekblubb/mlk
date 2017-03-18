@@ -44,7 +44,8 @@ namespace mlk
 			bool timed_out() const noexcept
 			{
 				if(!m_running) return false;
-				return tm::timed_out(m_start, m_interval);
+				return tm::timed_out(m_start,
+									 static_cast<long long>(m_interval));
 			}
 		};
 	}

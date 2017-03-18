@@ -50,7 +50,7 @@ namespace mlk
 			}
 
 			template <typename T>
-			std::shared_ptr<error_type<T>> get_casted(int index) const
+			std::shared_ptr<error_type<T>> get_casted(std::size_t index) const
 			{
 				if(is_out_of_bounds(m_errors, index))
 					throw std::out_of_range{
@@ -59,7 +59,8 @@ namespace mlk
 				return std::static_pointer_cast<error_type<T>>(m_errors[index]);
 			}
 
-			std::shared_ptr<internal::error_type_base> get(int index) const
+			std::shared_ptr<internal::error_type_base> get(
+				std::size_t index) const
 			{
 				if(is_out_of_bounds(m_errors, index))
 					throw std::out_of_range{

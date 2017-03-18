@@ -17,7 +17,8 @@ namespace mlk
 	namespace cmprs
 	{
 		template <>
-		class compressor<cmprs_mode::zlib> : public internal::compressor_base
+		class compressor<cmprs_mode::zlib> final
+			: public internal::compressor_base
 		{
 		public:
 			compressor(const data_packet& data) : compressor_base{data} {}
@@ -41,7 +42,7 @@ namespace mlk
 				}
 
 				m_work_data = tmp;
-				return m_work_data.size();
+				return std::int64_t(m_work_data.size());
 			}
 
 			std::int64_t unpack(long unsigned int unpacked_size) override
@@ -63,7 +64,7 @@ namespace mlk
 				}
 
 				m_work_data = tmp;
-				return m_work_data.size();
+				return std::int64_t(m_work_data.size());
 			}
 
 			const data_packet& get() const noexcept override

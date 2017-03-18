@@ -6,6 +6,8 @@
 #ifndef MLK_CONTAINERS_MIXED_CONTAINER_TYPE_H
 #define MLK_CONTAINERS_MIXED_CONTAINER_TYPE_H
 
+#include <utility>
+
 namespace mlk
 {
 	namespace cnt
@@ -42,14 +44,14 @@ namespace mlk
 				}
 
 				mixed_cnt_type& operator=(const mixed_cnt_type& o) noexcept(
-					noexcept(o.operator=))// is this used like this ?
+					o.operator=)
 				{
 					m_var = o.m_var;
 					return *this;
 				}
 
 				mixed_cnt_type& operator=(mixed_cnt_type&& o) noexcept(
-					noexcept(o.operator=))
+					o.operator=)
 				{
 					m_var = std::move(o.m_var);
 					return *this;
