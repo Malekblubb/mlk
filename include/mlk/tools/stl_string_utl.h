@@ -52,10 +52,7 @@ namespace mlk
 			static_assert(std::is_integral<T>(),
 						  "only integral types supported");
 
-			std::istringstream stre{val};
-			T ret;
-			stre >> std::hex >> ret;
-			return ret;
+			return T(std::stoi(val, nullptr, 16));
 		}
 
 		inline data_packet to_data_packet(const std::string& str)
@@ -179,8 +176,8 @@ namespace mlk
 									std::forward<E>(tail)...);
 			return result;
         }
-	}
-}
+	}// namespace stl_string
+}// namespace mlk
 
 // using the '+'-operator on any arithmetic type
 template <typename IntType>
