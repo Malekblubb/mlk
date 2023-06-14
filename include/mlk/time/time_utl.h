@@ -18,7 +18,7 @@ namespace mlk
 	namespace tm
 	{
 		template <typename T = milli_s>
-		ullong time_stmp()
+        auto time_stmp()
 		{
 			return std::chrono::duration_cast<seconds>(
 					   std::chrono::high_resolution_clock::now()

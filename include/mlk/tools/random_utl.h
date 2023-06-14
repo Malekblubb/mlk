@@ -19,8 +19,7 @@ namespace mlk
 		inline std::mt19937& rnd_engine_i()
 		{
 			static std::mt19937 rnd_engine{
-				tm::time_stmp<std::chrono::nanoseconds>()};// seed with current
-														   // nanoseconds
+				static_cast<unsigned int>(tm::time_stmp<std::chrono::nanoseconds>())}; // seed with current nanoseconds
 			return rnd_engine;
 		}
 
